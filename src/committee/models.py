@@ -34,6 +34,6 @@ def submission_delete(sender, instance, **kwargs):
 
 def pre_save_commmitee_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(instance.author.username + "-" + instance.name)
+        instance.slug = slugify(instance.name)
 
 pre_save.connect(pre_save_commmitee_post_receiver, sender=Committee)

@@ -6,6 +6,29 @@ from event.forms import CreateEventPostForm, UpdateEventPostForm
 from account.models import Account
 
 
+def create_event_view(request):
+
+    context ={}
+
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('must_authenticate')
+
+    if user.is_staff == 1 or user.is_superuser == 1 :
+        form = CreateEventPostForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            author = Account.objects.filter(email=user.email).first()
+            obj.author = author
+            obj.save()
+            form = CreateEventPostForm()
+
+        context['form'] = form
+        return render(request, 'event/create_event.html', {})
+    else:
+        raise Http404("Page Not Found")
+
+
 def detail_event_view(request, slug):
     context = {}
 

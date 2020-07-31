@@ -41,57 +41,22 @@
 		height: 80px;
 		padding: 5px;
 	}
-	#topDoor1{
-        position: absolute;
-		margin-left: 0px;
-        height:170px;
-        width: 240px;
-        background: #0066ff no-repeat center bottom;
-        animation: topOpen1 1s ease 1s 1 forwards;
-    }
-    #bottomDoor1{
-        position: absolute;
-		margin-left: 0px;
-        height:170px;
-        margin-top: 170px;
-        width: 240px;
-        background: #0066ff no-repeat center top;
-        animation: bottomOpen1 1s ease 1s 1 forwards;
-    }
-	@keyframes topOpen1{
-        0% {
-            height: 150px;
-        }
-        100%{
-            height: 0px;
-        }
-    }
-    @keyframes bottomOpen1{
-        0% {
-            height: 170px;
-            margin-top: 170px;
-        }
-        100%{
-            height: 0px;
-            margin-top: 340px;
-        }
-    }
 	#topDoor{
-        position: absolute;
+      position: absolute;
 		margin-left: 0px;
-        height:150px;
-        width: 240px;
-        background: #0066ff no-repeat center bottom;
-        animation: topOpen 1s ease 1s 1 forwards;
+      height:150px;
+      width: 240px;
+      background: #0066ff no-repeat center bottom;
+      animation: topOpen 1s ease 1s 1 forwards;
     }
     #bottomDoor{
-        position: absolute;
+      position: absolute;
 		margin-left: 0px;
-        height:150px;
-        margin-top: 150px;
-        width: 240px;
-        background: #0066ff no-repeat center top;
-        animation: bottomOpen 1s ease 1s 1 forwards;
+      height:150px;
+      margin-top: 150px;
+      width: 240px;
+      background: #0066ff no-repeat center top;
+      animation: bottomOpen 1s ease 1s 1 forwards;
     }
 	@keyframes topOpen{
         0% {
@@ -101,7 +66,7 @@
             height: 0px;
         }
     }
-    @keyframes bottomOpen{
+   @keyframes bottomOpen{
         0% {
             height: 150px;
             margin-top: 150px;
@@ -111,6 +76,20 @@
             margin-top: 300px;
         }
     }
+	#create{
+     animation: fadeInAnimation ease 8s;
+     animation-iteration-count: 1;
+     animation-fill-mode: forwards;
+ }
+
+ 	@keyframes fadeInAnimation {
+     0% {
+         opacity: 0;
+     }
+     100% {
+         opacity: 1;
+      }
+ }
 </style>
 
 <!-- main content -->
@@ -156,21 +135,18 @@
 
 		<!-- Right 'create post' column  -->
 		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-			{% if user.is_staff or user.is_superuser %}
-				<div id="topDoor1"></div>
-				<div id="bottomDoor1"></div>
-			{% else %}
 			<div id="topDoor"></div>
-			<div id="bottomDoor"></div>
-			{% endif %}
+			<div id="bottomDoor">
+				{% if user.is_staff or user.is_superuser %}
+					<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+				{% endif %}
+			</div>
 			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
 				<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 				<p class="lead-bold">This is the official PCE website where students will be
 				    updated about all events/workshops and other events happening
-				    in and out of college by faculty and commmittee members.</p>
-				{% if user.is_staff or user.is_superuser %}
-					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
-				{% endif %}
+				    in and out of college by faculty and commmittee members.
+				</p>
 			</div>
 
 		</div>

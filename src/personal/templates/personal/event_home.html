@@ -70,6 +70,20 @@
             margin-top: 300px;
         }
     }
+	 #create{
+		 animation: fadeInAnimation ease 8s;
+		 animation-iteration-count: 1;
+		 animation-fill-mode: forwards;
+	}
+
+	 @keyframes fadeInAnimation {
+		 0% {
+			  opacity: 0;
+		 }
+		 100% {
+			  opacity: 1;
+		  }
+	}
 </style>
 
 
@@ -88,7 +102,8 @@
 					    updated about all events/workshops and other events happening
 					    in and out of college by faculty and commmittee members.</p>
 					{% if user.is_staff or user.is_superuser %}
-					{% endif %}
+ 						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+ 					{% endif %}
 				</div>
 			</div>
 			<!-- end Top 'create post' bar -->
@@ -115,15 +130,16 @@
 		<!-- Right 'create post' column  -->
 		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
 			<div id="topDoor"></div>
-			<div id="bottomDoor"></div>
+			<div id="bottomDoor">
+				{% if user.is_staff or user.is_superuser %}
+					<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary" href="{% url 'event:create' %}">Create post</a></p>
+				{% endif %}
+			</div>
 			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
-
 				<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 				<p class="lead-bold">This is the official PCE website where students will be
 				    updated about all events/workshops and other events happening
 				    in and out of college by faculty and commmittee members.</p>
-				{% if user.is_staff or user.is_superuser %}
-				{% endif %}
 			</div>
 
 		</div>
