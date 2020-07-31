@@ -2,11 +2,11 @@
 
 ## Features:
 
-Basic Login/register/reset-password Feature.
-Blog functionality for casual updates.(create/update)
-Search functionality.
-Event blog for posting about events/workshops/webinar.
-Student Commmittee tab for info about them in detail.
+* Basic Login/register/reset-password Feature.
+* Blog functionality for casual updates.(create/update)
+* Search functionality.
+* Event blog for posting about events/workshops/webinar.
+* Student Commmittee tab for info about them in detail.
 
 
 ## Current Issues(bugs):
