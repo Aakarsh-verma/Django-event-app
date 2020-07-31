@@ -11,7 +11,7 @@
 
 ## Current Issues(bugs):
 
-Creating from event tab does'nt save to db, but from admin handle does.
+Creating from event tab does'nt save to db, but from admin handle it does.
 
 
 ## Upcoming featues:
