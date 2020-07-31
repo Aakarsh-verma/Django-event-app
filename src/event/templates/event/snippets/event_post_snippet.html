@@ -1,0 +1,54 @@
+<style type="text/css">
+	.card{
+		max-width: 700px;
+		width: 100%;
+	}
+	.card-body{
+		padding: 20px;
+	}
+</style>
+
+{% if event_post %}
+<div class="container">
+	<div class="row">
+		<!-- Event Post -->
+		<div class="card m-auto">
+			<a href="{% url 'event:detail' post.slug %}">
+				<img class="card-img-top" src="{{event_post.image.url}}">
+			</a>
+			<div class="card-body mt-2 mb-2">
+				<a href="{% url 'event:detail' post.slug %}">
+					<h2 class="card-title">{{event_post.title}}</h2>
+				</a>
+				<p class="card-text-bold"><b>Category</b>   : {{event_post.category}}</p>
+				<p class="card-text-bold"><b>Event Date</b> : {{event_post.event_date}}</p>
+				<p class="card-text-bold"><b>Reg to</b>     : {{event_post.reg_to}}</p>
+				{% if event_post.fee == 0  %}
+					<p class="card-text-bold"><b>Fee</b>  	  : None</p>
+				{% else %}
+					<p class="card-text-bold"><b>Fee</b>	  : {{event_post.fee}}</p>
+				{% endif %}
+				<p class="card-text-bold"><b>Reg link</b>   :<a href="{{event_post.reg_link}} target="_blank""> {{event_post.reg_link}}</a></p>
+				<p class="card-text-bold">{{event_post.body|safe|truncatechars:180}} <a href="{% url 'event:detail' post.slug %}">Read more</a></p>
+			</div>
+			<div class="card-footer text-muted">
+			  Updated on {{event_post.date_updated}} by {{event_post.author.username}}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% else %}
+
+<div class="container">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">No results</h2>
+				<p class="card-text">There were no Events Found</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endif %}
