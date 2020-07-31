@@ -1,30 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from event.models import EventPost
 from event.forms import CreateEventPostForm, UpdateEventPostForm
 from account.models import Account
 
 
+@login_required
 def create_event_view(request):
 
     context ={}
 
     user = request.user
-    if not user.is_authenticated:
-        return redirect('must_authenticate')
 
     if user.is_staff == 1 or user.is_superuser == 1 :
-        form = CreateEventPostForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            author = Account.objects.filter(email=user.email).first()
-            obj.author = author
-            obj.save()
-            form = CreateEventPostForm()
-
-        context['form'] = form
-        return render(request, 'event/create_event.html', {})
+        if request.method == 'POST':
+            form = CreateEventPostForm(request.POST or None, request.FILES or None)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                author = Account.objects.filter(email=user.email).first()
+                obj.author = author
+                obj.save()
+                form = CreateEventPostForm()
+                context['form'] = form
+                return render(request, 'event/create_event.html', {})
+        else:
+            return HttpResponse("Something gone wrong.")
     else:
         raise Http404("Page Not Found")
 
@@ -37,7 +39,7 @@ def detail_event_view(request, slug):
 
     return render(request, 'event/detail_event.html', context)
 
-
+@login_required
 def edit_event_view(request, slug):
     context = {}
 

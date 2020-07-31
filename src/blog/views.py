@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 from blog.models import BlogPost
@@ -6,6 +7,7 @@ from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
 from account.models import Account
 
 
+@login_required
 def create_blog_view(request):
 
     context ={}
@@ -38,6 +40,7 @@ def detail_blog_view(request, slug):
     return render(request, 'blog/detail_blog.html', context)
 
 
+@login_required
 def edit_blog_view(request, slug):
     context = {}
 
