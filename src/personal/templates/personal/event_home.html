@@ -3,122 +3,172 @@
 
 {% block content %}
 <style type="text/css">
-
 	@media (max-width: 768px) {
-		.right-column{
+		.right-column {
 			margin-left: 0px;
 		}
 	}
 
 	@media (min-width: 768px) {
-		.right-column{
+		.right-column {
 			margin-left: 20px;
 		}
 	}
 
-	.event-post-container{
+	.event-post-container {
 		margin-bottom: 20px;
 		width: 100%;
 	}
-	.create-post-bar{
+
+	.create-post-bar {
 		background-color: #fff;
-		margin-bottom:20px;
+		margin-bottom: 20px;
 	}
 
-	.left-column{
-		padding:0px;
+	.left-column {
+		padding: 0px;
 	}
 
-	.right-column{
-		padding:0px;
+	.right-column {
+		padding: 0px;
 	}
-	.lead{
+
+	.lead {
 		font-size: 17px;
 	}
-	#topDoor{
-        position: absolute;
+
+	#topDoor {
+		position: absolute;
 		margin-left: 0px;
-        height:150px;
-        width: 240px;
-        background: #0066ff no-repeat center bottom;
-        animation: topOpen 1s ease 1s 1 forwards;
-    }
-    #bottomDoor{
-        position: absolute;
-		margin-left: 0px;
-        height:150px;
-        margin-top: 150px;
-        width: 240px;
-        background: #0066ff no-repeat center top;
-        animation: bottomOpen 1s ease 1s 1 forwards;
-    }
-	@keyframes topOpen{
-        0% {
-            height: 150px;
-        }
-        100%{
-            height: 0px;
-        }
-    }
-    @keyframes bottomOpen{
-        0% {
-            height: 150px;
-            margin-top: 150px;
-        }
-        100%{
-            height: 0px;
-            margin-top: 300px;
-        }
-    }
-	 #create{
-		 animation: fadeInAnimation ease 8s;
-		 animation-iteration-count: 1;
-		 animation-fill-mode: forwards;
+		height: 150px;
+		width: 240px;
+		background: #0066ff no-repeat center bottom;
+		animation: topOpen 1s ease 1s 1 forwards;
 	}
 
-	 @keyframes fadeInAnimation {
-		 0% {
-			  opacity: 0;
-		 }
-		 100% {
-			  opacity: 1;
-		  }
+	#bottomDoor {
+		position: absolute;
+		margin-left: 0px;
+		height: 150px;
+		margin-top: 150px;
+		width: 240px;
+		background: #0066ff no-repeat center top;
+		animation: bottomOpen 1s ease 1s 1 forwards;
+	}
+
+	@keyframes topOpen {
+		0% {
+			height: 150px;
+		}
+
+		100% {
+			height: 0px;
+		}
+	}
+
+	@keyframes bottomOpen {
+		0% {
+			height: 150px;
+			margin-top: 150px;
+		}
+
+		100% {
+			height: 0px;
+			margin-top: 300px;
+		}
+	}
+
+	#create {
+		animation: fadeInAnimation ease 8s;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes fadeInAnimation {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
 	}
 </style>
 
 
 <!-- main content -->
-<div class="container" >
+<div class="container">
 	<div class="row">
 
 		<!-- event feed -->
-		<div class="left-column col-lg-7 offset-lg-1" >
+		<div class="left-column col-lg-7 offset-lg-1">
 
 			<!-- Top 'create post' bar -->
 			<div class="d-lg-none mb-3">
 				<div class="card m-auto d-flex flex-column p-3">
 					<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 					<p class="lead-bold">This is the official PCE website where students will be
-					    updated about all events/workshops and other events happening
-					    in and out of college by faculty and commmittee members.</p>
+						updated about all events/workshops and other events happening
+						in and out of college by faculty and commmittee members.</p>
 					{% if user.is_staff or user.is_superuser %}
- 						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
- 					{% endif %}
+					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+					{% endif %}
 				</div>
 			</div>
 			<!-- end Top 'create post' bar -->
 
+			<!--Filters-->
+			<h6>Filter by:</h6>
+			<div class="row">
+				<form action="." method="get" class="col-lg-4">
+					<div class="form-group">
+						<label for="id_date">Date published</label>
+						<select class="form-control" id="id_date" name="date" placeholder="None">
+							<option value="oldest">oldest</option>
+							<option value="latest">latest</option>
+							<option value="today">today</option>
+							<option value="yesterday">yesterday</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="id_category">Primary Tag</label>
+						<select class="form-control" id="id_category" name="category" placeholder="None">
+							<option value="">None</option>
+							<option value="COMP/IT">COMP/IT</option>
+							<option value="EXTC/ETRX">EXTC/ETRX</option>
+							<option value="MECH/AUTO">MECH/AUTO</option>
+							<option value="ALL">ALL</option>
+							<option value="NON-TECH">NON-TECH</option>
+						</select>
+					</div>
+
+					<div class="flex-child form-group" class="col-lg-4">
+						<label for="id_committee">Committee</label>
+						<select class="form-control" id="id_committee" name="committee" placeholder="None">
+							{% if obj %}
+							{% for committee in obj  %}
+							<option value="{{committee.name}}">{{committee.name}}</option>
+							{% endfor %}
+							{% endif %}
+						</select>
+					</div>
+
+				</form>
+			</div>
+
+
 			<!-- Event posts-->
 			{% if event_posts %}
-				{% for post in event_posts %}
-					<div class="event-post-container">
-						{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
-					</div>
-				{% endfor %}
+			{% for post in event_posts %}
+			<div class="event-post-container">
+				{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
+			</div>
+			{% endfor %}
 			{% else %}
-				<div class="event-post-container">
-					{% include 'event/snippets/event_post_snippet.html' with query=query %}
-				</div>
+			<div class="event-post-container">
+				{% include 'event/snippets/event_post_snippet.html' with query=query %}
+			</div>
 			{% endif %}
 			<!-- End Event posts-->
 			<!-- Pagination -->
@@ -132,14 +182,15 @@
 			<div id="topDoor"></div>
 			<div id="bottomDoor">
 				{% if user.is_staff or user.is_superuser %}
-					<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary" href="{% url 'event:create' %}">Create post</a></p>
+				<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
+						href="{% url 'event:create' %}">Create post</a></p>
 				{% endif %}
 			</div>
 			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
 				<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 				<p class="lead-bold">This is the official PCE website where students will be
-				    updated about all events/workshops and other events happening
-				    in and out of college by faculty and commmittee members.</p>
+					updated about all events/workshops and other events happening
+					in and out of college by faculty and commmittee members.</p>
 			</div>
 
 		</div>
