@@ -12,25 +12,28 @@ from account.models import Account
 @login_required
 def create_event_view(request):
 
-    # context = {}
+    context = {}
 
     user = request.user
-
     if user.is_staff == 1 or user.is_superuser == 1:
-        form = CreateEventPostForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            author = Account.objects.filter(email=user.email).first()
-            obj.author = author
-            obj.save()
-            form = CreateEventPostForm()
-            messages.success(request, f"Your Event has been posted successfully!")
-            return redirect("event-home")
+        if request.POST:
+            form = CreateEventPostForm(request.POST or None, request.FILES or None)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                author = Account.objects.filter(email=user.email).first()
+                obj.author = author
+                obj.save()
+                messages.success(request, f"Your Event has been posted successfully!")
+                return redirect("event-home")
+            else:
+                context["form"] = form
         else:
-            print(form)
-            print("Invalid Form")
-            print(form.errors)
-            return render(request, "event/create_event.html", {"form": form})
+            form = CreateEventPostForm()
+            context["form"] = form
+        return render(request, "event/create_event.html", context)
+
+    else:
+        raise Http404("Page Not Found")
 
 
 def detail_event_view(request, slug):
@@ -62,8 +65,9 @@ def edit_event_view(request, slug):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            context["success_message"] = "Updated"
+            messages.success(request, f"Your Event has been updated successfully!")
             event_post = obj
+            return redirect("event-home")
 
     form = UpdateEventPostForm(
         initial={

@@ -1,9 +1,10 @@
 <style type="text/css">
-	.card{
+	.card {
 		max-width: 700px;
 		width: 100%;
 	}
-	.card-body{
+
+	.card-body {
 		padding: 20px;
 	}
 </style>
@@ -20,13 +21,14 @@
 				<a href="{% url 'blog:detail' post.slug %}">
 					<h2 class="card-title">{{blog_post.title}}</h2>
 				</a>
-				<p class="card-text">{{blog_post.body|safe|truncatechars:180}} <a href="{% url 'blog:detail' post.slug %}">Read more</a></p>
+				<p class="card-text">{{blog_post.body|safe|truncatechars:180}} <a
+						href="{% url 'blog:detail' post.slug %}">Read more</a></p>
 				{% if blog_post.author == request.user %}
-					<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Update</a>
+				<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Edit</a>
 				{% endif %}
 			</div>
 			<div class="card-footer text-muted">
-			  Updated on {{blog_post.date_updated}} by <a href="#">{{blog_post.author.username}}</a>
+				Updated on {{blog_post.date_updated}} by <a href="#"></a>{{blog_post.author.username}}</a>
 			</div>
 		</div>
 	</div>

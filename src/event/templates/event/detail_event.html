@@ -2,10 +2,11 @@
 {% block content %}
 
 <style type="text/css">
-    .card{
+    .card {
         max-width: 700px;
     }
-    .container{
+
+    .container {
         padding: 20px;
     }
 </style>
@@ -18,18 +19,24 @@
             <img class="card-img-top" src="{{event_post.image.url}}" alt="{{event_post.image.url}}">
             <div class="card-body my-2">
                 <h2 class="card-title">{{event_post.title}}</h2>
-                <p class="card-text-bold"><b>Category</b>   : {{event_post.category}}</p>
-   				<p class="card-text-bold"><b>Event Date</b> : {{event_post.event_date}}</p>
-   				<p class="card-text-bold"><b>Reg to</b>     : {{event_post.reg_to}}</p>
-   				{% if event_post.fee == 0  %}
-   					<p class="card-text-bold"><b>Fee</b>  	  : None</p>
-   				{% else %}
-   					<p class="card-text-bold"><b>Fee</b>	  : {{event_post.fee}}</p>
-   				{% endif %}
-   				<p class="card-text-bold"><b>Reg link</b>   :<a href="{{event_post.reg_link}} target="_blank""> {{event_post.reg_link}}</a></p>
+                <p class="card-text-bold"><b>Event Date</b> : {{event_post.event_date}}</p>
+                <p class="card-text-bold"><b>Reg to</b> : {{event_post.reg_to}}</p>
+                {% if event_post.fee == 0  %}
+                <p class="card-text-bold"><b>Fee</b> : None</p>
+                {% else %}
+                <p class="card-text-bold"><b>Fee</b> : {{event_post.fee}}</p>
+                {% endif %}
+                <p class="card-text-bold"><b>Reg link</b> :<a href="{{event_post.reg_link}} target=" _blank"">
+                        {{event_post.reg_link}}</a></p>
+                <p class="card-text-bold">{{event_post.body|safe|truncatechars:180}}</p>
+                {% if event_post.author == request.user %}
+                <a href="{% url 'event:edit' event_post.slug %}" class="btn btn-primary">Edit</a>
+                {% endif %}
             </div>
             <div class="card-footer text-muted">
-                Updated on {{event_post.date_updated}} by {{event_post.author.username}}
+                <b>{{event_post.category}}</b> <b>{{event_post.category2}}</b>| Updated on {{event_post.date_updated}}
+                by
+                {{event_post.author.username}}
             </div>
         </div>
         <!--End Event Post-->

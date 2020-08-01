@@ -26,6 +26,11 @@
 				</div>
 				{% endfor %}
 				{% endfor %}
+				{% for error in form.non_field_errors %}
+				<div class="alert alert-danger">
+					<strong>{{ error|escape }}</strong>
+				</div>
+				{% endfor %}
 				{% endif %}
 
 				<!-- title -->
@@ -54,11 +59,16 @@
 					</select>
 				</div>
 
-				<!-- reg-from -->
 				<div class="form-group">
-					<label for="id_event_date">Event Date</label>
-					<input class="form-control" type="date" name="event_date" id="id_event_date"
-						placeholder="Event Date">
+					<label for="id_category2">Another Category</label>
+					<select class="form-control" id="id_category2" name="category2" placeholder="None">
+						<option value="">None</option>
+						<option value="COMP/IT">COMP/IT</option>
+						<option value="EXTC/ETRX">EXTC/ETRX</option>
+						<option value="MECH/AUTO">MECH/AUTO</option>
+						<option value="ALL">ALL</option>
+						<option value="NON-TECH">NON-TECH</option>
+					</select>
 				</div>
 
 				<!-- reg-to -->
@@ -67,10 +77,17 @@
 					<input class="form-control" type="date" name="reg_to" id="id_reg_to" placeholder="End Date">
 				</div>
 
+				<!-- event_date -->
+				<div class="form-group">
+					<label for="id_event_date">Event Date</label>
+					<input class="form-control" type="date" name="event_date" id="id_event_date"
+						placeholder="Event Date">
+				</div>
+
 				<!-- fee -->
 				<div class="form-group">
 					<label for="id_fee">Fee</label>
-					<input class="form-control" type="number" name="fee" id="id_fee" placeholder="Fee">
+					<input class="form-control" type="number" name="fee" id="id_fee" placeholder="Fee" value=0>
 				</div>
 
 				<!-- reg_link -->
@@ -95,5 +112,4 @@
 		</div>
 	</div>
 </div>
-
 {% endblock content %}

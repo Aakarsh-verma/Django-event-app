@@ -24,10 +24,10 @@ def create_blog_view(request):
             author = Account.objects.filter(email=user.email).first()
             obj.author = author
             obj.save()
-            form = CreateBlogPostForm()
-            messages.success(request, f"Your Blog has been posted!")
+            messages.success(request, f"Your Blog has been posted successfully!")
             return redirect("home")
 
+        form = CreateBlogPostForm()
         context["form"] = form
         return render(request, "blog/create_blog.html", {})
     else:
@@ -63,8 +63,9 @@ def edit_blog_view(request, slug):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            context["success_message"] = "Updated"
+            messages.success(request, f"Your Post has been updated successfully!")
             blog_post = obj
+            return redirect("home")
 
     form = UpdateBlogPostForm(
         initial={
