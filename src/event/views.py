@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from event.models import EventPost
@@ -11,7 +12,7 @@ from account.models import Account
 @login_required
 def create_event_view(request):
 
-    context = {}
+    # context = {}
 
     user = request.user
 
@@ -22,13 +23,14 @@ def create_event_view(request):
             author = Account.objects.filter(email=user.email).first()
             obj.author = author
             obj.save()
-            messages.success(request, f"Your Blog has been posted!")
             form = CreateEventPostForm()
-
-        context["form"] = form
-        return render(request, "event/create_event.html", {})
-    else:
-        raise Http404("Page Not Found")
+            messages.success(request, f"Your Event has been posted successfully!")
+            return redirect("event-home")
+        else:
+            print(form)
+            print("Invalid Form")
+            print(form.errors)
+            return render(request, "event/create_event.html", {"form": form})
 
 
 def detail_event_view(request, slug):
