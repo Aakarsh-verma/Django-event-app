@@ -86,6 +86,20 @@ def edit_event_view(request, slug):
     return render(request, "event/edit_event.html", context)
 
 
+@login_required
+def delete_event_view(request, id):
+
+    context = {}
+    event_post = get_object_or_404(EventPost, id=id)
+    if request.method == "POST":
+        event_post.delete()
+        messages.success(request, f"Your Event has been deleted successfully!")
+        return redirect("event-home")
+
+    context["event_post"] = event_post
+    return render(request, "event/delete_event.html", context)
+
+
 def get_event_queryset(query=None):
     queryset = []
     queries = query.split(" ")

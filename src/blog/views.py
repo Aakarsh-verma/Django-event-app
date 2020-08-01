@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import DeleteView
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, Http404
@@ -77,6 +79,20 @@ def edit_blog_view(request, slug):
 
     context["form"] = form
     return render(request, "blog/edit_blog.html", context)
+
+
+@login_required
+def delete_blog_view(request, id):
+
+    context = {}
+    blog_post = get_object_or_404(BlogPost, id=id)
+    if request.method == "POST":
+        blog_post.delete()
+        messages.success(request, f"Your Post has been deleted successfully!")
+        return redirect("home")
+
+    context["blog_post"] = blog_post
+    return render(request, "blog/delete_blog.html", context)
 
 
 def get_blog_queryset(query=None):
