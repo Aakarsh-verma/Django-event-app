@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
@@ -21,6 +22,7 @@ def create_event_view(request):
             author = Account.objects.filter(email=user.email).first()
             obj.author = author
             obj.save()
+            messages.success(request, f"Your Blog has been posted!")
             form = CreateEventPostForm()
 
         context["form"] = form
