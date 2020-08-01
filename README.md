@@ -10,14 +10,12 @@
 
 
 ## Current status:
-Fine tuning event app
+Working on Preview
 
 
 
 ## Upcoming featues:
-
-1. Preview view before posting a blog.
-2. Filters according to various parameters in blogs in pages.
+1. Filters according to various parameters in blogs in pages.
 
 
 **All the data and images are for development only(dummy data)**
