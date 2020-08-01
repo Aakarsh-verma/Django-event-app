@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, Http404
@@ -10,13 +11,13 @@ from account.models import Account
 @login_required
 def create_blog_view(request):
 
-    context ={}
+    context = {}
 
     user = request.user
     if not user.is_authenticated:
-        return redirect('must_authenticate')
+        return redirect("must_authenticate")
 
-    if user.is_staff == 1 or user.is_superuser == 1 :
+    if user.is_staff == 1 or user.is_superuser == 1:
         form = CreateBlogPostForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             obj = form.save(commit=False)
@@ -24,9 +25,11 @@ def create_blog_view(request):
             obj.author = author
             obj.save()
             form = CreateBlogPostForm()
+            messages.success(request, f"Your Blog has been posted!")
+            return redirect("home")
 
-        context['form'] = form
-        return render(request, 'blog/create_blog.html', {})
+        context["form"] = form
+        return render(request, "blog/create_blog.html", {})
     else:
         raise Http404("Page Not Found")
 
@@ -35,9 +38,9 @@ def detail_blog_view(request, slug):
     context = {}
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
-    context['blog_post'] = blog_post
+    context["blog_post"] = blog_post
 
-    return render(request, 'blog/detail_blog.html', context)
+    return render(request, "blog/detail_blog.html", context)
 
 
 @login_required
@@ -46,7 +49,7 @@ def edit_blog_view(request, slug):
 
     user = request.user
     if not user.is_authenticated:
-        return redirect('must_authenticate')
+        return redirect("must_authenticate")
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
 
@@ -54,35 +57,36 @@ def edit_blog_view(request, slug):
         return HttpResponse("You are not the author of that post.")
 
     if request.POST:
-        form = UpdateBlogPostForm(request.POST or None, request.FILES or None, instance=blog_post)
+        form = UpdateBlogPostForm(
+            request.POST or None, request.FILES or None, instance=blog_post
+        )
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            context['success_message'] = 'Updated'
+            context["success_message"] = "Updated"
             blog_post = obj
 
     form = UpdateBlogPostForm(
-            initial = {
-                    'title':blog_post.title,
-                    'body':blog_post.body,
-                    'image':blog_post.image,
-            }
-        )
+        initial={
+            "title": blog_post.title,
+            "body": blog_post.body,
+            "image": blog_post.image,
+        }
+    )
 
-    context['form'] = form
-    return render(request, 'blog/edit_blog.html', context)
+    context["form"] = form
+    return render(request, "blog/edit_blog.html", context)
 
 
 def get_blog_queryset(query=None):
-	queryset = []
-	queries = query.split(" ")
-	for q in queries:
-		posts = BlogPost.objects.filter(
-			Q(title__contains=q)|
-			Q(body__icontains=q)
-			).distinct()
-		for post in posts:
-			queryset.append(post)
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        posts = BlogPost.objects.filter(
+            Q(title__contains=q) | Q(body__icontains=q)
+        ).distinct()
+        for post in posts:
+            queryset.append(post)
 
-	# create unique set and then convert to list
-	return list(set(queryset))
+    # create unique set and then convert to list
+    return list(set(queryset))

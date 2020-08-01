@@ -10,23 +10,21 @@ from account.models import Account
 @login_required
 def create_event_view(request):
 
-    context ={}
+    context = {}
 
     user = request.user
 
-    if user.is_staff == 1 or user.is_superuser == 1 :
-        if request.method == 'POST':
-            form = CreateEventPostForm(request.POST or None, request.FILES or None)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                author = Account.objects.filter(email=user.email).first()
-                obj.author = author
-                obj.save()
-                form = CreateEventPostForm()
-                context['form'] = form
-                return render(request, 'event/create_event.html', {})
-        else:
-            return HttpResponse("Something gone wrong.")
+    if user.is_staff == 1 or user.is_superuser == 1:
+        form = CreateEventPostForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            author = Account.objects.filter(email=user.email).first()
+            obj.author = author
+            obj.save()
+            form = CreateEventPostForm()
+
+        context["form"] = form
+        return render(request, "event/create_event.html", {})
     else:
         raise Http404("Page Not Found")
 
@@ -35,9 +33,10 @@ def detail_event_view(request, slug):
     context = {}
 
     event_post = get_object_or_404(EventPost, slug=slug)
-    context['event_post'] = event_post
+    context["event_post"] = event_post
 
-    return render(request, 'event/detail_event.html', context)
+    return render(request, "event/detail_event.html", context)
+
 
 @login_required
 def edit_event_view(request, slug):
@@ -45,7 +44,7 @@ def edit_event_view(request, slug):
 
     user = request.user
     if not user.is_authenticated:
-        return redirect('must_authenticate')
+        return redirect("must_authenticate")
 
     event_post = get_object_or_404(EventPost, slug=slug)
 
@@ -53,41 +52,41 @@ def edit_event_view(request, slug):
         return HttpResponse("You are not the author of that post.")
 
     if request.POST:
-        form = UpdateEventPostForm(request.POST or None, request.FILES or None, instance=event_post)
+        form = UpdateEventPostForm(
+            request.POST or None, request.FILES or None, instance=event_post
+        )
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            context['success_message'] = 'Updated'
+            context["success_message"] = "Updated"
             event_post = obj
 
     form = UpdateEventPostForm(
-            initial = {
-                    'title':event_post.title,
-                    'body':event_post.body,
-                    'image':event_post.image,
-                    'category':event_post.category,
-                    'event_date':event_post.event_date,
-                    'reg_to':event_post.reg_to,
-                    'fee':event_post.fee,
-                    'reg_link':event_post.reg_link,
-            }
-        )
+        initial={
+            "title": event_post.title,
+            "body": event_post.body,
+            "image": event_post.image,
+            "category": event_post.category,
+            "event_date": event_post.event_date,
+            "reg_to": event_post.reg_to,
+            "fee": event_post.fee,
+            "reg_link": event_post.reg_link,
+        }
+    )
 
-    context['form'] = form
-    return render(request, 'event/edit_event.html', context)
+    context["form"] = form
+    return render(request, "event/edit_event.html", context)
 
 
 def get_event_queryset(query=None):
-	queryset = []
-	queries = query.split(" ")
-	for q in queries:
-		posts = EventPost.objects.filter(
-			Q(title__contains=q)|
-			Q(body__icontains=q)|
-            Q(category__icontains=q)
-			).distinct()
-		for post in posts:
-			queryset.append(post)
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        posts = EventPost.objects.filter(
+            Q(title__contains=q) | Q(body__icontains=q)
+        ).distinct()
+        for post in posts:
+            queryset.append(post)
 
-	# create unique set and then convert to list
-	return list(set(queryset))
+    # create unique set and then convert to list
+    return list(set(queryset))
