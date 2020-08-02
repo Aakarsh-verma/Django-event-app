@@ -358,3 +358,43 @@ class EventPost(models.Model):
         <img src="{% static 'pce_logo.png' %}" alt="pce_logo" id="pce_logo">
         <div id="text">Welcome</div>
     </div>
+
+<!--Filters-->
+			<h6>Filter by:</h6>
+			<div class="row">
+				<form action="." method="get" class="col-lg-4">
+					<div class="form-group">
+						<label for="id_date">Date published</label>
+						<select class="form-control" id="id_date" name="date" placeholder="None">
+							<option value="oldest">oldest</option>
+							<option value="latest">latest</option>
+							<option value="today">today</option>
+							<option value="yesterday">yesterday</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="id_category">Primary Tag</label>
+						<select class="form-control" id="id_category" name="category" placeholder="None">
+							<option value="">None</option>
+							<option value="COMP/IT">COMP/IT</option>
+							<option value="EXTC/ETRX">EXTC/ETRX</option>
+							<option value="MECH/AUTO">MECH/AUTO</option>
+							<option value="ALL">ALL</option>
+							<option value="NON-TECH">NON-TECH</option>
+						</select>
+					</div>
+
+					<div class="flex-child form-group" class="col-lg-4">
+						<label for="id_committee">Committee</label>
+						<select class="form-control" id="id_committee" name="committee" placeholder="None">
+							{% if obj %}
+							{% for committee in obj  %}
+							<option value="{{committee.name}}">{{committee.name}}</option>
+							{% endfor %}
+							{% endif %}
+						</select>
+					</div>
+
+				</form>
+			</div>

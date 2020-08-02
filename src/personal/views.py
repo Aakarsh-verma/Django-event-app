@@ -82,7 +82,5 @@ def committee_home_screen_view(request):
     committee = sorted(
         get_committee_queryset(query), key=attrgetter("date_updated"), reverse=True
     )
-
     context["committee"] = committee
-
     return render(request, "personal/committee_home.html", context)
