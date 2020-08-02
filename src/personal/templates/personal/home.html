@@ -44,11 +44,6 @@
 		padding: 5px;
 	}
 
-	.flex-container {
-		display: flex;
-		flex-direction: row;
-	}
-
 	#topDoor {
 		position: absolute;
 		margin-left: 0px;
@@ -107,97 +102,69 @@
 	}
 </style>
 
-<div class="flex-container">
-	<!--Filters-->
-	<div>
-		<h6 style="margin-left: 50px;">Filters</h6>
-		<div class="d-lg-flex d-none flex-column" style=" margin-left: 50px; width: 200px;">
-			<form action="." method="get">
-				<div class="form-group">
-					<label for="id_date">Date published</label>
-					<input class="form-control" type="date" name="date" id="id_date" placeholder="Date">
-				</div>
 
-				<div class="flex-child form-group" class="col-lg-4">
-					<label for="id_committee">Committee</label>
-					<select class="form-control" id="id_committee" name="committee" placeholder="None">
-						<option value="">----</option>
-						{% if committees %}
-						{% for committee in committees  %}
-						<option value="{{committee.name}}">{{committee.name}}</option>
-						{% endfor %}
-						{% endif %}
-					</select>
-				</div>
-
-			</form>
-		</div>
-	</div>
-	<!-- main content -->
-	<div class="container">
-		<div class="row">
+<!-- main content -->
+<div class="container">
+	<div class="row">
 
 
-			<!-- blog feed -->
-			<div class="left-column col-lg-7 offset-lg-1">
+		<!-- blog feed -->
+		<div class="left-column col-lg-7 offset-lg-1">
 
-				<!-- Top 'create post' bar -->
-				<div class="d-lg-none mb-3">
-					<div class="card m-auto d-flex flex-column p-3 mt-2">
-						<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72"
-							height="72">
-						<p class="lead-bold">This is the official PCE website where students will be
-							updated about all events/workshops and other events happening
-							in and out of college by faculty and commmittee members.</p>
-						{% if user.is_staff or user.is_superuser %}
-						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
-						{% endif %}
-					</div>
-				</div>
-				<!-- end Top 'create post' bar -->
-
-				<!-- Blog posts-->
-				{% if blog_posts %}
-				{% for post in blog_posts %}
-				<div class="blog-post-container mt-2">
-					{% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
-				</div>
-				{% endfor %}
-				{% else %}
-				<div class="blog-post-container">
-					{% include 'blog/snippets/blog_post_snippet.html' with query=query %}
-				</div>
-				{% endif %}
-				<!-- End Blog posts-->
-				<!-- Pagination -->
-				{% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
-
-			</div>
-			<!-- end blog feed -->
-
-			<!-- Right 'create post' column  -->
-			<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-				<div id="topDoor"></div>
-				<div id="bottomDoor">
-					{% if user.is_staff or user.is_superuser %}
-					<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
-							href="{% url 'blog:create' %}">Create post</a></p>
-					{% endif %}
-				</div>
-				<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
+			<!-- Top 'create post' bar -->
+			<div class="d-lg-none mb-3">
+				<div class="card m-auto d-flex flex-column p-3 mt-2">
 					<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 					<p class="lead-bold">This is the official PCE website where students will be
 						updated about all events/workshops and other events happening
-						in and out of college by faculty and commmittee members.
-					</p>
+						in and out of college by faculty and commmittee members.</p>
+					{% if user.is_staff or user.is_superuser %}
+					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+					{% endif %}
 				</div>
-
 			</div>
-			<!-- end Right 'create post' column  -->
+			<!-- end Top 'create post' bar -->
+
+			<!-- Blog posts-->
+			{% if blog_posts %}
+			{% for post in blog_posts %}
+			<div class="blog-post-container mt-2">
+				{% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+			</div>
+			{% endfor %}
+			{% else %}
+			<div class="blog-post-container">
+				{% include 'blog/snippets/blog_post_snippet.html' with query=query %}
+			</div>
+			{% endif %}
+			<!-- End Blog posts-->
+			<!-- Pagination -->
+			{% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
 
 		</div>
+		<!-- end blog feed -->
+
+		<!-- Right 'create post' column  -->
+		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+			<div id="topDoor"></div>
+			<div id="bottomDoor">
+				{% if user.is_staff or user.is_superuser %}
+				<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
+						href="{% url 'blog:create' %}">Create post</a></p>
+				{% endif %}
+			</div>
+			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
+				<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
+				<p class="lead-bold">This is the official PCE website where students will be
+					updated about all events/workshops and other events happening
+					in and out of college by faculty and commmittee members.
+				</p>
+			</div>
+
+		</div>
+		<!-- end Right 'create post' column  -->
+
 	</div>
 </div>
-
 
 {% endblock content %}
