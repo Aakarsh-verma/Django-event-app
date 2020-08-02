@@ -15,7 +15,7 @@ def create_event_view(request):
     context = {}
 
     user = request.user
-    if user.is_staff == 1 or user.is_superuser == 1:
+    if user.is_staff == 1 or user.is_faculty == 1:
         if request.POST:
             form = CreateEventPostForm(request.POST or None, request.FILES or None)
             if form.is_valid():

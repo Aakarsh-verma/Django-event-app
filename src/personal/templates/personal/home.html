@@ -118,7 +118,7 @@
 					<p class="lead-bold">This is the official PCE website where students will be
 						updated about all events/workshops and other events happening
 						in and out of college by faculty and commmittee members.</p>
-					{% if user.is_staff or user.is_superuser %}
+					{% if user.is_staff or user.is_faculty %}
 					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
 					{% endif %}
 				</div>
@@ -148,7 +148,7 @@
 		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
 			<div id="topDoor"></div>
 			<div id="bottomDoor">
-				{% if user.is_staff or user.is_superuser %}
+				{% if user.is_staff or user.is_faculty %}
 				<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
 						href="{% url 'blog:create' %}">Create post</a></p>
 				{% endif %}
