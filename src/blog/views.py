@@ -97,6 +97,7 @@ def delete_blog_view(request, id):
 
 def get_blog_queryset(query=None):
     queryset = []
+
     queries = query.split(" ")
     for q in queries:
         posts = BlogPost.objects.filter(
