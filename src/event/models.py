@@ -20,14 +20,12 @@ class EventPost(models.Model):
         ("MECH/AUTO", "Mechanical"),
         ("ALL", "All"),
         ("NON-TECH", "Non-Technical"),
-        ("", ""),
     ]
 
     title = models.CharField(max_length=50, null=False, blank=False)
     body = models.TextField(max_length=5000, null=False, blank=False)
     image = models.ImageField(upload_to=upload_location, default="pce_logo.png")
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICE, default="All")
-    category2 = models.CharField(max_length=10, choices=CATEGORY_CHOICE, default="")
     event_date = models.DateField(
         auto_now_add=False, null=False, blank=False, verbose_name="event date"
     )

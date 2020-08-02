@@ -9,7 +9,6 @@ class CreateEventPostForm(forms.ModelForm):
             "title",
             "body",
             "category",
-            "category2",
             "event_date",
             "reg_to",
             "fee",
@@ -22,7 +21,6 @@ class CreateEventPostForm(forms.ModelForm):
         event_post.title = self.cleaned_data["title"]
         event_post.body = self.cleaned_data["body"]
         event_post.category = self.cleaned_data["category"]
-        event_post.category2 = self.cleaned_data["category2"]
         event_post.event_date = self.cleaned_data["event_date"]
         event_post.reg_to = self.cleaned_data["reg_to"]
         event_post.fee = self.cleaned_data["fee"]
@@ -30,9 +28,6 @@ class CreateEventPostForm(forms.ModelForm):
 
         if self.cleaned_data["event_date"] < self.cleaned_data["reg_to"]:
             raise forms.ValidationError("Invalid Dates")
-
-        if self.cleaned_data["category"] == self.cleaned_data["category2"]:
-            self.cleaned_data["category2"] = ""
 
         if self.cleaned_data["image"]:
             event_post.image = self.cleaned_data["image"]
@@ -50,7 +45,6 @@ class UpdateEventPostForm(forms.ModelForm):
             "body",
             "image",
             "category",
-            "category2",
             "event_date",
             "reg_to",
             "fee",
@@ -62,7 +56,6 @@ class UpdateEventPostForm(forms.ModelForm):
         event_post.title = self.cleaned_data["title"]
         event_post.body = self.cleaned_data["body"]
         event_post.category = self.cleaned_data["category"]
-        event_post.category2 = self.cleaned_data["category2"]
         event_post.event_date = self.cleaned_data["event_date"]
         event_post.reg_to = self.cleaned_data["reg_to"]
         event_post.fee = self.cleaned_data["fee"]
@@ -70,9 +63,6 @@ class UpdateEventPostForm(forms.ModelForm):
 
         if self.cleaned_data["event_date"] < self.cleaned_data["reg_to"]:
             raise forms.ValidationError("Invalid Dates")
-
-        if self.cleaned_data["category"] == self.cleaned_data["category2"]:
-            self.cleaned_data["category2"] = ""
 
         if self.cleaned_data["image"]:
             event_post.image = self.cleaned_data["image"]

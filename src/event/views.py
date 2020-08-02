@@ -15,7 +15,7 @@ def create_event_view(request):
     context = {}
 
     user = request.user
-    if user.is_staff == 1 or user.is_faculty == 1:
+    if user.is_staff == 1 or user.is_superuser == 1:
         if request.POST:
             form = CreateEventPostForm(request.POST or None, request.FILES or None)
             if form.is_valid():
@@ -100,21 +100,15 @@ def delete_event_view(request, id):
     return render(request, "event/delete_event.html", context)
 
 
-def get_event_queryset(query=None, date=None):
+def get_event_queryset(query=None):
     queryset = []
-    if date != None:
-        dates = date
-        for d in dates:
-            post = EventPost.objects.filter(Q(date_published=d))
-            for post in posts:
-                queryset.append(post)
-    else:
-        queries = query.split(" ")
-        for q in queries:
-            posts = EventPost.objects.filter(
-                Q(title__contains=q) | Q(body__icontains=q)
-            ).distinct()
-            for post in posts:
-                queryset.append(post)
+    queries = query.split(" ")
+    for q in queries:
+        posts = EventPost.objects.filter(
+            Q(title__contains=q) | Q(body__icontains=q)
+        ).distinct()
+        for post in posts:
+            queryset.append(post)
+
     # create unique set and then convert to list
     return list(set(queryset))

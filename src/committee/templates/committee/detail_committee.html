@@ -3,48 +3,56 @@
 
 <style type="text/css">
     @media (max-width: 768px) {
-		.left-column{
-			margin-right: 0px;
-		}
-	}
+        .left-column {
+            margin-right: 0px;
+        }
+    }
 
-	@media (min-width: 768px) {
-		.left-column{
-			margin-right: 10px;
-		}
-	}
-    .create-post-bar{
-		background-color: #fff;
-		margin-bottom:20px;
-	}
-    .card{
+    @media (min-width: 768px) {
+        .left-column {
+            margin-right: 10px;
+        }
+    }
+
+    .create-post-bar {
+        background-color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .card {
         max-width: 700px;
     }
-    .container{
+
+    .container {
         padding: 20px;
     }
-    .lead{
-		font-size: 17px;
-	}
-    #fly{
+
+    .lead {
+        font-size: 17px;
+    }
+
+    #fly {
         position: absolute;
         opacity: 0;
         animation: flyIn 1s ease 1.5s 1 forwards;
     }
 
-    @keyframes flyIn{
+    @keyframes flyIn {
         0% {
             height: 0px;
             width: 200px;
             margin: 0px 0px 0px 50px;
             opacity: 1;
         }
-        100%{
-            margin-bottom:20px;
+
+        100% {
+            margin-bottom: 20px;
             height: 350px;
             width: 200px;
             margin: 0px 0px 0px 50px;
             opacity: 1;
+        }
+    }
 </style>
 
 <div class="container">
@@ -57,7 +65,8 @@
             <div class="card-description my-2">
                 <h2 class="card-name">{{committee.name}}</h2>
                 <p class="card-text">{{committee.description|safe}}</p>
-                <p class="lead-bold">Official Site: <a href="{{committee.link}}" target="_blank">{{committee.link}}</a></p>
+                <p class="lead-bold">Official Site: <a href="{{committee.link}}" target="_blank">{{committee.link}}</a>
+                </p>
             </div>
             <div class="card-footer text-muted">
                 Updated on {{committee.date_updated}} by {{committee.author.username}}
@@ -67,17 +76,17 @@
 
         <div class="left-column col-lg-3 d-lg-flex d-none flex-column">
 
-			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" id="fly">
-		        <img class="img-fluid d-block m-auto pb-2" src="{{committee.image.url}}" width="80" height="80">
-				<p class="lead">This Page contains information regarding {{committee.name}} and its recent events.
+            <div class="card create-post-bar d-flex flex-column p-3 shadow-lg" id="fly">
+                <img class="img-fluid d-block m-auto pb-2" src="{{committee.image.url}}" width="80" height="80">
+                <p class="lead">This Page contains information regarding {{committee.name}} and its recent events.
                 </p>
                 <p class="lead-bold">Current Handler:
-                {{committee.author.username}}</p>
+                    {{committee.author.username}}</p>
                 {% if committee.author == request.user %}
-                    <a href="{% url 'committee:edit' committee.slug %}" class="btn btn-primary">Update</a>
+                <a href="{% url 'committee:edit' committee.slug %}" class="btn btn-primary">Update</a>
                 {% endif %}
-			</div>
-		</div>
+            </div>
+        </div>
 
     </div>
     <div class="container mx-0 mt-4 p-4">
@@ -85,25 +94,27 @@
             <div class="blog-posts">
                 <h3 class="mx-auto mb-3 font-weight-normal">Recent Events</h3>
                 {% if event_posts %}
-    				{% for post in event_posts %}
-    					<div class="event-post-container">
-    						{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
-    					</div>
-    				{% endfor %}
-    			{% else %}
-    				<div class="event-post-container">
-    					{% include 'event/snippets/event_post_snippet.html' with query=query %}
-    				</div>
-    			{% endif %}
-    			<!-- End Event posts-->
-    			<!-- Pagination -->
-    			{% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
+                {% for post in event_posts %}
+                <div class="event-post-container">
+                    {% include 'event/snippets/event_post_snippet.html' with event_post=post %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="event-post-container">
+                    {% include 'event/snippets/event_post_snippet.html' with query=query %}
+                </div>
+                {% endif %}
+                <!-- End Event posts-->
+                <!-- Pagination -->
+                {% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
             </div>
         </div>
     </div>
     <div class="">
-        <p class="lead-bold">For older events please visit the official site: <a href="{{committee.link}}" target="_blank">{{committee.link}}</a></p>
+        <p class="lead-bold">For older events please visit the official site: <a href="{{committee.link}}"
+                target="_blank">{{committee.link}}</a></p>
     </div>
 
 </div>
+
 {% endblock content %}
