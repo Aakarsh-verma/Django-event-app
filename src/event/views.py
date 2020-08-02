@@ -86,15 +86,35 @@ def edit_event_view(request, slug):
     return render(request, "event/edit_event.html", context)
 
 
-def get_event_queryset(query=None):
-    queryset = []
-    queries = query.split(" ")
-    for q in queries:
-        posts = EventPost.objects.filter(
-            Q(title__contains=q) | Q(body__icontains=q)
-        ).distinct()
-        for post in posts:
-            queryset.append(post)
+@login_required
+def delete_event_view(request, id):
 
+    context = {}
+    event_post = get_object_or_404(EventPost, id=id)
+    if request.method == "POST":
+        event_post.delete()
+        messages.success(request, f"Your Event has been deleted successfully!")
+        return redirect("event-home")
+
+    context["event_post"] = event_post
+    return render(request, "event/delete_event.html", context)
+
+
+def get_event_queryset(query=None, date=None):
+    queryset = []
+    if date != None:
+        dates = date
+        for d in dates:
+            post = EventPost.objects.filter(Q(date_published=d))
+            for post in posts:
+                queryset.append(post)
+    else:
+        queries = query.split(" ")
+        for q in queries:
+            posts = EventPost.objects.filter(
+                Q(title__contains=q) | Q(body__icontains=q)
+            ).distinct()
+            for post in posts:
+                queryset.append(post)
     # create unique set and then convert to list
     return list(set(queryset))

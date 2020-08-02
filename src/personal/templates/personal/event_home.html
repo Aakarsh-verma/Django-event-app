@@ -64,6 +64,37 @@
 		100% {
 			height: 0px;
 		}
+<<<<<<< HEAD
+	}
+
+	@keyframes bottomOpen {
+		0% {
+			height: 150px;
+			margin-top: 150px;
+		}
+
+		100% {
+			height: 0px;
+			margin-top: 300px;
+		}
+	}
+
+	#create {
+		animation: fadeInAnimation ease 8s;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes fadeInAnimation {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+=======
+>>>>>>> d4f98a4e8a9a36b79740f1b764a507195fba5da6
 	}
 
 	@keyframes bottomOpen {
@@ -95,7 +126,6 @@
 	}
 </style>
 
-
 <!-- main content -->
 <div class="container">
 	<div class="row">
@@ -110,12 +140,20 @@
 					<p class="lead-bold">This is the official PCE website where students will be
 						updated about all events/workshops and other events happening
 						in and out of college by faculty and commmittee members.</p>
+<<<<<<< HEAD
 					{% if user.is_staff or user.is_faculty %}
+=======
+					{% if user.is_staff or user.is_superuser %}
+>>>>>>> d4f98a4e8a9a36b79740f1b764a507195fba5da6
 					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
 					{% endif %}
 				</div>
 			</div>
 			<!-- end Top 'create post' bar -->
+
+			<!--Filters-->
+
+
 
 			<!-- Event posts-->
 			{% if event_posts %}
@@ -140,7 +178,11 @@
 		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
 			<div id="topDoor"></div>
 			<div id="bottomDoor">
+<<<<<<< HEAD
 				{% if user.is_staff or user.is_faculty %}
+=======
+				{% if user.is_staff or user.is_superuser %}
+>>>>>>> d4f98a4e8a9a36b79740f1b764a507195fba5da6
 				<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
 						href="{% url 'event:create' %}">Create post</a></p>
 				{% endif %}
@@ -158,4 +200,12 @@
 	</div>
 </div>
 
+<<<<<<< HEAD
+=======
+
+<script type="text/javascript">
+	document.getElementById("id_d").value = "{{date}}"
+</script>
+
+>>>>>>> d4f98a4e8a9a36b79740f1b764a507195fba5da6
 {% endblock content %}
