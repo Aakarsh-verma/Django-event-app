@@ -398,3 +398,70 @@ class EventPost(models.Model):
 
 				</form>
 			</div>
+
+
+      
+	@keyframes topOpen {
+		0% {
+			height: 150px;
+		}
+
+		100% {
+			height: 0px;
+		}
+	}
+
+	@keyframes bottomOpen {
+		0% {
+			height: 150px;
+			margin-top: 150px;
+		}
+
+		100% {
+			height: 0px;
+			margin-top: 300px;
+		}
+	}
+
+	@keyframes fadeInAnimation {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+  <div class="flex-container" flexid="topDoor"></div>
+				<div class="flex-container" id="bottomDoor">
+</div>
+
+ context = {}
+
+    qs = EventPost.objects.all()
+
+    price_query = request.GET.get("price")
+
+    if is_valid_queryparam(price_query) and price_query != "Select":
+        if price_query == "Lowest to Highest":
+            qsl = sorted(qs, key=attrgetter("fee"), reverse=True)
+        elif price_query == "Highest to Lowest":
+            qsl = sorted(qs, key=attrgetter("fee"), reverse=False)
+
+        event_posts = sorted(qsl, key=attrgetter("date_updated"), reverse=True)
+
+
+       query = []
+    ps = request.GET.get("q", "")
+
+    queries = ps.split(" ")
+    for q in queries:
+        posts = BlogPost.objects.filter(
+            Q(title__contains=q)
+            | Q(body__icontains=q)
+            | Q(author__username__icontains=q)
+        ).distinct()
+        for post in posts:
+            query.append(post)
+    blog_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)

@@ -101,7 +101,9 @@ def get_blog_queryset(query=None):
     queries = query.split(" ")
     for q in queries:
         posts = BlogPost.objects.filter(
-            Q(title__contains=q) | Q(body__icontains=q)
+            Q(title__contains=q)
+            | Q(body__icontains=q)
+            | Q(author__username__icontains=q)
         ).distinct()
         for post in posts:
             queryset.append(post)

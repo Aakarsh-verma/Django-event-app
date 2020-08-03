@@ -21,9 +21,7 @@ class BlogPost(models.Model):
         auto_now_add=True, verbose_name="date published"
     )
     date_updated = models.DateTimeField(auto_now=True, verbose_name="date updated")
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name="author", on_delete=models.CASCADE
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):

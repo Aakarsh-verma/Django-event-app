@@ -89,17 +89,11 @@
 					</select>
 				</div>
 
+				<!-- reg-to -->
 				<div class="form-group">
-					<label for="id_category2">Another Category</label>
-					<select class="form-control" id="id_category2" name="category2" value="{{form.initial.category2}}"
-						placeholder="{{form.initial.category2}}">
-						<option value="">None</option>
-						<option value="COMP/IT">COMP/IT</option>
-						<option value="EXTC/ETRX">EXTC/ETRX</option>
-						<option value="MECH/AUTO">MECH/AUTO</option>
-						<option value="ALL">ALL</option>
-						<option value="NON-TECH">NON-TECH</option>
-					</select>
+					<label for="id_reg_to">Registration to</label>
+					<input class="form-control" type="date" name="reg_to" id="id_reg_to" placeholder="End Date"
+						value="{{form.initial.reg_to}}">
 				</div>
 
 				<!-- reg-from -->
@@ -107,13 +101,6 @@
 					<label for="id_event_date">Event Date</label>
 					<input class="form-control" type="date" name="event_date" id="id_event_date"
 						placeholder="Event Date" value="{{form.initial.event_date}}">
-				</div>
-
-				<!-- reg-to -->
-				<div class="form-group">
-					<label for="id_reg_to">Registration to</label>
-					<input class="form-control" type="date" name="reg_to" id="id_reg_to" placeholder="End Date"
-						value="{{form.initial.reg_to}}">
 				</div>
 
 				<!-- fee -->

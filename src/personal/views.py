@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from operator import attrgetter
+from django.db.models import Q, Count
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
 from blog.models import BlogPost
@@ -12,17 +13,21 @@ from committee.models import Committee
 BLOG_POST_PER_PAGE = 6
 
 
+def is_valid_queryparam(param):
+    return param != "" and param is not None
+
+
 def home_screen_view(request):
     context = {}
 
-    query = ""
+    qry = ""
     if request.GET:
-        query = request.GET.get("q", "")
-        context["query"] = str(query)
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
 
-    blog_posts = sorted(
-        get_blog_queryset(query), key=attrgetter("date_updated"), reverse=True
-    )
+    query = get_blog_queryset(qry)
+
+    blog_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
     # Pagination
     page = request.GET.get("page", 1)
@@ -46,14 +51,14 @@ EVENT_POST_PER_PAGE = 6
 def event_home_screen_view(request):
     context = {}
 
-    query = ""
+    qry = ""
     if request.GET:
-        query = request.GET.get("q", "")
-        context["query"] = str(query)
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
 
-    event_posts = sorted(
-        get_event_queryset(query), key=attrgetter("date_updated"), reverse=True
-    )
+    query = get_event_queryset(qry)
+
+    event_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
     # Pagination
     page = request.GET.get("page", 1)
