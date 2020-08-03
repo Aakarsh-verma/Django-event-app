@@ -73,11 +73,13 @@
 		display: flex;
 	}
 
-	.sticky {
+	div.sticky {
 		position: -webkit-sticky;
+		/* Safari */
 		position: sticky;
 		top: 0;
 	}
+
 
 	@keyframes topOpen {
 		0% {
@@ -136,14 +138,6 @@
 					<option value="MECH/AUTO">MECH/AUTO</option>
 					<option value="ALL">ALL</option>
 					<option value="NON-TECH">NON-TECH</option>
-				</select>
-			</div>
-
-			<div class="form-group">
-				<label for="id_category">Price</label>
-				<select class="form-control" type="search" id="id_price" name="price" placeholder="select">
-					<option value="pricel">Lowest to Higest</option>
-					<option value="priceh">Higest to Lowest</option>
 				</select>
 			</div>
 		</div>
