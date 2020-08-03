@@ -37,6 +37,10 @@
 		font-size: 17px;
 	}
 
+	.flex-container {
+		display: flex;
+	}
+
 	#topDoor {
 		position: absolute;
 		margin-left: 0px;
@@ -124,72 +128,104 @@
 		}
 	}
 </style>
+<div class="flex-container">
+	<div class="column bg-white shadow-lg" style="margin-left: 30px; margin-bottom: auto;">
+		<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
+			<h6 class="p-2 text-white">Filters</h6>
+		</div>
+		<div class="p-1">
+			<!-- event_date -->
+			<div class="form-group">
+				<label for="id_date">Date</label>
+				<input class="form-control" type="date" name="date" id="id_date" placeholder="Date Posted">
+			</div>
+			<div class="form-group">
+				<label for="id_date">Author</label>
+				<input class="form-control" type="search" name="author" id="author" placeholder="Author">
+			</div>
+			<!-- Category -->
+			<div class="form-group">
+				<label for="id_category">Category</label>
+				<select class="form-control" type="search" id="id_category" name="category" placeholder="select">
+					<option value="COMP/IT">COMP/IT</option>
+					<option value="EXTC/ETRX">EXTC/ETRX</option>
+					<option value="MECH/AUTO">MECH/AUTO</option>
+					<option value="ALL">ALL</option>
+					<option value="NON-TECH">NON-TECH</option>
+				</select>
+			</div>
+		</div>
 
-<!-- main content -->
-<div class="container">
-	<div class="row">
+	</div>
+	<!-- main content -->
+	<div class="container" style="margin-left: 20px;">
+		<div class="row">
 
-		<!-- event feed -->
-		<div class="left-column col-lg-7 offset-lg-1">
+			<!-- event feed -->
+			<div class="left-column col-lg-7 offset-lg-1">
 
-			<!-- Top 'create post' bar -->
-			<div class="d-lg-none mb-3">
-				<div class="card m-auto d-flex flex-column p-3">
+				<!-- Top 'create post' bar -->
+				<div class="d-lg-none mb-3">
+					<div class="card m-auto d-flex flex-column p-3">
+						<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72"
+							height="72">
+						<p class="lead-bold">This is the official PCE website where students will be
+							updated about all events/workshops and other events happening
+							in and out of college by faculty and commmittee members.</p>
+
+						{% if user.is_staff or user.is_faculty %}
+						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+						{% endif %}
+					</div>
+				</div>
+				<!-- end Top 'create post' bar -->
+
+				<!--Filters-->
+
+
+
+				<!-- Event posts-->
+				{% if event_posts %}
+				{% for post in event_posts %}
+				<div class="event-post-container">
+					{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
+				</div>
+				{% endfor %}
+				{% else %}
+				<div class="event-post-container">
+					{% include 'event/snippets/event_post_snippet.html' with query=query %}
+				</div>
+				{% endif %}
+				<!-- End Event posts-->
+				<!-- Pagination -->
+				{% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
+
+			</div>
+			<!-- end event feed -->
+
+			<!-- Right 'create post' column  -->
+			<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+				<div id="topDoor"></div>
+				<div id="bottomDoor">
+
+					{% if user.is_staff or user.is_faculty %}
+					<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
+							href="{% url 'event:create' %}">Create post</a></p>
+					{% endif %}
+				</div>
+				<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
 					<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
 					<p class="lead-bold">This is the official PCE website where students will be
 						updated about all events/workshops and other events happening
 						in and out of college by faculty and commmittee members.</p>
-
-					{% if user.is_staff or user.is_faculty %}
-					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
-					{% endif %}
 				</div>
+
 			</div>
-			<!-- end Top 'create post' bar -->
-
-			<!--Filters-->
-
-
-
-			<!-- Event posts-->
-			{% if event_posts %}
-			{% for post in event_posts %}
-			<div class="event-post-container">
-				{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
-			</div>
-			{% endfor %}
-			{% else %}
-			<div class="event-post-container">
-				{% include 'event/snippets/event_post_snippet.html' with query=query %}
-			</div>
-			{% endif %}
-			<!-- End Event posts-->
-			<!-- Pagination -->
-			{% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
+			<!-- end Right 'create post' column  -->
 
 		</div>
-		<!-- end event feed -->
-
-		<!-- Right 'create post' column  -->
-		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-			<div id="topDoor"></div>
-			<div id="bottomDoor">
-
-				{% if user.is_staff or user.is_faculty %}
-				<p id="create" style="margin-left: 65px;"><a id="create" class="btn btn-primary"
-						href="{% url 'event:create' %}">Create post</a></p>
-				{% endif %}
-			</div>
-			<div class="card create-post-bar d-flex flex-column p-3 shadow-lg" style="z-index: -1;">
-				<img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
-				<p class="lead-bold">This is the official PCE website where students will be
-					updated about all events/workshops and other events happening
-					in and out of college by faculty and commmittee members.</p>
-			</div>
-
-		</div>
-		<!-- end Right 'create post' column  -->
-
 	</div>
 </div>
+
+
 {% endblock content %}
