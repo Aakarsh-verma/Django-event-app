@@ -119,28 +119,30 @@
 		<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
 			<h6 class="p-2 text-white">Filters</h6>
 		</div>
-		<div class="p-1">
-			<!-- event_date -->
-			<div class="form-group">
-				<label for="id_date">Date</label>
-				<input class="form-control" type="date" name="date" id="id_date" placeholder="Date Posted">
+		<form method="GET" action=".">
+			<div class="p-1">
+				<!-- event_date -->
+				<div class="form-group">
+					<label for="id_date">Date</label>
+					<input class="form-control" type="date" name="date" id="id_date" placeholder="Date Posted">
+				</div>
+				<div class="form-group">
+					<label for="id_date">Author</label>
+					<input class="form-control" type="search" name="author" id="author" placeholder="Author">
+				</div>
+				<!-- Category -->
+				<div class="form-group">
+					<label for="id_category">Category</label>
+					<select class="form-control" type="search" id="id_category" name="category" placeholder="select">
+						<option value="COMP/IT">COMP/IT</option>
+						<option value="EXTC/ETRX">EXTC/ETRX</option>
+						<option value="MECH/AUTO">MECH/AUTO</option>
+						<option value="ALL">ALL</option>
+						<option value="NON-TECH">NON-TECH</option>
+					</select>
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="id_date">Author</label>
-				<input class="form-control" type="search" name="author" id="author" placeholder="Author">
-			</div>
-			<!-- Category -->
-			<div class="form-group">
-				<label for="id_category">Category</label>
-				<select class="form-control" type="search" id="id_category" name="category" placeholder="select">
-					<option value="COMP/IT">COMP/IT</option>
-					<option value="EXTC/ETRX">EXTC/ETRX</option>
-					<option value="MECH/AUTO">MECH/AUTO</option>
-					<option value="ALL">ALL</option>
-					<option value="NON-TECH">NON-TECH</option>
-				</select>
-			</div>
-		</div>
+		</form>
 
 	</div>
 	<!-- main content -->

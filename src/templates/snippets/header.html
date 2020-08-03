@@ -36,8 +36,8 @@
   </h5>
 
   <div class="search-bar mt-sm-2 mr2">
-    <form method="get">
-      <input type="text" class="form-control" name="q" id="id_q" placeholder="Search...">
+    <form method="GET" action=".">
+      <input type="search" class="form-control" name="q" id="id_q" placeholder="Search...">
     </form>
 
   </div>
@@ -55,7 +55,4 @@
   </nav>
 
 </div>
-<script type="text/javascript">
-  document.getElementById("id_q").value = "{{query}}"
-</script>
 <!--End Header-->
