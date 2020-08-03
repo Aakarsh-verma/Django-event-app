@@ -16,14 +16,24 @@ BLOG_POST_PER_PAGE = 6
 def home_screen_view(request):
     context = {}
 
-    query = ""
-    if request.GET:
-        query = request.GET.get("q", "")
-        context["query"] = str(query)
+    # query = ""
+    # if request.GET:
+    #   query = request.GET.get("q", "")
+    #    context["query"] = str(query)'''
+    query = []
+    qs = BlogPost.objects.all()
+    ps = request.GET.get("q", "")
 
-    blog_posts = sorted(
-        get_blog_queryset(query), key=attrgetter("date_updated"), reverse=True
-    )
+    queries = ps.split(" ")
+    for q in queries:
+        posts = BlogPost.objects.filter(
+            Q(title__contains=q)
+            | Q(body__icontains=q)
+            | Q(author__username__icontains=q)
+        ).distinct()
+        for post in posts:
+            query.append(post)
+    blog_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
     # Pagination
     page = request.GET.get("page", 1)
