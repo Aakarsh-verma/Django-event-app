@@ -13,26 +13,20 @@ from committee.models import Committee
 BLOG_POST_PER_PAGE = 6
 
 
+def is_valid_queryparam(param):
+    return param != "" and param is not None
+
+
 def home_screen_view(request):
     context = {}
 
-    # query = ""
-    # if request.GET:
-    #   query = request.GET.get("q", "")
-    #    context["query"] = str(query)'''
-    query = []
-    qs = BlogPost.objects.all()
-    ps = request.GET.get("q", "")
+    qry = ""
+    if request.GET:
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
 
-    queries = ps.split(" ")
-    for q in queries:
-        posts = BlogPost.objects.filter(
-            Q(title__contains=q)
-            | Q(body__icontains=q)
-            | Q(author__username__icontains=q)
-        ).distinct()
-        for post in posts:
-            query.append(post)
+    query = get_blog_queryset(qry)
+
     blog_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
     # Pagination
@@ -57,14 +51,14 @@ EVENT_POST_PER_PAGE = 6
 def event_home_screen_view(request):
     context = {}
 
-    query = ""
+    qry = ""
     if request.GET:
-        query = request.GET.get("q", "")
-        context["query"] = str(query)
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
 
-    event_posts = sorted(
-        get_event_queryset(query), key=attrgetter("date_updated"), reverse=True
-    )
+    query = get_event_queryset(qry)
+
+    event_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
     # Pagination
     page = request.GET.get("page", 1)
@@ -95,8 +89,3 @@ def committee_home_screen_view(request):
     )
     context["committee"] = committee
     return render(request, "personal/committee_home.html", context)
-
-
-def is_valid_queryparam(param):
-    return param != "" and param is not None
-

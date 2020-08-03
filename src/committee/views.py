@@ -65,7 +65,9 @@ def get_committee_queryset(query=None):
     queries = query.split(" ")
     for q in queries:
         posts = Committee.objects.filter(
-            Q(name__contains=q) | Q(description__icontains=q)
+            Q(name__contains=q)
+            | Q(description__icontains=q)
+            | Q(author__username__icontains=q)
         ).distinct()
         for post in posts:
             queryset.append(post)
