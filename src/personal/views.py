@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from operator import attrgetter
+from django.db.models import Q, Count
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
 from blog.models import BlogPost
@@ -84,3 +85,8 @@ def committee_home_screen_view(request):
     )
     context["committee"] = committee
     return render(request, "personal/committee_home.html", context)
+
+
+def is_valid_queryparam(param):
+    return param != "" and param is not None
+

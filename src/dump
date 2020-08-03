@@ -398,3 +398,41 @@ class EventPost(models.Model):
 
 				</form>
 			</div>
+
+
+      
+	@keyframes topOpen {
+		0% {
+			height: 150px;
+		}
+
+		100% {
+			height: 0px;
+		}
+	}
+
+	@keyframes bottomOpen {
+		0% {
+			height: 150px;
+			margin-top: 150px;
+		}
+
+		100% {
+			height: 0px;
+			margin-top: 300px;
+		}
+	}
+
+	@keyframes fadeInAnimation {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+  <div class="flex-container" flexid="topDoor"></div>
+				<div class="flex-container" id="bottomDoor">
+</div>

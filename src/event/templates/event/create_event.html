@@ -62,14 +62,13 @@
 				<!-- reg-to -->
 				<div class="form-group">
 					<label for="id_reg_to">Registration to</label>
-					<input class="form-control" type="date" name="reg_to" id="id_reg_to" placeholder="End Date">
+					<input class="form-control" type="date" name="reg_to" id="id_reg_to">
 				</div>
 
 				<!-- event_date -->
 				<div class="form-group">
 					<label for="id_event_date">Event Date</label>
-					<input class="form-control" type="date" name="event_date" id="id_event_date"
-						placeholder="Event Date">
+					<input class="form-control" type="date" name="event_date" id="id_event_date">
 				</div>
 
 				<!-- fee -->
@@ -99,4 +98,12 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	var today = new Date().toISOString().split('T')[0];
+	document.getElementsByName("reg_to")[0].setAttribute('min', today);
+
+	var today = new Date().toISOString().split('T')[0];
+	document.getElementsByName("event_date")[0].setAttribute('min', today);
+</script>
 {% endblock content %}
