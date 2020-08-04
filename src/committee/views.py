@@ -43,7 +43,7 @@ def edit_committee_view(request, slug):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
-            context["success_message"] = "Updated"
+            messages.success(request, f"Update successfull!")
             committee = obj
 
     form = UpdateCommitteeForm(

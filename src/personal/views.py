@@ -79,13 +79,13 @@ def event_home_screen_view(request):
 def committee_home_screen_view(request):
     context = {}
 
-    query = ""
+    qry = ""
     if request.GET:
-        query = request.GET.get("q", "")
-        context["query"] = str(query)
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
 
-    committee = sorted(
-        get_committee_queryset(query), key=attrgetter("date_updated"), reverse=True
-    )
+    query = get_committee_queryset(query)
+
+    committee = sorted(query, key=attrgetter("date_updated"), reverse=True)
     context["committee"] = committee
     return render(request, "personal/committee_home.html", context)
