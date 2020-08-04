@@ -7,6 +7,15 @@
 	.card-body {
 		padding: 20px;
 	}
+
+	pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		white-space: -moz-pre-wrap;
+		white-space: -pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+	}
 </style>
 
 {% if blog_post %}
@@ -21,8 +30,8 @@
 				<a href="{% url 'blog:detail' post.slug %}">
 					<h2 class="card-title">{{blog_post.title}}</h2>
 				</a>
-				<p class="card-text">{{blog_post.body|safe|truncatechars:180}} <a
-						href="{% url 'blog:detail' post.slug %}">Read more</a></p>
+				<pre class="card-text">{{blog_post.body|safe|truncatechars:180}} <a
+						href="{% url 'blog:detail' post.slug %}">Read more</a></pre>
 				{% if blog_post.author == request.user %}
 				<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Edit</a>
 				{% endif %}
