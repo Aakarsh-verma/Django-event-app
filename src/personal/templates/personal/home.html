@@ -122,16 +122,17 @@
 		<form method="GET" action=".">
 			<div class="p-1">
 				<!-- event_date -->
+
 				<div class="form-group">
-					<label for="id_date">Date</label>
-					<input class="form-control" type="date" name="date" id="id_date" placeholder="Date Posted">
+					<label for="publishDateMax">Publish date maximum</label>
+					<input type="date" class="form-control" id="publishDateMax" name="date_max">
 				</div>
 
 				<!-- Category -->
 				<div class="form-group">
 					<label for="id_category">Category</label>
 					<select class="form-control" type="search" id="id_category" name="category" placeholder="select">
-						<option value="">Select</option>
+						<option value="Choose...">Choose...</option>
 						<option value="COMP/IT">COMP/IT</option>
 						<option value="EXTC/ETRX">EXTC/ETRX</option>
 						<option value="MECH/AUTO">MECH/AUTO</option>
@@ -140,6 +141,7 @@
 					</select>
 				</div>
 			</div>
+			<button type="submit" class="btn btn-primary">Search</button>
 		</form>
 
 	</div>

@@ -20,12 +20,19 @@ def is_valid_queryparam(param):
 def home_screen_view(request):
     context = {}
 
-    qry = ""
-    if request.GET:
-        qry = request.GET.get("q", "")
-        context["qry"] = str(qry)
+    qs = BlogPost.objects.all()
 
-    query = get_blog_queryset(qry)
+    category_query = request.GET.get("category")
+
+    if is_valid_queryparam(category_query) and category_query != "Choose...":
+        query = qs.filter(category=category_query)
+    else:
+        qry = ""
+        if request.GET:
+            qry = request.GET.get("q", "")
+            context["qry"] = str(qry)
+
+        query = get_blog_queryset(qry)
 
     blog_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
@@ -51,12 +58,30 @@ EVENT_POST_PER_PAGE = 6
 def event_home_screen_view(request):
     context = {}
 
-    qry = ""
-    if request.GET:
-        qry = request.GET.get("q", "")
-        context["qry"] = str(qry)
+    qs = EventPost.objects.all()
 
-    query = get_event_queryset(qry)
+    category_query = request.GET.get("category")
+    event_date = request.GET.get("event_date")
+    price = request.GET.get("price")
+
+    if is_valid_queryparam(event_date):
+        query = qs.filter(event_date=event_date)
+
+    if is_valid_queryparam(category_query) and category_query != "Choose...":
+        query = qs.filter(category=category_query)
+
+    if is_valid_queryparam(price) and price != "Choose..":
+        if price == "Free":
+            query = qs.filter(fee=0)
+        elif price == "Not-Free":
+            query = qs.filter(fee__gt=0)
+    else:
+        qry = ""
+        if request.GET:
+            qry = request.GET.get("q", "")
+            context["qry"] = str(qry)
+
+        query = get_event_queryset(qry)
 
     event_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
