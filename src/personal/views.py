@@ -84,7 +84,7 @@ def committee_home_screen_view(request):
         qry = request.GET.get("q", "")
         context["qry"] = str(qry)
 
-    query = get_committee_queryset(query)
+    query = get_committee_queryset(qry)
 
     committee = sorted(query, key=attrgetter("date_updated"), reverse=True)
     context["committee"] = committee

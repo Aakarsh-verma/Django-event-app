@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 from operator import attrgetter
 from django.http import HttpResponse, Http404
 from committee.models import Committee
