@@ -7,6 +7,15 @@
 	.card-body {
 		padding: 20px;
 	}
+
+	pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		white-space: -moz-pre-wrap;
+		white-space: -pre-wrap;
+		white-space: -o-pre-wrap;
+		word-wrap: break-word;
+	}
 </style>
 
 {% if event_post %}
@@ -30,8 +39,8 @@
 				{% endif %}
 				<p class="card-text-bold"><b>Reg link</b> :<a href="{{event_post.reg_link}} target=" _blank"">
 						{{event_post.reg_link}}</a></p>
-				<p class="card-text-bold">{{event_post.body|safe|truncatechars:180}} <a
-						href="{% url 'event:detail' post.slug %}">Read more</a></p>
+				<pre class="card-text-bold">{{event_post.body|safe|truncatechars:180}} <a
+						href="{% url 'event:detail' post.slug %}">Read more</a></pre>
 				{% if event_post.author == request.user %}
 				<a href="{% url 'event:edit' event_post.slug %}" class="btn btn-primary">Edit</a>
 				{% endif %}

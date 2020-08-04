@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib import messages
 from operator import attrgetter
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.http import HttpResponse, Http404
 from committee.models import Committee
 from committee.forms import UpdateCommitteeForm
 from account.models import Account
 from event.models import EventPost
+
+EVENT_POST_PER_PAGE = 6
 
 
 def detail_committee_view(request, slug):
@@ -20,6 +23,15 @@ def detail_committee_view(request, slug):
         key=attrgetter("date_updated"),
         reverse=True,
     )
+    page = request.GET.get("page", 1)
+    event_posts_paginator = Paginator(event_posts, EVENT_POST_PER_PAGE)
+
+    try:
+        event_posts = event_posts_paginator.page(page)
+    except PageNotAnInteger:
+        event_posts = event_posts_paginator.page(EVENT_POST_PER_PAGE)
+    except EmptyPage:
+        event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
     context["event_posts"] = event_posts
 
     return render(request, "committee/detail_committee.html", context)
