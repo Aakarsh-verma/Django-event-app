@@ -56,10 +56,6 @@
 	<div class="row">
 		<div class="col-lg-7 offset-lg-1">
 
-			{% if success_message %}
-			<h3 style="color:green; text-align: center;">{{success_message}}</h3>
-			{% endif %}
-
 			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
 
 				<!-- title -->
