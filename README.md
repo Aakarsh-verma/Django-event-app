@@ -13,5 +13,6 @@
 * Event blog for posting about events/workshops/webinar with the create/update/delete functions.
 * Registration link is directly available in the event post.
 
-
+## Working on:
+* Responsiveness
 **All the data and images are for development only(dummy data)**
