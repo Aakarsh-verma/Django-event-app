@@ -4,7 +4,7 @@
 **All Users:**
 * Basic Login/register/reset-password Feature.
 
-![Image of login]l(https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/register.PNG)
+![Image of login](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/register.PNG)
 
 * Viewing blogs/events/student committee related info.
 * Search functionality for blog/events/committee based on text in title or body.
