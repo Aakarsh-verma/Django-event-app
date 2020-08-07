@@ -75,27 +75,54 @@
 <div class="text">
 	<p><b>List of PCE Student Committee</b></p>
 </div>
-<div class="m-auto xop-section" style="width: 1200px;">
-	<ul class="xop-grid">
+<div class=" column d-lg-flex d-none flex-column">
+	<div class="m-auto xop-section" style="width: 1200px;">
+		<ul class="xop-grid">
+			{% if committee %}
+			{% for post in committee %}
+			<li>
+				<div class="committee-post-container">
+					<div class="xop-box">
+						{% include 'committee/snippets/committee_snippet.html' with committee=post %}
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+			{% else %}
+			<div class="committee-post-container">
+				{% include 'committee/snippets/committee_snippet.html' with query=query %}
+			</div>
+			{% endif %}
+
+			<!-- End Event posts-->
+		</ul>
+	</div>
+</div>
+<div class="m-auto d-lg-none">
+	<ul style="list-style-type: none; margin-left: -40px;">
 		{% if committee %}
 		{% for post in committee %}
-		<li>
+		<li height="200" width="auto" style="margin-top: 20px;">
 			<div class="committee-post-container">
-				<div class="xop-box">
+				<div>
 					{% include 'committee/snippets/committee_snippet.html' with committee=post %}
 				</div>
 			</div>
 		</li>
 		{% endfor %}
 		{% else %}
-		<div class="committee-post-container">
-			{% include 'committee/snippets/committee_snippet.html' with query=query %}
-		</div>
+		<li style="margin-top: 20px;">
+			<div class="committee-post-container">
+				{% include 'committee/snippets/committee_snippet.html' with query=query %}
+			</div>
+		</li>
+
 		{% endif %}
 
 		<!-- End Event posts-->
 	</ul>
 </div>
+
 
 
 {% endblock content %}
