@@ -1,12 +1,12 @@
 # django-blog-app  For Educational institutions
 
 ## Features:
-**All Users:**
-* **Basic Login/register/reset-password Feature.
+### All Users:
+**Basic Login/register/reset-password Feature.
 
 ![Image of login](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/register.PNG)
 
-* **Viewing blogs/events/student committee related info.
+**Viewing blogs/events/student committee related info.
 
 ![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/blog.gif)
 
@@ -14,14 +14,14 @@
 
 ![Image of committeepage](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/comithome.gif)
 
-* **Search functionality for blog/events/committee based on text in title or body.
-* **Student Commmittee tab and info about them in separate detail pages along with their recent events.
+**Search functionality for blog/events/committee based on text in title or body.
+**Student Commmittee tab and info about them in separate detail pages along with their recent events.
 
 ![Image of committeepage](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/comdet.gif)
 
 
-**Faculty and Student Committee Member Privilges**
-* **Blog functionality for casual updates.(create/update/delete).
+## Faculty and Student Committee Member Privilges
+**Blog functionality for casual updates.(create/update/delete).
 
 ![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/createblog.PNG)
 
