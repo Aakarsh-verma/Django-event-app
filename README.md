@@ -3,6 +3,9 @@
 ## Features:
 **All Users:**
 * Basic Login/register/reset-password Feature.
+
+![Image of login](https://github.com/Aakarsh-verma/django-blog-app/tree/master/images/register.gif)
+
 * Viewing blogs/events/student committee related info.
 * Search functionality for blog/events/committee based on text in title or body.
 * Student Commmittee tab and info about them in separate detail pages along with their recent events.
@@ -15,5 +18,6 @@
 
 ## Working on:
 * Responsiveness
+
 
 **All the data and images are for development only(dummy data)**
