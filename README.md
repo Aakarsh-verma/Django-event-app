@@ -1,4 +1,4 @@
-# django-blog-app  For Educational institutions
+# django-blog-app
 
 ## Features:
 ### All Users:
