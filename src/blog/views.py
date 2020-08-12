@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DeleteView
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, Http404
-from blog.models import BlogPost
+from blog.models import BlogPost, Category
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
 from account.models import Account
 
@@ -31,7 +32,9 @@ def create_blog_view(request):
 
         form = CreateBlogPostForm()
         context["form"] = form
-        return render(request, "blog/create_blog.html", {})
+        categorys = Category.objects.all()
+        context["categorys"] = categorys
+        return render(request, "blog/create_blog.html", context)
     else:
         raise Http404("Page Not Found")
 
@@ -78,6 +81,8 @@ def edit_blog_view(request, slug):
     )
 
     context["form"] = form
+    categorys = Category.objects.all()
+    context["categorys"] = categorys
     return render(request, "blog/edit_blog.html", context)
 
 

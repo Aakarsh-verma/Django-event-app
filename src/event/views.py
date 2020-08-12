@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
-from event.models import EventPost
+from event.models import EventPost, EventCategory
 from event.forms import CreateEventPostForm, UpdateEventPostForm
 from account.models import Account
 
@@ -13,6 +13,7 @@ from account.models import Account
 def create_event_view(request):
 
     context = {}
+    categorys = EventCategory.objects.all()
 
     user = request.user
     if user.is_staff == 1 or user.is_superuser == 1:
@@ -30,6 +31,7 @@ def create_event_view(request):
         else:
             form = CreateEventPostForm()
             context["form"] = form
+            context["categorys"] = categorys
         return render(request, "event/create_event.html", context)
 
     else:
@@ -48,6 +50,7 @@ def detail_event_view(request, slug):
 @login_required
 def edit_event_view(request, slug):
     context = {}
+    categorys = EventCategory.objects.all()
 
     user = request.user
     if not user.is_authenticated:
@@ -83,6 +86,7 @@ def edit_event_view(request, slug):
     )
 
     context["form"] = form
+    context["categorys"] = categorys
     return render(request, "event/edit_event.html", context)
 
 

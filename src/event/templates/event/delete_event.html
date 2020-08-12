@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}Delete Event{% endblock title %}
+
 {% block content %}
 <div class="content-section bg-white" style="padding: 10px; margin-left: 200px; margin-right: 650px;">
     <form acition="{% url 'event:detail' event_post.id %}" method="POST">
