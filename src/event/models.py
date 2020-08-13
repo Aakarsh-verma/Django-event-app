@@ -24,13 +24,6 @@ class EventCategory(models.Model):
 
 
 class EventPost(models.Model):
-    CATEGORY_CHOICE = [
-        ("COMP/IT", "Computer"),
-        ("EXTC/ETRX", "Electrical"),
-        ("MECH/AUTO", "Mechanical"),
-        ("ALL", "All"),
-        ("NON-TECH", "Non-Technical"),
-    ]
 
     title = models.CharField(max_length=50, null=False, blank=False)
     body = models.TextField(max_length=5000, null=False, blank=False)

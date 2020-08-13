@@ -7,6 +7,7 @@ from blog.models import BlogPost
 from account.models import Account
 from event.models import EventPost
 from datetime import datetime, date
+from django.contrib.auth.decorators import login_required
 
 
 def registration_view(request):
@@ -68,6 +69,7 @@ def login_view(request):
     return render(request, "account/login.html", context)
 
 
+@login_required
 def account_view(request):
 
     # if not request.user.is_authenticated:
@@ -99,6 +101,7 @@ def account_view(request):
 
     blog_posts = BlogPost.objects.filter(author=request.user)
     context["blog_posts"] = blog_posts
+    context["event_post"] = event_post
 
     return render(request, "account/account.html", context)
 
