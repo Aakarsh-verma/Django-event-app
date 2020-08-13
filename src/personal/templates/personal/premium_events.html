@@ -141,19 +141,16 @@
                                 </select>
                             </div>
 
-                            <!-- Category -->
+                            <!--Category-->
                             <div class="form-group">
                                 <label for="id_category">Category</label>
-                                <select class="form-control" type="search" id="id_category" name="category"
-                                    placeholder="select">
-                                    <option value="Choose...">Choose...</option>
-                                    <option value="COMP/IT">COMP/IT</option>
-                                    <option value="EXTC/ETRX">EXTC/ETRX</option>
-                                    <option value="MECH/AUTO">MECH/AUTO</option>
-                                    <option value="ALL">ALL</option>
-                                    <option value="NON-TECH">NON-TECH</option>
+                                <select class="form-control" id="id_category" name="category" placeholder="select">
+                                    {% for category in categorys %}
+                                    <option value="{{category.name}}">{{category.name}}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="id_category">Price</label>
                                 <select class="form-control" type="search" id="id_price" name="price">
@@ -167,20 +164,6 @@
                     </form>
 
                 </div>
-                <!-- Top 'create post' bar -->
-                <div class="d-lg-none mb-3">
-                    <div class="card m-auto d-flex flex-column p-3 mt-2">
-                        <img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72"
-                            height="72">
-                        <p class="lead-bold">This is the official PCE website where students will be
-                            updated about all events/workshops and other events happening
-                            in and out of college by faculty and commmittee members.</p>
-                        {% if user.is_staff or user.is_faculty %}
-                        <p class="m-auto"><a class="btn btn-primary" href="{% url 'event:create' %}">Create post</a></p>
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- end Top 'create post' bar -->
 
                 <!-- event posts-->
                 {% if event_posts %}
@@ -200,23 +183,6 @@
 
             </div>
             <!-- end event feed -->
-
-            <!-- Right 'create post' column  -->
-            <div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-
-                <div class="card create-post-bar d-flex flex-column p-3 shadow-lg">
-                    <img class="img-fluid d-block m-auto pb-2" src="{% static 'pce_logo.png' %}" width="72" height="72">
-                    <p class="lead-bold">This is the official PCE website where students will be
-                        updated about all events/workshops and other events happening
-                        in and out of college by faculty and commmittee members.</p>
-                    {% if user.is_staff or user.is_faculty %}
-                    <p id="create" class="m-auto"><a id="create" class="btn btn-primary"
-                            href="{% url 'event:create' %}">Create post</a></p>
-                    {% endif %}
-                </div>
-
-            </div>
-            <!-- end Right 'create post' column  -->
 
         </div>
     </div>

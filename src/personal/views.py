@@ -147,17 +147,16 @@ def event_home_screen_view(request):
     return render(request, "personal/event_home.html", context)
 
 
-def event_home_screen_view(request):
+def premium_event_screen_view(request):
     context = {}
     qry = ""
     if request.GET:
         qry = request.GET.get("q", "")
         context["qry"] = str(qry)
 
-    query = get_event_queryset(qry)
-
+    # query = get_event_queryset(qry)
+    query = EventPost.objects.filter(priority__gte=1)
     event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
-    event_posts = event_posts.filter("priority" >= 1)
 
     # Pagination
     page = request.GET.get("page", 1)
