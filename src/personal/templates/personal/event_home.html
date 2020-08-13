@@ -141,17 +141,13 @@
 								</select>
 							</div>
 
-							<!-- Category -->
+							<!--Category-->
 							<div class="form-group">
 								<label for="id_category">Category</label>
-								<select class="form-control" type="search" id="id_category" name="category"
-									placeholder="select">
-									<option value="Choose...">Choose...</option>
-									<option value="COMP/IT">COMP/IT</option>
-									<option value="EXTC/ETRX">EXTC/ETRX</option>
-									<option value="MECH/AUTO">MECH/AUTO</option>
-									<option value="ALL">ALL</option>
-									<option value="NON-TECH">NON-TECH</option>
+								<select class="form-control" id="id_category" name="category" placeholder="select">
+									{% for category in categorys %}
+									<option value="{{category.name}}">{{category.name}}</option>
+									{% endfor %}
 								</select>
 							</div>
 							<div class="form-group">
@@ -212,6 +208,9 @@
 					{% if user.is_staff or user.is_faculty %}
 					<p id="create" class="m-auto"><a id="create" class="btn btn-primary"
 							href="{% url 'event:create' %}">Create post</a></p>
+					<br>
+					<p id="create" class="m-auto"><a id="create" class="btn btn-primary" href="#">Apply for Premium</a>
+					</p>
 					{% endif %}
 				</div>
 
