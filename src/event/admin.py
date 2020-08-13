@@ -9,6 +9,9 @@ class EventAdmin(admin.ModelAdmin):
         "date_published",
         "date_updated",
         "author",
+        "premium_applied",
+        "premium_aproved",
+        "priority",
     )
     search_fields = (
         "title",

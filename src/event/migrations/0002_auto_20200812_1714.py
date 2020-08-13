@@ -7,25 +7,35 @@ import event.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('event', '0001_initial'),
+        ("event", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.AlterField(
-            model_name='eventpost',
-            name='category',
-            field=models.CharField(default='null', max_length=100),
+            model_name="eventpost",
+            name="category",
+            field=models.CharField(default="null", max_length=100),
         ),
         migrations.AlterField(
-            model_name='eventpost',
-            name='image',
-            field=models.ImageField(default='pce_logo.png', upload_to=event.models.upload_location),
+            model_name="eventpost",
+            name="image",
+            field=models.ImageField(
+                default="logo.png", upload_to=event.models.upload_location
+            ),
         ),
     ]

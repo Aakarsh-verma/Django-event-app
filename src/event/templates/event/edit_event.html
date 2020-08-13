@@ -86,17 +86,20 @@
 				</div>
 
 				<!-- reg-to -->
-				<div class="form-group">
-					<label for="id_reg_to">Registration to</label>
-					<input class="form-control" type="date" name="reg_to" id="id_reg_to" value="{{form.initial.reg_to}}"
-						required>
+				<div class="form-check form-check-inline">
+					<div class="form-group">
+						<label for="id_reg_to">Registration to</label>
+						<input class="form-control" type="date" name="reg_to" id="id_reg_to" required>
+					</div>
 				</div>
 
-				<!-- reg-from -->
-				<div class="form-group">
-					<label for="id_event_date">Event Date</label>
-					<input class="form-control" type="date" name="event_date" id="id_event_date"
-						placeholder="Event Date" value="{{form.initial.event_date}}" required>
+
+				<!-- event_date -->
+				<div class="form-check form-check-inline">
+					<div class="form-group">
+						<label for="id_event_date">Event Date</label>
+						<input class="form-control" type="date" name="event_date" id="id_event_date" required>
+					</div>
 				</div>
 
 				<!-- fee -->
@@ -110,11 +113,23 @@
 				<div class="form-group">
 					<label for="id_reg_link">Registration Link</label>
 					<input class="form-control" type="url" name="reg_link" id="id_reg_link" placeholder="Link"
-						value="{{form.initial.reg_link}}">
+						value="{{form.initial.reg_link}}" required>
 				</div>
+				<br>
+				<!-- Premium options -->
+				<div class="form-group">
+					<label for="premium_applied">Apply For Premium</label>
+					<select class="form-control" type="search" id="premium_applied" name="premium_applied" required>
+						<option value="Choose...">Choose...</option>
+						<option value="Applied">Apply</option>
+						<option value="Not-Now">Not-Now</option>
+					</select>
+				</div>
+				<div class="form-check form-check-inline"><small><a href="#">Learn about Premium</a></small></div>
 
+				<br>
 				<!-- Image -->
-				<div class="form-group image-group" id="id_image_group">
+				<div class="form-group image-group" id="id_image_group"><br>
 					<img class="img-fluid image" src="{{form.initial.image.url}}" id="id_image_display">
 					<div class="middle">
 						<div class="text">Change image</div>

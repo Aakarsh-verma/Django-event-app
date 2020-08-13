@@ -34,7 +34,7 @@ class EventPost(models.Model):
 
     title = models.CharField(max_length=50, null=False, blank=False)
     body = models.TextField(max_length=5000, null=False, blank=False)
-    image = models.ImageField(upload_to=upload_location, default="pce_logo.png")
+    image = models.ImageField(upload_to=upload_location, default="logo.png")
     category = models.CharField(max_length=100, default="null")
     event_date = models.DateField(
         auto_now_add=False, null=False, blank=False, verbose_name="event date"
@@ -51,6 +51,8 @@ class EventPost(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, unique=True)
     priority = models.IntegerField(default=0)
+    premium_applied = models.CharField(max_length=30, default="No")
+    premium_aproved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

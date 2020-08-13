@@ -13,6 +13,7 @@ class CreateEventPostForm(forms.ModelForm):
             "event_date",
             "fee",
             "reg_link",
+            "premium_applied",
             "image",
         ]
 
@@ -29,6 +30,7 @@ class CreateEventPostForm(forms.ModelForm):
         event_post.reg_to = self.cleaned_data["reg_to"]
         event_post.event_date = self.cleaned_data["event_date"]
         event_post.fee = self.cleaned_data["fee"]
+        event_post.premium_applied = self.cleaned_data["premium_applied"]
         event_post.reg_link = self.cleaned_data["reg_link"]
 
         if self.cleaned_data["image"]:
@@ -45,12 +47,13 @@ class UpdateEventPostForm(forms.ModelForm):
         fields = [
             "title",
             "body",
-            "image",
             "category",
             "reg_to",
             "event_date",
             "fee",
             "reg_link",
+            "premium_applied",
+            "image",
         ]
 
     def clean(self):
@@ -66,6 +69,7 @@ class UpdateEventPostForm(forms.ModelForm):
         event_post.reg_to = self.cleaned_data["reg_to"]
         event_post.event_date = self.cleaned_data["event_date"]
         event_post.fee = self.cleaned_data["fee"]
+        event_post.premium_applied = self.cleaned_data["premium_applied"]
         event_post.reg_link = self.cleaned_data["reg_link"]
 
         if self.cleaned_data["image"]:

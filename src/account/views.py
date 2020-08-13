@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from blog.models import BlogPost
 from account.models import Account
+from event.models import EventPost
+from datetime import datetime, date
 
 
 def registration_view(request):
@@ -72,6 +74,13 @@ def account_view(request):
     # 	return redirect('login')
 
     context = {}
+    event_post = EventPost.objects.filter(author=request.user)
+    for post in event_post:
+        if post.event_date > date.today():
+            if post.premium_applied != "Applied":
+                messages.info(
+                    request, f"You have non premium events Apply For Them in edit"
+                )
 
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
