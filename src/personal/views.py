@@ -147,6 +147,36 @@ def event_home_screen_view(request):
     return render(request, "personal/event_home.html", context)
 
 
+def event_home_screen_view(request):
+    context = {}
+    qry = ""
+    if request.GET:
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
+
+    query = get_event_queryset(qry)
+
+    event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+    event_posts = event_posts.filter("priority" >= 1)
+
+    # Pagination
+    page = request.GET.get("page", 1)
+    event_posts_paginator = Paginator(event_posts, EVENT_POST_PER_PAGE)
+
+    try:
+        event_posts = event_posts_paginator.page(page)
+    except PageNotAnInteger:
+        event_posts = event_posts_paginator.page(EVENT_POST_PER_PAGE)
+    except EmptyPage:
+        event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
+
+    context["event_posts"] = event_posts
+    categorys = EventCategory.objects.all()
+    context["categorys"] = categorys
+
+    return render(request, "personal/premium_events.html", context)
+
+
 def committee_home_screen_view(request):
     context = {}
 

@@ -1,8 +1,10 @@
 from django.db import models
+from django.urls import reverse
 from django.db.models.signals import pre_save, post_delete
 from django.utils.text import slugify
 from django.conf import settings
 from django.dispatch import receiver
+from event.models import EventPost
 
 
 def upload_location(instance, filename, **kwargs):
@@ -39,6 +41,9 @@ class BlogPost(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     # category = models.CharField(max_length=10, choices=CATEGORY_CHOICE, default="ALL")
     category = models.CharField(max_length=100, default="null")
+    related_event = models.ForeignKey(
+        EventPost, null=True, blank=True, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.title

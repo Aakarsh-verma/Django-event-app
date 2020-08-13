@@ -55,6 +55,16 @@
 					</select>
 				</div>
 
+				<!--Related Event-->
+				<div class="form-group">
+					<label for="id_event">Related to Events by you...</label>
+					<select class="form-control" id="id_event" name="event">
+						{% for post in event_post %}
+						<option value="{{post.title}}">{{post.title}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
 				<!-- Image -->
 				<div class="form-group">
 					<label for="id_image">Image</label>

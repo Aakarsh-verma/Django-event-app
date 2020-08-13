@@ -6,15 +6,21 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, Http404
+from account.models import Account
+from event.models import EventPost
 from blog.models import BlogPost, Category
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
-from account.models import Account
 
 
 @login_required
 def create_blog_view(request):
 
     context = {}
+    categorys = Category.objects.all()
+    context["categorys"] = categorys
+
+    event_post = EventPost.objects.filter(author=request.user)
+    context["event_post"] = event_post
 
     user = request.user
     if not user.is_authenticated:
@@ -32,8 +38,6 @@ def create_blog_view(request):
 
         form = CreateBlogPostForm()
         context["form"] = form
-        categorys = Category.objects.all()
-        context["categorys"] = categorys
         return render(request, "blog/create_blog.html", context)
     else:
         raise Http404("Page Not Found")

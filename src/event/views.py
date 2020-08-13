@@ -7,6 +7,7 @@ from django.http import HttpResponse, Http404
 from event.models import EventPost, EventCategory
 from event.forms import CreateEventPostForm, UpdateEventPostForm
 from account.models import Account
+from blog.models import BlogPost
 
 
 @login_required
@@ -40,6 +41,9 @@ def create_event_view(request):
 
 def detail_event_view(request, slug):
     context = {}
+
+    blog_posts = BlogPost.objects.all()
+    context["blog_posts"] = blog_posts
 
     event_post = get_object_or_404(EventPost, slug=slug)
     context["event_post"] = event_post
