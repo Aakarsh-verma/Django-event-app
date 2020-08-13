@@ -21,6 +21,7 @@ from django.conf import settings
 from personal.views import (
     home_screen_view,
     event_home_screen_view,
+    premium_event_screen_view,
     committee_home_screen_view,
 )
 
@@ -38,6 +39,7 @@ urlpatterns = [
     path("account/", account_view, name="account"),
     path("blog/", include("blog.urls", "blog")),
     path("event_home/", event_home_screen_view, name="event-home"),
+    path("premium_events/", premium_event_screen_view, name="premium-events"),
     path("event/", include("event.urls", "event")),
     path("committee_home/", committee_home_screen_view, name="committee-home"),
     path("committee/", include("committee.urls", "committee")),

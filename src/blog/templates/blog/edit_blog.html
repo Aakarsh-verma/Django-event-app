@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}{{blog_post.title}}{% endblock title %}
+
 {% block content %}
 
 <style type="text/css">
@@ -70,6 +73,16 @@
 					<label for="id_body">Content</label>
 					<textarea class="form-control" rows="10" type="text" name="body" id="id_body"
 						placeholder="This blog is about..." required>{{form.initial.body}}</textarea>
+				</div>
+
+				<!--Category-->
+				<div class="form-group">
+					<label for="id_category">Category</label>
+					<select class="form-control" id="id_category" name="category" placeholder="select">
+						{% for category in categorys %}
+						<option value="{{category.name}}">{{category.name}}</option>
+						{% endfor %}
+					</select>
 				</div>
 
 				<!-- Image -->

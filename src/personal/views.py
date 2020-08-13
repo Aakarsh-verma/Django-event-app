@@ -2,16 +2,16 @@ from django.shortcuts import render
 from operator import attrgetter
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
-from blog.models import BlogPost
+from blog.models import BlogPost, Category
 from event.views import get_event_queryset
-from event.models import EventPost
+from event.models import EventPost, EventCategory
 from committee.views import get_committee_queryset
 from committee.models import Committee
 from datetime import date, timedelta
 
 
-BLOG_POST_PER_PAGE = 6
-EVENT_POST_PER_PAGE = 6
+BLOG_POST_PER_PAGE = 10
+EVENT_POST_PER_PAGE = 10
 
 today = date.today()
 yesterday = today - timedelta(days=1)
@@ -75,7 +75,8 @@ def home_screen_view(request):
         blog_posts = blog_posts_paginator.page(blog_posts_paginator.num_pages)
 
     context["blog_posts"] = blog_posts
-
+    categorys = Category.objects.all()
+    context["categorys"] = categorys
     return render(request, "personal/home.html", context)
 
 
@@ -140,8 +141,39 @@ def event_home_screen_view(request):
         event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
 
     context["event_posts"] = event_posts
+    categorys = EventCategory.objects.all()
+    context["categorys"] = categorys
 
     return render(request, "personal/event_home.html", context)
+
+
+def premium_event_screen_view(request):
+    context = {}
+    qry = ""
+    if request.GET:
+        qry = request.GET.get("q", "")
+        context["qry"] = str(qry)
+
+    # query = get_event_queryset(qry)
+    query = EventPost.objects.filter(priority__gte=1)
+    event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+
+    # Pagination
+    page = request.GET.get("page", 1)
+    event_posts_paginator = Paginator(event_posts, EVENT_POST_PER_PAGE)
+
+    try:
+        event_posts = event_posts_paginator.page(page)
+    except PageNotAnInteger:
+        event_posts = event_posts_paginator.page(EVENT_POST_PER_PAGE)
+    except EmptyPage:
+        event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
+
+    context["event_posts"] = event_posts
+    categorys = EventCategory.objects.all()
+    context["categorys"] = categorys
+
+    return render(request, "personal/premium_events.html", context)
 
 
 def committee_home_screen_view(request):

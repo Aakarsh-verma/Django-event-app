@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}{{event_post.title}}{% endblock title %}
+
 {% block content %}
 
 <style type="text/css">
@@ -17,6 +20,19 @@
         white-space: -pre-wrap;
         white-space: -o-pre-wrap;
         word-wrap: break-word;
+    }
+
+    .text {
+        font-size: 35px;
+        text-align: center;
+        color: #00BFFF;
+        animation: blink 1s steps(5, start) infinite;
+    }
+
+    @keyframes blink {
+        to {
+            color: #4169E1;
+        }
     }
 </style>
 
@@ -50,6 +66,24 @@
             </div>
         </div>
         <!--End Event Post-->
+        <div class="container">
+            <legend class="mx-auto text">Recent Updates in Blog</legend>
+
+            {% if blog_posts %}
+            {% for post in blog_posts %}
+            {% if post.related_event.title == event_post.title %}
+            <div class="blog-post-container mt-2">
+                {% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <div class="blog-post-container">
+                {% include 'blog/snippets/blog_post_snippet.html' with query=query %}
+            </div>
+            {% endif %}
+        </div>
+
 
     </div>
 </div>

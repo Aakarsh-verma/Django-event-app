@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}Event Add- New Blog{% endblock title %}
+
 {% block content %}
 
 <style type="text/css">
@@ -42,6 +45,26 @@
 						placeholder="This blog is about..." required></textarea>
 				</div>
 
+				<!--Category-->
+				<div class="form-group">
+					<label for="id_category">Category</label>
+					<select class="form-control" id="id_category" name="category" placeholder="select">
+						{% for category in categorys %}
+						<option value="{{category.name}}">{{category.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<!--Related Event-->
+				<div class="form-group">
+					<label for="id_event">Related to Events by you...</label>
+					<select class="form-control" id="id_event" name="event">
+						{% for post in event_post %}
+						<option value="{{post.title}}">{{post.title}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
 				<!-- Image -->
 				<div class="form-group">
 					<label for="id_image">Image</label>
@@ -49,9 +72,8 @@
 				</div>
 
 				<!-- Submit btn -->
-				<div class="row">
-					<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">POST</button>
-				</div>
+				<button class="submit-button btn btn-lg btn-primary" type="submit">POST</button>
+				<a href="{% url 'home' %}" type="button" class="btn btn-lg btn-danger">CANCEL</a>
 			</form>
 		</div>
 	</div>
