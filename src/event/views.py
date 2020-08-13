@@ -53,11 +53,7 @@ def edit_event_view(request, slug):
     categorys = EventCategory.objects.all()
 
     user = request.user
-    if not user.is_authenticated:
-        return redirect("must_authenticate")
-
     event_post = get_object_or_404(EventPost, slug=slug)
-
     if event_post.author != user:
         return HttpResponse("You are not the author of that post.")
 

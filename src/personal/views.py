@@ -4,7 +4,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
 from blog.models import BlogPost, Category
 from event.views import get_event_queryset
-from event.models import EventPost
+from event.models import EventPost, EventCategory
 from committee.views import get_committee_queryset
 from committee.models import Committee
 from datetime import date, timedelta
@@ -141,6 +141,8 @@ def event_home_screen_view(request):
         event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
 
     context["event_posts"] = event_posts
+    categorys = EventCategory.objects.all()
+    context["categorys"] = categorys
 
     return render(request, "personal/event_home.html", context)
 

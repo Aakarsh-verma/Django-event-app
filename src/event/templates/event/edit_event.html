@@ -75,31 +75,28 @@
 						placeholder="This event is about..." required>{{form.initial.body}}</textarea>
 				</div>
 
-				<!-- Category -->
+				<!--Category-->
 				<div class="form-group">
 					<label for="id_category">Category</label>
-					<select class="form-control" id="id_category" name="category" value="{{form.initial.category}}"
-						placeholder="{{form.initial.category}}">
-						<option value="COMP/IT">COMP/IT</option>
-						<option value="EXTC/ETRX">EXTC/ETRX</option>
-						<option value="MECH/AUTO">MECH/AUTO</option>
-						<option value="ALL">ALL</option>
-						<option value="NON-TECH">NON-TECH</option>
+					<select class="form-control" id="id_category" name="category">
+						{% for category in categorys %}
+						<option value="{{category.name}}">{{category.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 
 				<!-- reg-to -->
 				<div class="form-group">
 					<label for="id_reg_to">Registration to</label>
-					<input class="form-control" type="date" name="reg_to" id="id_reg_to" placeholder="End Date"
-						value="{{form.initial.reg_to}}">
+					<input class="form-control" type="date" name="reg_to" id="id_reg_to" value="{{form.initial.reg_to}}"
+						required>
 				</div>
 
 				<!-- reg-from -->
 				<div class="form-group">
 					<label for="id_event_date">Event Date</label>
 					<input class="form-control" type="date" name="event_date" id="id_event_date"
-						placeholder="Event Date" value="{{form.initial.event_date}}">
+						placeholder="Event Date" value="{{form.initial.event_date}}" required>
 				</div>
 
 				<!-- fee -->
@@ -159,6 +156,12 @@
 		};
 		reader.readAsDataURL(input.files[0]);
 	}
+	var today = new Date().toISOString().split('T')[0];
+	document.getElementsByName("reg_to")[0].setAttribute('min', today);
+
+	var today = new Date().toISOString().split('T')[0];
+	document.getElementsByName("event_date")[0].setAttribute('min', today);
+
 </script>
 
 {% endblock content %}
