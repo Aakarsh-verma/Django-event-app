@@ -26,7 +26,7 @@ class EventCategory(models.Model):
 class EventPost(models.Model):
 
     title = models.CharField(max_length=50, null=False, blank=False)
-    body = models.TextField(max_length=5000, null=False, blank=False)
+    body = models.TextField(max_length=500, null=False, blank=False)
     image = models.ImageField(upload_to=upload_location, default="logo.png")
     category = models.CharField(max_length=100, default="null")
     event_date = models.DateField(
