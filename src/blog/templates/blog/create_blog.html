@@ -32,7 +32,35 @@
 				{% endif %}
 
 
-				{{form.as_p}}
+				<div>
+					<label for="id_title">Title</label>
+					<p>{{form.title}}</p>
+				</div>
+
+				<div>
+					<label for="id_category">Category</label>
+					<p>{{form.category}}</p>
+				</div>
+
+				<div>
+					<label for="id_body">Content</label>
+					<p>{{form.body}}</p>
+				</div>
+
+				<div class="form-group">
+					<label for="id_related_event">Is It Related to Events You Posted...</label>
+					<select class="form-control" id="id_related_event" name="related_event">
+						<option value="None">None</option>
+						{% for post in event_posts %}
+						<option value="{{post.title}}">{{post.title}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="id_image">Image</label>
+					<input type="file" name="image" id="id_image" accept="image/*" required>
+				</div>
 
 				<!--<div class="form-group">
 					{{ form.title.errors }}

@@ -61,7 +61,26 @@
 
 			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
 
-				{{form.as_p}}
+				<div>
+					<label for="id_title">Title</label>
+					<p>{{form.title}}</p>
+				</div>
+
+				<div>
+					<label for="id_category">Category</label>
+					<p>{{form.category}}</p>
+				</div>
+
+				<div>
+					<label for="id_body">Content</label>
+					<p>{{form.body}}</p>
+				</div>
+
+				<div>
+					<label for="id_related_event">Related to Event (if Any)</label>
+					<p>{{form.related_event}}</p>
+				</div>
+
 				<!--<div class="form-group">
 					{{ form.title.errors }}
 					<label for="{{ form.subject.id_for_label }}">Title</label>

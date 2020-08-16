@@ -22,13 +22,6 @@ class Category(models.Model):
 
 
 class BlogPost(models.Model):
-    #    CATEGORY_CHOICE = [
-    #        ("COMP/IT", "Computer"),
-    #        ("EXTC/ETRX", "Electrical"),
-    #        ("MECH/AUTO", "Mechanical"),
-    #        ("ALL", "All"),
-    #        ("NON-TECH", "Non-Technical"),
-    #    ]
 
     title = models.CharField(max_length=120, null=False, blank=False)
     body = models.TextField(max_length=5000, null=False, blank=False)
@@ -39,7 +32,6 @@ class BlogPost(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name="date updated")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, unique=True)
-    # category = models.CharField(max_length=10, choices=CATEGORY_CHOICE, default="ALL")
     category = models.CharField(max_length=100, default="null")
     related_event = models.ForeignKey(
         EventPost, null=True, blank=True, on_delete=models.CASCADE
