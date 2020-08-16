@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+	@media (max-width: 768px) {
+		.right-column {
+			margin-left: 0px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.right-column {
+			margin-left: 20px;
+		}
+	}
+
+	.blog-post-container {
+		margin-bottom: 20px;
+		width: 100%;
+	}
+
+	.create-post-bar {
+		background-color: #fff;
+		margin-bottom: 20px;
+	}
+
+	.left-column {
+		padding: 0px;
+	}
+
+	.right-column {
+		padding: 0px;
+	}
+
+	.lead {
+		font-size: 17px;
+	}
+
+	.filter {
+		margin-left: 360px;
+		width: 200px;
+		height: 80px;
+		padding: 5px;
+	}
+
+	#create {
+		animation: fadeInAnimation ease 8s;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+	}
+
+	.flex-container {
+		display: flex;
+	}
+
+	div.sticky {
+		position: -webkit-sticky;
+		/* Safari */
+		position: sticky;
+		top: 0;
+	}
+
+	#filters {
+		margin-left: auto;
+		margin-bottom: auto;
+		min-width: 200px;
+	}
+</style>
+
+<div class="flex-container">
+
+	<!-- Left Filters -->
+	<div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters">
+		<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
+			<h6 class="p-2 text-white">Filters</h6>
+		</div>
+		<form method="GET" action=".">
+			<div class="p-1">
+				<!-- event_date -->
+
+				<div class="form-group">
+					<label for="id_date">Date Updated</label>
+					<select class="form-control" type="search" id="id_category" name="date">
+						<option value="Choose...">Choose...</option>
+						<option value="LATEST">LATEST</option>
+						<option value="OLDEST">OLDEST</option>
+						<option value="TODAY">TODAY</option>
+						<option value="YESTERDAY">YESTERDAY</option>
+					</select>
+				</div>
+
+				<!--Category-->
+				<div class="form-group">
+					<label for="id_category">Category</label>
+					<select class="form-control" type="search id=" id_category" name="category">
+						<option value="Choose...">Choose...</option>
+						{% for category in categorys %}
+						<option value="{{category.name}}">{{category.name}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<button type="submit" class="m-auto btn btn-primary">Search</button>
+			</div>
+		</form>
+
+	</div>
+	<!-- main content -->
+	<div class="m-auto container">
+		<div class="row">
+
+
+			<!-- blog feed -->
+			<div class="left-column col-lg-7 offset-lg-1">
+				<!--Top Filters-->
+				<div class="bg-white shadow-lg d-sm-none d-flex flex-column">
+					<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
+						<h6 class="p-2 text-white">Filters</h6>
+					</div>
+					<form method="GET" action=".">
+						<div class="p-1">
+							<!-- event_date -->
+
+							<div class="form-group">
+								<label for="id_date">Date Updated</label>
+								<select class="form-control" type="search" id="id_category" name="date">
+									<option value="Choose...">Choose...</option>
+									<option value="LATEST">LATEST</option>
+									<option value="OLDEST">OLDEST</option>
+									<option value="TODAY">TODAY</option>
+									<option value="YESTERDAY">YESTERDAY</option>
+								</select>
+							</div>
+
+							<!-- Category -->
+							<div class="form-group">
+								<label for="id_category">Category</label>
+								<select class="form-control" type="search" id="id_category" name="category"
+									placeholder="select">
+									<option value="Choose...">Choose...</option>
+									<option value="COMP/IT">COMP/IT</option>
+									<option value="EXTC/ETRX">EXTC/ETRX</option>
+									<option value="MECH/AUTO">MECH/AUTO</option>
+									<option value="ALL">ALL</option>
+									<option value="NON-TECH">NON-TECH</option>
+								</select>
+							</div>
+							<button type="submit" class="m-auto btn btn-primary">Search</button>
+						</div>
+					</form>
+
+				</div>
+				<!-- Top 'create post' bar -->
+				<div class="d-lg-none mb-3">
+					<div class="card m-auto d-flex flex-column p-3 mt-2">
+						<img class="img-fluid d-block m-auto pb-2" src="{% static 'logo.png' %}" width="72" height="72">
+						<p class="lead-bold">This is the official PCE website where students will be
+							updated about all events/workshops and other events happening
+							in and out of college by faculty and commmittee members.</p>
+						{% if user.is_staff or user.is_faculty %}
+						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+						{% endif %}
+					</div>
+				</div>
+				<!-- end Top 'create post' bar -->
+
+				<!-- Blog posts-->
+				{% if blog_posts %}
+				{% for post in blog_posts %}
+				<div class="blog-post-container mt-2">
+					{% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+				</div>
+				{% endfor %}
+				{% else %}
+				<div class="blog-post-container">
+					{% include 'blog/snippets/blog_post_snippet.html' with query=query %}
+				</div>
+				{% endif %}
+				<!-- End Blog posts-->
+				<!-- Pagination -->
+				{% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
+
+			</div>
+			<!-- end blog feed -->
+
+			<!-- Right 'create post' column  -->
+			<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+
+				<div class="card create-post-bar d-flex flex-column p-3 shadow-lg">
+					<img class="img-fluid d-block m-auto pb-2" src="{% static 'logo.png' %}" width="72" height="72">
+					<p class="lead-bold">This is the official PCE website where students will be
+						updated about all events/workshops and other events happening
+						in and out of college by faculty and commmittee members.</p>
+					{% if user.is_staff or user.is_faculty %}
+					<p id="create" class="m-auto"><a id="create" class="btn btn-primary"
+							href="{% url 'blog:create' %}">Create post</a></p>
+					{% endif %}
+				</div>
+
+			</div>
+			<!-- end Right 'create post' column  -->
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock content %}

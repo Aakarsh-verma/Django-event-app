@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Account{% endblock title %}
+
+{% block content %}
+
+<style type="text/css">
+  .form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+
+  .form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="username"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .h3 {
+    text-align: center;
+  }
+
+  .blog-posts {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .content-section {
+    background: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+  }
+
+  .account-heading {
+    font-size: 2.5rem;
+  }
+
+  .right-column {
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 1000px;
+  }
+</style>
+
+
+<div class="content-section">
+  <h2 class="account-heading">{{ user.username }}</h2>
+  <p class="text-secondary">{{ user.email }}</p>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Profile Info</legend>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required
+          autofocus value="{{account_form.initial.email}}">
+
+        <label for="exampleInputEmail1" class="mt-4">Username</label>
+        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required
+          value="{{account_form.initial.username}}">
+      </div>
+    </fieldset>
+    {% for field in login_form %}
+    <p>
+      {% for error in field.errors %}
+    <p style="color: red;">{{error}}</p>
+    {% endfor %}
+    </p>
+    {% endfor %}
+    {% if account_form.non_field_errors %}
+    <div style="color: red;">
+      <p>{{account_form.non_field_errors}}</p>
+    </div>
+    {% endif %}
+
+    
+
+    <div class="row">
+      <button type="submit" class="mx-3 btn btn-primary">Save Changes</button>
+      <div class="mx-4 d-flex flex-column">
+        <a class="m-auto" href="{% url 'password_change' %}">Change Password</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container mx-0 mt-4 p-4">
+  <div class="row">
+    <div class="blog-posts">
+      {% if user.is_staff or user.is_faculty %}
+      <h3 class="mx-auto mb-3 font-weight-normal">Blog Posts</h3>
+      {% if blog_posts %}
+      <ul style="margin: 0; padding: 0;">
+        {% for post in blog_posts %}
+        <a href="{% url 'blog:detail' post.slug %}" style="text-decoration: none;">
+          <li class="list-group-item">{{post}}</li>
+        </a>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>You have no blog posts. Create one <a href="{% url 'blog:create' %}">here!</a> </p>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
