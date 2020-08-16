@@ -27,6 +27,11 @@ def create_event_view(request):
                 obj.save()
                 messages.success(request, f"Your Event has been posted successfully!")
                 return redirect("event-home")
+            # else:
+            #    print(form)
+            #    print("Invalid Form")
+            #    print(form.errors)
+            #    return render(request, "event/create_event.html", {"form": form})
         else:
             form = CreateEventPostForm()
             context["form"] = form

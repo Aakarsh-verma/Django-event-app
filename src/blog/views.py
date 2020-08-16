@@ -19,8 +19,8 @@ def create_blog_view(request):
     categorys = Category.objects.all()
     context["categorys"] = categorys
 
-    event_post = EventPost.objects.filter(author=request.user)
-    context["event_post"] = event_post
+    event_posts = EventPost.objects.filter(author=request.user)
+    context["event_posts"] = event_posts
 
     user = request.user
     if not user.is_authenticated:
@@ -35,6 +35,11 @@ def create_blog_view(request):
             obj.save()
             messages.success(request, f"Your Blog has been posted successfully!")
             return redirect("home")
+        else:
+            print(form)
+            print("Invalid Form")
+            print(form.errors)
+            return render(request, "blog/create_blog.html", {"form": form})
 
         form = CreateBlogPostForm()
         context["form"] = form
@@ -75,11 +80,18 @@ def edit_blog_view(request, slug):
             messages.success(request, f"Your Post has been updated successfully!")
             blog_post = obj
             return redirect("home")
+        else:
+            print(form)
+            print("Invalid Form")
+            print(form.errors)
+            return render(request, "blog/edit_blog.html", {"form": form})
 
     form = UpdateBlogPostForm(
         initial={
             "title": blog_post.title,
+            "category": blog_post.category,
             "body": blog_post.body,
+            "related_event": blog_post.related_event,
             "image": blog_post.image,
         }
     )
