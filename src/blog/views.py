@@ -35,6 +35,11 @@ def create_blog_view(request):
             obj.save()
             messages.success(request, f"Your Blog has been posted successfully!")
             return redirect("home")
+        else:
+            print(form)
+            print("Invalid Form")
+            print(form.errors)
+            return render(request, "blog/create_blog.html", {"form": form})
 
         form = CreateBlogPostForm()
         context["form"] = form
