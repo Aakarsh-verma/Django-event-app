@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from operator import attrgetter
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
@@ -46,6 +47,7 @@ def detail_event_view(request, slug):
     context = {}
 
     blog_posts = BlogPost.objects.all()
+    blog_posts = sorted(blog_posts, key=attrgetter("date_updated"), reverse=True)
     context["blog_posts"] = blog_posts
 
     event_post = get_object_or_404(EventPost, slug=slug)

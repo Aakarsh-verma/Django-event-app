@@ -82,6 +82,7 @@
                 {% include 'blog/snippets/blog_post_snippet.html' with query=query %}
             </div>
             {% endif %}
+            {% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
         </div>
 
 
