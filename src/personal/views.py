@@ -2,7 +2,7 @@ from django.shortcuts import render
 from operator import attrgetter
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
-from blog.models import BlogPost  # , Category
+from blog.models import BlogPost, Category
 from event.views import get_event_queryset
 from event.models import EventPost, EventCategory
 from committee.views import get_committee_queryset

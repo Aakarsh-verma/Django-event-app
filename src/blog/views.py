@@ -19,12 +19,7 @@ def create_blog_view(request):
     categorys = Category.objects.all()
     context["categorys"] = categorys
 
-    event_posts = EventPost.objects.filter(author=request.user)
-    context["event_posts"] = event_posts
-
     user = request.user
-    if not user.is_authenticated:
-        return redirect("must_authenticate")
 
     if user.is_staff == 1 or user.is_faculty == 1:
         form = CreateBlogPostForm(request.POST or None, request.FILES or None)
@@ -38,6 +33,8 @@ def create_blog_view(request):
 
         form = CreateBlogPostForm()
         context["form"] = form
+        event_posts = EventPost.objects.filter(author=request.user)
+        context["event_posts"] = event_posts
         return render(request, "blog/create_blog.html", context)
     else:
         raise Http404("Page Not Found")
