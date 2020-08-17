@@ -30,11 +30,11 @@ def registration_view(request):
             )
             return redirect("home")
         else:
-            context["registration_form"] = form
+            context["form"] = form
 
     else:
         form = RegistrationForm()
-        context["registration_form"] = form
+        context["form"] = form
     return render(request, "account/register.html", context)
 
 
@@ -65,7 +65,7 @@ def login_view(request):
     else:
         form = AccountAuthenticationForm()
 
-    context["login_form"] = form
+    context["form"] = form
     return render(request, "account/login.html", context)
 
 

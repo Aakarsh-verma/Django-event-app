@@ -8,7 +8,7 @@
 <style type="text/css">
   .form-signin {
     width: 100%;
-    max-width: 330px;
+    max-width: 500px;
     padding: 15px;
     margin: auto;
   }
@@ -52,21 +52,14 @@
   }
 </style>
 
-<form class="form-signin" method="post">{% csrf_token %}
+<form class="form-signin bg-white shadow-md" method="post">{% csrf_token %}
   <div class="d-flex flex-column pb-3">
     <img class="img-fluid mx-auto d-block" src="{% static 'logo.png' %}" alt="logo" width="72" height="72">
   </div>
 
   <h1 class="h3 mb-3 font-weight-normal">Register An Account</h1>
 
-  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-
-  <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
-
-  <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
-
-  <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm Password"
-    required>
+  {{ form.as_p }}
 
   {% for field in registration_form %}
   <p>
@@ -81,7 +74,7 @@
   </div>
   {% endif %}
 
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+  <button class="btn btn-lg btn-primary" type="submit">Register</button>
 
 </form>
 
