@@ -13,16 +13,6 @@ def upload_location(instance, filename, **kwargs):
     return file_path
 
 
-class EventCategory(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("home")
-
-
 class EventPost(models.Model):
 
     title = models.CharField(max_length=50, null=False, blank=False)
@@ -49,6 +39,16 @@ class EventPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class EventCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("home")
 
 
 @receiver(post_delete, sender=EventPost)

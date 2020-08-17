@@ -6,7 +6,9 @@ from .models import Account
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
-        max_length=254, help_text="Required. Add a valid email address."
+        max_length=254,
+        help_text="Required. Add a valid email address.",
+        widget=forms.EmailInput(attrs={"class": "form-control"}),
     )
 
     class Meta:
@@ -18,6 +20,13 @@ class RegistrationForm(UserCreationForm):
             "password2",
         )
 
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+
+        self.fields["username"].widget.attrs["class"] = "form-control"
+        self.fields["password1"].widget.attrs["class"] = "form-control"
+        self.fields["password2"].widget.attrs["class"] = "form-control"
+
 
 class AccountAuthenticationForm(forms.ModelForm):
 
@@ -26,6 +35,12 @@ class AccountAuthenticationForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ("email", "password")
+
+    def __init__(self, *args, **kwargs):
+        super(AccountAuthenticationForm, self).__init__(*args, **kwargs)
+
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["password"].widget.attrs["class"] = "form-control"
 
     def clean(self):
         if self.is_valid:

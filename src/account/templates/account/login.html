@@ -52,9 +52,7 @@
   </div>
   <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
-  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-
-  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+  {{ form.as_p }}
 
   {% for field in login_form %}
   <p>
