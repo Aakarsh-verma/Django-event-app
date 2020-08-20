@@ -44,7 +44,7 @@ def registration_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("home")
+    return redirect("event-home")
 
 
 def login_view(request):
