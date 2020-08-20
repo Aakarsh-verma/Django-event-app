@@ -78,27 +78,27 @@
             <p class="text-secondary">{{ profile.email }}</p>
             <p class="text-muted">
                 {% if profile.website_url %}
-                <a href="{{profile.website_url}}">
+                <a href="{{profile.website_url}}" target="_blank">
                     <img src="{% static 'icons/website.png' %}" height="40" width="40" alt="webicon">
                 </a>
                 {% endif %}
                 {% if profile.facebook_url %}
-                <a href="{{profile.facebook_url}}">
+                <a href="{{profile.facebook_url}}" target="_blank">
                     <img src="{% static 'icons/facebook.png' %}" height="40" width="40" alt="facebookicon">
                 </a>
                 {% endif %}
                 {% if profile.twitter_url %}
-                <a href="{{profile.twitter_url}}">
+                <a href="{{profile.twitter_url}}" target="_blank">
                     <img src="{% static 'icons/twitter.png' %}" height="40" width="40" alt="twittericon">
                 </a>
                 {% endif %}
                 {% if profile.instagram_url %}
-                <a href="{{profile.instagram_url}}">
+                <a href="{{profile.instagram_url}}" target="_blank">
                     <img src="{% static 'icons/instagram.png' %}" height="40" width="40" alt="instagramicon">
                 </a>
                 {% endif %}
                 {% if profile.youtube_url %}
-                <a href="{{profile.youtube_url}}">
+                <a href="{{profile.youtube_url}}" target="_blank">
                     <img src="{% static 'icons/youtube.png' %}" height="40" width="40" alt="youtubeicon">
                 </a>
                 {% endif %}
