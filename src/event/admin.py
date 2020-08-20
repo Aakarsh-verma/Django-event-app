@@ -1,5 +1,5 @@
 from django.contrib import admin
-from event.models import EventPost, EventCategory
+from event.models import EventPost, EventCategory, Profile
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -26,3 +26,4 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(EventPost, EventAdmin)
 admin.site.register(EventCategory)
+admin.site.register(Profile)

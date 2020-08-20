@@ -19,11 +19,11 @@ from account.views import (
 )
 
 urlpatterns = [
-    path("", home_screen_view, name="home"),
+    path("", event_home_screen_view, name="event-home"),
+    path("blog_home/", home_screen_view, name="home"),
     path("admin/", admin.site.urls),
     path("account/", account_view, name="account"),
     path("blog/", include("blog.urls", "blog")),
-    path("event_home/", event_home_screen_view, name="event-home"),
     path("premium_events/", premium_event_screen_view, name="premium-events"),
     path("event/", include("event.urls", "event")),
     path("committee_home/", committee_home_screen_view, name="committee-home"),

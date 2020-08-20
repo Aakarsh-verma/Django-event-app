@@ -48,7 +48,9 @@
 			<div class="card-footer text-muted">
 				<b>{{event_post.category}}</b> | Updated on {{event_post.date_updated}}
 				by
-				{{event_post.author.username}}
+				<a href="{% url 'event:author-view' event_post.author.id %}">
+					{{event_post.author.username}}
+				</a>
 			</div>
 		</div>
 	</div>

@@ -45,6 +45,7 @@
 				<div class="form-group">
 					<label for="id_related_event">Is It Related to Events You Posted...</label>
 					<select class="form-control" id="id_related_event" name="related_event">
+						<option value="">---------</option>
 						{% for post in event_posts %}
 						<option value="{{post.id}}">{{post.title}}</option>
 						{% endfor %}

@@ -28,7 +28,9 @@
 
         <!--Blog Post-->
         <div class="card m-auto">
+            {% if blog_post.image %}
             <img class="card-img-top" src="{{blog_post.image.url}}" alt="{{blog_post.image.url}}">
+            {% endif %}
             <div class="card-body my-2">
                 <h2 class="card-title">{{blog_post.title}}</h2>
                 <pre class="card-text">{{blog_post.body|safe}}</pre>

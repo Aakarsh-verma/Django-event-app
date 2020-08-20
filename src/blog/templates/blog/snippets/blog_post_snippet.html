@@ -23,9 +23,10 @@
 	<div class="row">
 		<!-- Blog Post -->
 		<div class="card m-auto">
+			{% if blog_post.image %}
 			<a href="{% url 'blog:detail' post.slug %}">
 				<img class="card-img-top" src="{{blog_post.image.url}}">
-			</a>
+			</a> {% endif %}
 			<div class="card-body mt-2 mb-2">
 				<a href="{% url 'blog:detail' post.slug %}">
 					<h2 class="card-title">{{blog_post.title}}</h2>

@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from django.views.generic import CreateView
 from operator import attrgetter
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from blog.models import BlogPost
 from event.views import get_event_queryset
 from account.models import Account
-from event.models import EventPost
+from event.models import EventPost, Profile
+from event.forms import ProfileUpdateForm
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 
@@ -17,7 +19,7 @@ def registration_view(request):
 
     user = request.user
     if user.is_authenticated:
-        return redirect("home")
+        return redirect("event-home")
 
     if request.POST:
         form = RegistrationForm(request.POST)
@@ -30,7 +32,7 @@ def registration_view(request):
             messages.success(
                 request, f"Registration successfull!You are now able to login!"
             )
-            return redirect("home")
+            return redirect("event-home")
         else:
             context["form"] = form
 
@@ -51,7 +53,7 @@ def login_view(request):
 
     user = request.user
     if user.is_authenticated:
-        return redirect("home")
+        return redirect("event-home")
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
@@ -62,7 +64,7 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                return redirect("home")
+                return redirect("event-home")
 
     else:
         form = AccountAuthenticationForm()
@@ -81,21 +83,32 @@ def account_view(request):
     context["apply"] = apply
 
     event_post = EventPost.objects.filter(author=request.user)
+    if not Profile.objects.filter(user=request.user):
+        return redirect("../event/profile/" + str(request.user.id))
+
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
+        p_form = ProfileUpdateForm(
+            request.POST or None, request.FILES or None, instance=request.user.profile,
+        )
+        if form.is_valid() and p_form.is_valid():
             form.initial = {
                 "email": request.POST["email"],
                 "username": request.POST["username"],
             }
+            obj = p_form.save(commit=False)
+            obj.save()
             form.save()
             messages.success(request, f"Profile Update successfull!")
     else:
         form = AccountUpdateForm(
             initial={"email": request.user.email, "username": request.user.username,}
         )
+        p_form = ProfileUpdateForm(
+            initial={"profile_pic": request.user.profile.profile_pic}
+        )
     context["form"] = form
-
+    context["p_form"] = p_form
     # qry = ""
     # if request.GET:
     #    qry = request.GET.get("q", "")

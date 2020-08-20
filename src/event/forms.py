@@ -1,10 +1,48 @@
 from django import forms
-from event.models import EventPost, EventCategory
+from event.models import EventPost, EventCategory, Profile
+from account.models import Account
 
 choices = EventCategory.objects.all().values_list("name", "name")
 choice_list = []
 for item in choices:
     choice_list.append(item)
+
+
+class CreateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["user", "profile_pic"]
+
+        widgets = {
+            "user": forms.TextInput(attrs={"class": "form-control", "hidden": "True"})
+        }
+
+
+class AddSocialLinksForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = (
+            "website_url",
+            "facebook_url",
+            "twitter_url",
+            "instagram_url",
+            "youtube_url",
+        )
+
+    def __init__(self, *args, **kwargs):
+        super(AddSocialLinksForm, self).__init__(*args, **kwargs)
+
+        self.fields["website_url"].widget.attrs["class"] = "form-control"
+        self.fields["facebook_url"].widget.attrs["class"] = "form-control"
+        self.fields["twitter_url"].widget.attrs["class"] = "form-control"
+        self.fields["instagram_url"].widget.attrs["class"] = "form-control"
+        self.fields["youtube_url"].widget.attrs["class"] = "form-control"
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["profile_pic"]
 
 
 class CreateEventPostForm(forms.ModelForm):
