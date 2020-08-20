@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm{% endblock title %}
+
+{% block content %}
+
+<style type="text/css">
+    .create-form {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: auto;
+    }
+
+    .submit-button {
+        max-width: 200px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-7 offset-lg-1  bg-white shadow-lg">
+            <form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+                % include 'event/snippets/form_errors_snippet.html' %}
+                <h2>
+                    <legend class="border-bottom mb-4">{{ event_post.title }} by {{ event_post.author.username }}
+                    </legend>
+                </h2>
+                <div>
+                    {{ form.as_p }}
+                </div>
+                <button class="submit-button btn btn-primary" type="submit">Apply</button>
+                <a href="{% url 'event:apply_premium' %}" type="button" class="btn btn-danger">CANCEL</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

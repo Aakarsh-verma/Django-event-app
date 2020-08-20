@@ -11,7 +11,7 @@ for item in choices:
 class CreateBlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ["title", "category", "body", "related_event", "image"]
+        fields = ["title", "category", "body", "image", "related_event"]
 
         widgets = {
             "title": forms.TextInput(
@@ -23,14 +23,20 @@ class CreateBlogPostForm(forms.ModelForm):
             "body": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Content.."}
             ),
-            "related_event": forms.Select(attrs={"class": "form-control"}),
         }
+
+    def clean(self):
+        if self.is_valid:
+            if EventPost.objects.filter(title=self.cleaned_data["title"]):
+                raise forms.ValidationError(
+                    "That Title is already taken, try adding your institue or commitee name!"
+                )
 
 
 class UpdateBlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ["title", "category", "body", "related_event", "image"]
+        fields = ["title", "category", "body", "image", "related_event"]
 
         widgets = {
             "title": forms.TextInput(
@@ -42,5 +48,11 @@ class UpdateBlogPostForm(forms.ModelForm):
             "body": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Content.."}
             ),
-            "related_event": forms.Select(attrs={"class": "form-control"}),
         }
+
+    def clean(self):
+        if self.is_valid:
+            if EventPost.objects.filter(title=self.cleaned_data["title"]):
+                raise forms.ValidationError(
+                    "That Title is already taken, try adding your institue or commitee name!"
+                )

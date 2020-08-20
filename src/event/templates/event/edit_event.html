@@ -61,73 +61,62 @@
 
 			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
 
-				<!-- title -->
-				<div class="form-group">
+				{% include 'event/snippets/form_errors_snippet.html' %}
+
+				<!-- Title -->
+				<div>
 					<label for="id_title">Title</label>
-					<input class="form-control" type="text" name="title" id="id_title" placeholder="Title"
-						value="{{form.initial.title}}" required autofocus>
+					<p>{{form.title}}</p>
 				</div>
 
-				<!-- Body -->
-				<div class="form-group">
-					<label for="id_body">Content</label>
-					<textarea class="form-control" rows="10" type="text" name="body" id="id_body"
-						placeholder="This event is about..." required>{{form.initial.body}}</textarea>
-				</div>
-
-				<!--Category-->
-				<div class="form-group">
+				<!-- Category -->
+				<div>
 					<label for="id_category">Category</label>
-					<select class="form-control" id="id_category" name="category">
-						{% for category in categorys %}
-						<option value="{{category.name}}">{{category.name}}</option>
-						{% endfor %}
-					</select>
+					<p>{{form.category}}</p>
 				</div>
 
-				<!-- reg-to -->
+				<!-- Content -->
+				<div>
+					<label for="id_body">Content</label>
+					<p>{{form.body}}</p>
+				</div>
+
+				<!-- reg_to -->
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_reg_to">Registration to</label>
-						<input class="form-control" type="date" name="reg_to" id="id_reg_to" required>
+						<input class="form-control" type="date" name="reg_to" id="id_reg_to">
 					</div>
 				</div>
-
 
 				<!-- event_date -->
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_event_date">Event Date</label>
-						<input class="form-control" type="date" name="event_date" id="id_event_date" required>
+						<input class="form-control" type="date" name="event_date" id="id_event_date">
 					</div>
 				</div>
 
-				<!-- fee -->
-				<div class="form-group">
+				<!-- Fee -->
+				<div>
 					<label for="id_fee">Fee</label>
-					<input class="form-control" type="number" name="fee" id="id_fee" placeholder="Fee"
-						value="{{form.initial.fee}}">
+					<p>{{form.fee}}</p>
 				</div>
 
-				<!-- reg_link -->
-				<div class="form-group">
-					<label for="id_reg_link">Registration Link</label>
-					<input class="form-control" type="url" name="reg_link" id="id_reg_link" placeholder="Link"
-						value="{{form.initial.reg_link}}" required>
+				<!-- Registration -->
+				<div>
+					<label for="id_reg_link">Registration link</label>
+					<p>{{form.reg_link}}</p>
 				</div>
-				<br>
-				<!-- Premium options -->
-				<div class="form-group">
-					<label for="premium_applied">Apply For Premium</label>
-					<select class="form-control" type="search" id="premium_applied" name="premium_applied" required>
-						<option value="Choose...">Choose...</option>
-						<option value="Applied">Apply</option>
-						<option value="Not-Now">Not-Now</option>
-					</select>
-				</div>
-				<div class="form-check form-check-inline"><small><a href="#">Learn about Premium</a></small></div>
 
-				<br>
+				<!-- premium_applied -->
+				<div>
+					<label for="id_premium_applied">Apply for Premium
+						<small style="color:blue;">(Leave Unchecked If you
+							dont want to)</small></label>
+					<p>{{form.premium_applied}}</p>
+				</div>
+
 				<!-- Image -->
 				<div class="form-group image-group" id="id_image_group"><br>
 					<img class="img-fluid image" src="{{form.initial.image.url}}" id="id_image_display">
@@ -136,20 +125,6 @@
 					</div>
 				</div>
 				<input type="file" name="image" id="id_image_file" accept="image/*" onchange="readURL(this)">
-
-
-				{% for field in form %}
-				<p>
-					{% for error in field.errors %}
-				<p style="color: red;">{{ error }}</p>
-				{% endfor %}
-				</p>
-				{% endfor %}
-				{% if form.non_field_errors %}
-				<div style="color: red">
-					<p>{{form.non_field_errors}}</p>
-				</div>
-				{% endif %}
 
 				<!-- Submit btn -->
 				<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">Update</button>

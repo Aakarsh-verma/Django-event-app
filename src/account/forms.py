@@ -55,6 +55,12 @@ class AccountUpdateForm(forms.ModelForm):
         model = Account
         fields = ("email", "username")
 
+    def __init__(self, *args, **kwargs):
+        super(AccountUpdateForm, self).__init__(*args, **kwargs)
+
+        self.fields["email"].widget.attrs["class"] = "form-control"
+        self.fields["username"].widget.attrs["class"] = "form-control"
+
     def clean_email(self):
         if self.is_valid:
             email = self.cleaned_data["email"]

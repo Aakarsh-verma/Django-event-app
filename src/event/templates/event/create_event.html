@@ -21,37 +21,27 @@
 	<div class="row">
 		<div class="col-lg-7 offset-lg-1">
 			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
-				{% if form.errors %}
-				{% for field in form %}
-				{% for error in field.errors %}
-				<div class="alert alert-danger">
-					<strong>{{ error|escape }}</strong>
-				</div>
-				{% endfor %}
-				{% endfor %}
-				{% for error in form.non_field_errors %}
-				<div class="alert alert-danger">
-					<strong>{{ error|escape }}</strong>
-				</div>
-				{% endfor %}
-				{% endif %}
+				{% include 'event/snippets/form_errors_snippet.html' %}
 
+				<!-- Title -->
 				<div>
 					<label for="id_title">Title</label>
 					<p>{{form.title}}</p>
 				</div>
 
+				<!-- Category -->
 				<div>
 					<label for="id_category">Category</label>
 					<p>{{form.category}}</p>
 				</div>
 
+				<!-- Content -->
 				<div>
 					<label for="id_body">Content</label>
 					<p>{{form.body}}</p>
 				</div>
 
-
+				<!-- reg_to -->
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_reg_to">Registration to</label>
@@ -59,7 +49,7 @@
 					</div>
 				</div>
 
-
+				<!-- event_date -->
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_event_date">Event Date</label>
@@ -67,21 +57,27 @@
 					</div>
 				</div>
 
+				<!-- Fee -->
 				<div>
 					<label for="id_fee">Fee</label>
 					<p>{{form.fee}}</p>
 				</div>
 
+				<!-- Registration -->
 				<div>
 					<label for="id_reg_link">Registration link</label>
 					<p>{{form.reg_link}}</p>
 				</div>
 
+				<!-- premium_applied -->
 				<div>
-					<label for="id_premium_applied">Apply for Premium</label>
+					<label for="id_premium_applied">Apply for Premium
+						<small style="color:blue;">(Leave Unchecked If you
+							dont want to)</small></label>
 					<p>{{form.premium_applied}}</p>
 				</div>
 
+				<!-- Image -->
 				<div class="form-group"><br>
 					<label for="id_image">Image</label>
 					<input type="file" name="image" id="id_image" accept="image/*">

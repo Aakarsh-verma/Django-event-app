@@ -25,7 +25,7 @@ class BlogPost(models.Model):
 
     title = models.CharField(max_length=120, null=False, blank=False)
     body = models.TextField(max_length=5000, null=False, blank=False)
-    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to=upload_location)
     date_published = models.DateTimeField(
         auto_now_add=True, verbose_name="date published"
     )
@@ -34,7 +34,7 @@ class BlogPost(models.Model):
     slug = models.SlugField(blank=True, unique=True)
     category = models.CharField(max_length=100, default="null")
     related_event = models.ForeignKey(
-        EventPost, null=True, blank=True, on_delete=models.CASCADE
+        EventPost, null=True, blank=True, on_delete=models.CASCADE,
     )
 
     def __str__(self):

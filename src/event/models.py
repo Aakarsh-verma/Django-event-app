@@ -34,7 +34,7 @@ class EventPost(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, unique=True)
     priority = models.IntegerField(default=0)
-    premium_applied = models.CharField(max_length=30, default="No")
+    premium_applied = models.BooleanField(default=False)
     premium_aproved = models.BooleanField(default=False)
 
     def __str__(self):

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from operator import attrgetter
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from blog.models import BlogPost
+from event.views import get_event_queryset
 from account.models import Account
 from event.models import EventPost
 from datetime import datetime, date
@@ -72,18 +74,13 @@ def login_view(request):
 @login_required
 def account_view(request):
 
-    # if not request.user.is_authenticated:
-    # 	return redirect('login')
-
     context = {}
-    event_post = EventPost.objects.filter(author=request.user)
-    for post in event_post:
-        if post.event_date > date.today():
-            if post.premium_applied != "Applied":
-                messages.info(
-                    request, f"You have non premium events Apply For Them in edit"
-                )
+    apply = EventPost.objects.filter(
+        author=request.user, premium_applied=False, premium_aproved=False
+    )
+    context["apply"] = apply
 
+    event_post = EventPost.objects.filter(author=request.user)
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -97,10 +94,15 @@ def account_view(request):
         form = AccountUpdateForm(
             initial={"email": request.user.email, "username": request.user.username,}
         )
-    context["account_form"] = form
+    context["form"] = form
 
-    blog_posts = BlogPost.objects.filter(author=request.user)
-    context["blog_posts"] = blog_posts
+    # qry = ""
+    # if request.GET:
+    #    qry = request.GET.get("q", "")
+    #    context["qry"] = str(qry)
+
+    # query = get_event_queryset(qry)
+    # event_post = sorted(query, key=attrgetter("date_updated"), reverse=True)
     context["event_post"] = event_post
 
     return render(request, "account/account.html", context)
