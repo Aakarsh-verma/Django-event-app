@@ -6,6 +6,28 @@ from django.conf import settings
 from django.dispatch import receiver
 
 
+def profile_location(instance, filename, **kwargs):
+    file_path = "profile/{user_id}/{filename}".format(
+        user_id=str(instance.user.id), filename=filename
+    )
+    return file_path
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    profile_pic = models.ImageField(
+        null=True, blank=True, upload_to=profile_location, default="default_pic.png"
+    )
+
+    def __str__(self):
+        return str(self.user)
+
+
+@receiver(post_delete, sender=Profile)
+def submission_delete(sender, instance, **kwargs):
+    instance.profile_pic.delete(False)
+
+
 def upload_location(instance, filename, **kwargs):
     file_path = "event/{author_id}/{title}-{filename}".format(
         author_id=str(instance.author.id), title=str(instance.title), filename=filename
@@ -34,7 +56,7 @@ class EventPost(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True, unique=True)
     priority = models.IntegerField(default=0)
-    premium_applied = models.CharField(max_length=30, default="No")
+    premium_applied = models.BooleanField(default=False)
     premium_aproved = models.BooleanField(default=False)
 
     def __str__(self):

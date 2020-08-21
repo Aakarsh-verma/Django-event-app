@@ -38,6 +38,11 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     from_pce = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    website_url = models.URLField(null=True, blank=True)
+    facebook_url = models.URLField(null=True, blank=True)
+    twitter_url = models.URLField(null=True, blank=True)
+    instagram_url = models.URLField(null=True, blank=True)
+    youtube_url = models.URLField(null=True, blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

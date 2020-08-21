@@ -21,104 +21,44 @@
 	<div class="row">
 		<div class="col-lg-7 offset-lg-1">
 			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
-				{% if form.errors %}
-				{% for field in form %}
-				{% for error in field.errors %}
-				<div class="alert alert-danger">
-					<strong>{{ error|escape }}</strong>
-				</div>
-				{% endfor %}
-				{% endfor %}
-				{% endif %}
+				{% include 'event/snippets/form_errors_snippet.html' %}
 
-
+				<!-- Title -->
 				<div>
 					<label for="id_title">Title</label>
 					<p>{{form.title}}</p>
 				</div>
 
+				<!-- Category -->
 				<div>
 					<label for="id_category">Category</label>
 					<p>{{form.category}}</p>
 				</div>
 
+				<!-- Content -->
 				<div>
 					<label for="id_body">Content</label>
 					<p>{{form.body}}</p>
 				</div>
 
+				<!-- related_event -->
 				<div class="form-group">
 					<label for="id_related_event">Is It Related to Events You Posted...</label>
 					<select class="form-control" id="id_related_event" name="related_event">
-						<option value="None">None</option>
+						<option value="">---------</option>
 						{% for post in event_posts %}
-						<option value="{{post.title}}">{{post.title}}</option>
+						<option value="{{post.id}}">{{post.title}}</option>
 						{% endfor %}
 					</select>
 				</div>
 
+				<!-- Image -->
 				<div class="form-group">
 					<label for="id_image">Image</label>
-					<input type="file" name="image" id="id_image" accept="image/*" required>
+					<input type="file" name="image" id="id_image" accept="image/*">
 				</div>
 
-				<!--<div class="form-group">
-					{{ form.title.errors }}
-					<label for="{{ form.subject.id_for_label }}">Title</label>
-					{{ form.title }}
-				</div>
-				<div class="form-group">
-					{{ form.category.errors }}
-					<label for="{{ form.message.id_for_label }}">Category</label>
-					{{ form.category }}
-				</div>
-				<div class="form-group">
-					{{ form.body.errors }}
-					<label for="{{ form.sender.id_for_label }}">Content</label>
-					{{ form.body }}
-				</div>
->
-				title 
-				<div class="form-group">
-					<label for="id_title">Title</label>
-					<input class="form-control" type="text" name="title" id="id_title" placeholder="Title" required
-						autofocus>
-				</div>
-
-				Body 
-				<div class="form-group">
-					<label for="id_body">Content</label>
-					<textarea class="form-control" rows="10" type="text" name="body" id="id_body"
-						placeholder="This blog is about..." required></textarea>
-				</div>
-
-				Category
-				<div class="form-group">
-					<label for="id_category">Category</label>
-					<select class="form-control" id="id_category" name="category" placeholder="select">
-						{% for category in categorys %}
-						<option value="{{category.name}}">{{category.name}}</option>
-						{% endfor %}
-					</select>
-				</div>
-
-
-				<div class="form-group">
-					<label for="id_related_event">Is It Related to Events You Posted...</label>
-					<select class="form-control" id="id_related_event" name="related_event">
-						{% for post in event_posts %}
-						<option value="{{post.title}}">{{post.title}}</option>
-						{% endfor %}
-					</select>
-				</div>
-
-
-				<div class="form-group">
-					<label for="id_image">Image</label>
-					<input type="file" name="image" id="id_image" accept="image/*" required>
-				</div>-->
-
-				<!-- Submit btn -->
+				<!--Submit btn -->
 				<button class="submit-button btn btn-lg btn-primary" type="submit">POST</button>
 				<a href="{% url 'home' %}" type="button" class="btn btn-lg btn-danger">CANCEL</a>
 			</form>

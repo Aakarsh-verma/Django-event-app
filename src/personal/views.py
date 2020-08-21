@@ -3,7 +3,7 @@ from operator import attrgetter
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from blog.views import get_blog_queryset
 from blog.models import BlogPost, Category
-from event.views import get_event_queryset
+from event.views import get_event_queryset, get_premium_queryset
 from event.models import EventPost, EventCategory
 from committee.views import get_committee_queryset
 from committee.models import Committee
@@ -149,13 +149,27 @@ def event_home_screen_view(request):
 
 def premium_event_screen_view(request):
     context = {}
-    qry = ""
-    if request.GET:
-        qry = request.GET.get("q", "")
-        context["qry"] = str(qry)
 
-    # query = get_event_queryset(qry)
-    query = EventPost.objects.filter(priority__gte=1)
+    qs = EventPost.objects.filter(priority__gte=1)
+
+    category_query = request.GET.get("category")
+    price = request.GET.get("price")
+
+    if is_valid_queryparam(category_query) and category_query != "Choose...":
+        query = qs.filter(category=category_query).exclude(priority=0)
+
+    if is_valid_queryparam(price) and price != "Choose..":
+        if price == "Free":
+            query = qs.filter(fee=0).exclude(priority=0)
+        elif price == "Not-Free":
+            query = qs.filter(fee__gt=0).exclude(priority=0)
+    else:
+        qry = ""
+        if request.GET:
+            qry = request.GET.get("q", "")
+            context["qry"] = str(qry)
+
+        query = get_premium_queryset(qry)
     event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
 
     # Pagination

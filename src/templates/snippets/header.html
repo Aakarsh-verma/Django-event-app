@@ -29,8 +29,8 @@
   style="background: #0066ff;">
   <h5 class="my-0 mr-md-auto text-white font-weight-normal">
     <div class="row">
-      <a class="p-2 text-white" href="{% url 'home' %}">Blog</a>
       <a class="p-2 text-white" href="{% url 'event-home' %}">Events</a>
+      <a class="p-2 text-white" href="{% url 'home' %}">Blog</a>
       <a class="p-2 text-white" href="{% url 'premium-events' %}">Premium</a>
       <!--   <a class="p-2 text-white" href="{% url 'committee-home' %}">Committee</a>-->
     </div>
@@ -44,6 +44,12 @@
   </div>
 
   <nav class="my-2 my-md-0 mr-md-3">
+    {% if request.user.is_superuser %}
+    <a class="p-2 text-white" href="{% url 'event:approve_premium' %}">Approve Requests</a>
+    {% endif %}
+    {% if request.user.is_staff %}
+    <a class="p-2 text-white" href="{% url 'event:apply_premium' %}">Apply Premium</a>
+    {% endif %}
     {% if request.user.is_authenticated %}
     <a class="p-2 text-white" href="{% url 'account' %}">{{ request.user.username }}</a>
     <a class="btn btn-outline-primary" style="background: white;" href="{% url 'logout' %}">logout</a>

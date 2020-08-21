@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply For Premium{% endblock title %}
+
+{% block content %}
+<style type="text/css">
+    .h3 {
+        text-align: center;
+    }
+
+    .blog-posts {
+        max-width: 500px;
+        width: 100%;
+        margin: auto
+    }
+</style>
+
+<div class="container mx-auto mt-4 p-2">
+    <div class="row">
+        <div class="blog-posts">
+            <h3 class="mx-auto mb-3 font-weight-normal">Events List</h3>
+            {% if event_post %}
+            <ul style="margin: 0; padding: 0;">
+                {% for post in event_post %}
+                <a href="{% url 'event:confirm_apply' post.slug %}" style="text-decoration: none;">
+                    <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">{{post}}</li>
+                </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You have no Event posts. Create one <a href="{% url 'event:create' %}">here!</a> </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

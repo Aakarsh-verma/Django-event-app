@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import DeleteView
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -19,30 +17,29 @@ def create_blog_view(request):
     categorys = Category.objects.all()
     context["categorys"] = categorys
 
-    event_posts = EventPost.objects.filter(author=request.user)
+    user = request.user
+    event_posts = EventPost.objects.filter(author=user)
     context["event_posts"] = event_posts
 
-    user = request.user
-    if not user.is_authenticated:
-        return redirect("must_authenticate")
-
     if user.is_staff == 1 or user.is_faculty == 1:
-        form = CreateBlogPostForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            author = Account.objects.filter(email=user.email).first()
-            obj.author = author
-            obj.save()
-            messages.success(request, f"Your Blog has been posted successfully!")
-            return redirect("home")
-        else:
-            print(form)
-            print("Invalid Form")
-            print(form.errors)
-            return render(request, "blog/create_blog.html", {"form": form})
+        if request.POST:
+            form = CreateBlogPostForm(request.POST or None, request.FILES or None)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                author = Account.objects.filter(email=user.email).first()
+                obj.author = author
+                obj.save()
+                messages.success(request, f"Your Blog has been posted successfully!")
+                return redirect("home")
+            else:
+                print(form)
+                print("Invalid Form")
+                print(form.errors)
+                return render(request, "blog/create_blog.html", {"form": form})
 
-        form = CreateBlogPostForm()
-        context["form"] = form
+        else:
+            form = CreateBlogPostForm()
+            context["form"] = form
         return render(request, "blog/create_blog.html", context)
     else:
         raise Http404("Page Not Found")
@@ -59,9 +56,10 @@ def detail_blog_view(request, slug):
 
 @login_required
 def edit_blog_view(request, slug):
-    context = {}
 
+    context = {}
     user = request.user
+
     if not user.is_authenticated:
         return redirect("must_authenticate")
 
@@ -94,6 +92,8 @@ def edit_blog_view(request, slug):
     context["form"] = form
     categorys = Category.objects.all()
     context["categorys"] = categorys
+    event_posts = EventPost.objects.filter(author=user)
+    context["event_posts"] = event_posts
     return render(request, "blog/edit_blog.html", context)
 
 
