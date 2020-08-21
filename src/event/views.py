@@ -31,7 +31,9 @@ def create_profile_view(request, id):
             if form.is_valid():
                 obj = form.save(commit=False)
                 obj.save()
-                messages.success(request, f"You have been successfully logged in!")
+                messages.info(
+                    request, f"You can update your info anytime in your account page."
+                )
                 return redirect("account")
         else:
             form = CreateProfileForm(

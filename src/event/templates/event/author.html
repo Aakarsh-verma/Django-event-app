@@ -72,10 +72,11 @@
 
 <div class="content-section">
     <div class="media">
-        <img class="rounded-circle account-img" height="175" width="175" src="{{ user.profile.profile_pic.url }}">
+        <img class="rounded-circle account-img" height="175" width="175" src="{{ profile.profile.profile_pic.url }}">
         <div class=" media-body">
             <h2 class="account-heading">{{ profile.username }}</h2>
             <p class="text-secondary">{{ profile.email }}</p>
+            <hr>
             <p class="text-muted">
                 {% if profile.website_url %}
                 <a href="{{profile.website_url}}" target="_blank">
