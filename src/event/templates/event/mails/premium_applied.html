@@ -1,10 +1,13 @@
 {% autoescape off %}
-The Application for making your event Titled: {{ event_post.title }}
-has been submitted successfully.
-
-You will receive an email within next few hours to initate the confirmation of
-your request.
-
-Sincerely,
-The EventAdda Team
-{% endautoescape %}
+<p>The Application for making your event Titled: {{ event_post.title }}
+    has been submitted successfully.</p>
+<p>
+    You will receive an email within next few hours to initate the confirmation of
+    your request.
+</p>
+<br>
+<p>
+    Sincerely,
+    <a href="http://127.0.0.1:9000/">The EventAdda Team</a>
+    {% endautoescape %}
+</p>

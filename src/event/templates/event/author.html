@@ -1,10 +1,73 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Your Account{% endblock title %}
+{% block title %}Author Profile{% endblock title %}
 
 {% block content %}
 
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/author.css' %}" />
+</head>
+
+<body>
+    <div class="author-container shadow-lg">
+        <h3>Author's Profile</h3>
+        <hr>
+        <div class="author-info">
+            <div class="author-img"><img src="{{ profile.profile.profile_pic.url }}" alt="pfp" /></div>
+            <div>
+                <p class="author-username">{{ profile.username }}</p>
+                <p class="author-email">{{ profile.email }}</p>
+                <p class="text-muted">
+                    {% if profile.website_url %}
+                    <a href="{{profile.website_url}}" target="_blank">
+                        <img src="{% static 'icons/website.png' %}" height="40" width="40" alt="webicon">
+                    </a>
+                    {% endif %}
+                    {% if profile.facebook_url %}
+                    <a href="{{profile.facebook_url}}" target="_blank">
+                        <img src="{% static 'icons/facebook.png' %}" height="40" width="40" alt="facebookicon">
+                    </a>
+                    {% endif %}
+                    {% if profile.twitter_url %}
+                    <a href="{{profile.twitter_url}}" target="_blank">
+                        <img src="{% static 'icons/twitter.png' %}" height="40" width="40" alt="twittericon">
+                    </a>
+                    {% endif %}
+                    {% if profile.instagram_url %}
+                    <a href="{{profile.instagram_url}}" target="_blank">
+                        <img src="{% static 'icons/instagram.png' %}" height="40" width="40" alt="instagramicon">
+                    </a>
+                    {% endif %}
+                    {% if profile.youtube_url %}
+                    <a href="{{profile.youtube_url}}" target="_blank">
+                        <img src="{% static 'icons/youtube.png' %}" height="40" width="40" alt="youtubeicon">
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <br><br><br><br>
+        <div class="container mx-auto mt-4 p-4 shadow-sm">
+            <br>
+            <h4 class="mx-auto mb-3 font-weight-normal">Events Posted By {{ profile.username }}</h4>
+            {% if event_post %}
+            <ul style="margin: 0; padding: 0;">
+                {% for post in event_post %}
+                <a href="{% url 'event:confirm_premium' post.slug %}" style="text-decoration: none;">
+                    <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">
+                        {{post}}</li>
+                </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>This profile has yet to post an Event. Stay tuned!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+<!--
 <style type="text/css">
     .form-signin {
         width: 100%;
@@ -126,5 +189,5 @@
         </div>
     </div>
 </div>
-
+-->
 {% endblock content %}

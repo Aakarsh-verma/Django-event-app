@@ -190,6 +190,24 @@ def premium_event_screen_view(request):
     return render(request, "personal/premium_events.html", context)
 
 
+def archive_post():
+    event_posts = EventPost.objects.filter(
+        event_date__year__gte=today.year,
+        event_date__month__gte=today.month,
+        event_date__day__gte=today.day,
+    )
+    archive_post = EventArchive()
+    for post in event_posts:
+        print(post)
+    # archive_post.pk = None
+    # archive_post.save()
+    # event_posts = EventPost.objects.filter(
+    #    event_date__year__gte=today.year,
+    #    event_date__month__gte=today.month,
+    #    event_date__day__gte=today.day,
+    # ).delete()
+
+
 def committee_home_screen_view(request):
     context = {}
 

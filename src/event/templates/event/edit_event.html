@@ -115,13 +115,13 @@
 					<p>{{form.reg_link}}</p>
 				</div>
 
-				<!-- premium_applied -->
+				<!-- premium_applied
 				<div>
 					<label for="id_premium_applied">Apply for Premium
 						<small style="color:blue;">(Leave Unchecked If you
 							dont want to)</small></label>
 					<p>{{form.premium_applied}}</p>
-				</div>
+				</div> -->
 
 				<!-- Image -->
 				<div class="form-group image-group" id="id_image_group"><br>
@@ -134,7 +134,11 @@
 				<hr>
 
 				<!-- Submit btn -->
-				<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">Update</button>
+				<p>
+					<button class="submit-button btn btn-primary" type="submit">Update</button> OR
+					<a class="submit-button btn btn-info" href="{% url 'event:confirm_apply' event_post.slug %}">Apply
+						for Premium</a>
+				</p>
 			</form>
 		</div>
 	</div>

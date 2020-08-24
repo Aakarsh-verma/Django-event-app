@@ -201,7 +201,7 @@ def confirm_apply_view(request, slug):
     html_message = render_to_string(
         "event/mails/premium_applied.html", {"event_post": "event_post"}
     )
-    plain_message = strip_tags(html_message)
+    plain_message = html_message
     from_email = str(EMAIL_HOST_USER)
     emailto = [
         str(user.email),
