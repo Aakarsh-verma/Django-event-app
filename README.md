@@ -4,7 +4,7 @@
 ### All Users:
 **Basic Login/register/reset-password Feature.**
 
-![Image of login](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/register.PNG)
+![Image of login](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/register.png)
 
 
 **Search functionality for blog/events/committee based on text in title or body.**
@@ -15,7 +15,7 @@
 
 ![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/blog.gif)
 
-![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/createblog.PNG)
+![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/createblog.png)
 
 * Event blog for posting about events/workshops/webinar with the create/update/delete functions.
 
