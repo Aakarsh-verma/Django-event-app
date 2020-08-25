@@ -58,7 +58,7 @@
 		position: -webkit-sticky;
 		/* Safari */
 		position: sticky;
-		top: 0;
+		top: 60px;
 	}
 
 	#filters {
@@ -70,7 +70,7 @@
 
 <div class="flex-container">
 	<!-- Left Filters -->
-	<div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters">
+	<div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters" style="margin-top: 10px;">
 		<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
 			<h6 class="p-2 text-white">Filters</h6>
 		</div>
@@ -120,7 +120,7 @@
 
 
 			<!-- event feed -->
-			<div class="left-column col-lg-7 offset-lg-1">
+			<div class="left-column col-lg-7">
 				<!--Top Filters-->
 				<div class="bg-white shadow-lg d-sm-none d-flex flex-column">
 					<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
@@ -163,30 +163,16 @@
 					</form>
 
 				</div>
-				<!-- Top 'create post' bar -->
-				<div class="d-lg-none mb-3">
-					<div class="card m-auto d-flex flex-column p-3 mt-2">
-						<img class="img-fluid d-block m-auto pb-2" src="{% static 'logo.png' %}" width="72" height="72">
-						<p class="lead-bold">This is the official PCE website where students will be
-							updated about all events/workshops and other events happening
-							in and out of college by faculty and commmittee members.</p>
-						{% if user.is_staff or user.is_faculty %}
-						<p class="m-auto"><a class="btn btn-primary" href="{% url 'event:create' %}">Create post</a></p>
-						{% endif %}
-					</div>
-				</div>
-				<!-- end Top 'create post' bar -->
-
 				<!-- event posts-->
 				{% if event_posts %}
 				{% for post in event_posts %}
 				<div class="event-post-container mt-2">
-					{% include 'event/snippets/event_post_snippet.html' with event_post=post %}
+					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
 				</div>
 				{% endfor %}
 				{% else %}
 				<div class="event-post-container">
-					{% include 'event/snippets/event_post_snippet.html' with query=query %}
+					{% include 'event/snippets/event_card_snippet.html' with query=query %}
 				</div>
 				{% endif %}
 				<!-- End event posts-->
@@ -195,24 +181,6 @@
 
 			</div>
 			<!-- end event feed -->
-
-			<!-- Right 'create post' column  -->
-			<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-
-				<div class="card create-post-bar d-flex flex-column p-3 shadow-lg">
-					<img class="img-fluid d-block m-auto pb-2" src="{% static 'logo.png' %}" width="72" height="72">
-					<p class="lead-bold">This is the official PCE website where students will be
-						updated about all events/workshops and other events happening
-						in and out of college by faculty and commmittee members.</p>
-					{% if user.is_staff or user.is_faculty %}
-					<p id="create" class="m-auto"><a id="create" class="btn btn-primary"
-							href="{% url 'event:create' %}">Create post</a></p>
-					{% endif %}
-				</div>
-
-			</div>
-			<!-- end Right 'create post' column  -->
-
 		</div>
 	</div>
 </div>

@@ -1,0 +1,33 @@
+<style type="text/css">
+    .card {
+        max-width: 700px;
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    pre {
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+</style>
+
+{% if ad %}
+<div class="container">
+    <div class="row">
+        <!-- Blog Post -->
+        <div class="card m-auto">
+            {% if ad.adimage %}
+            <a href="{% url 'ad.link' %}" target="_blank">
+                <img class="card-img-top" src="{{blog_post.image.url}}">
+            </a> {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}

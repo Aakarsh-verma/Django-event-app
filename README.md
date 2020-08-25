@@ -15,7 +15,7 @@
 
 ![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/blog.gif)
 
-![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/createblog.png)
+![Image of blog](https://github.com/Aakarsh-verma/django-blog-app/blob/master/images/createblog.PNG)
 
 * Event blog for posting about events/workshops/webinar with the create/update/delete functions.
 

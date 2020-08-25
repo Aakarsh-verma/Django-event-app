@@ -78,7 +78,7 @@ class CreateEventPostForm(forms.ModelForm):
     def clean(self):
         if self.is_valid:
             if self.cleaned_data["event_date"] < self.cleaned_data["reg_to"]:
-                raise forms.ValidationError("Invalid Dates")
+                raise forms.ValidationError("Invalid Registration Dates")
 
 
 class UpdateEventPostForm(forms.ModelForm):

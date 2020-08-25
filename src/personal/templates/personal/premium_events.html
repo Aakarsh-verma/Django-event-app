@@ -58,7 +58,7 @@
         position: -webkit-sticky;
         /* Safari */
         position: sticky;
-        top: 0;
+        top: 60px;
     }
 
     #filters {
@@ -70,7 +70,7 @@
 
 <div class="flex-container">
     <!-- Left Filters -->
-    <div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters">
+    <div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters" style="margin-top: 10px;">
         <div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
             <h6 class="p-2 text-white">Filters</h6>
         </div>
@@ -105,12 +105,10 @@
     <!-- main content -->
     <div class="container">
         <div class="row">
-
-
             <!-- event feed -->
-            <div class="left-column col-lg-7 offset-lg-1">
+            <div class="left-column col-lg-7">
                 <!--Top Filters-->
-                <div class="bg-white shadow-lg d-sm-none d-flex flex-column">
+                <div class="bg-white shadow-md d-sm-none d-flex flex-column">
                     <div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
                         <h6 class="p-2 text-white">Filters</h6>
                     </div>
@@ -157,12 +155,12 @@
                 {% if event_posts %}
                 {% for post in event_posts %}
                 <div class="event-post-container mt-2">
-                    {% include 'event/snippets/event_post_snippet.html' with event_post=post %}
+                    {% include 'event/snippets/event_card_snippet.html' with event_post=post %}
                 </div>
                 {% endfor %}
                 {% else %}
                 <div class="event-post-container">
-                    {% include 'event/snippets/event_post_snippet.html' with query=query %}
+                    {% include 'event/snippets/event_card_snippet.html' with query=query %}
                 </div>
                 {% endif %}
                 <!-- End event posts-->

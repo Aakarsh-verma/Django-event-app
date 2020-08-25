@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    {% block head %}{% endblock head %}
 </head>
 
 <body>
@@ -17,13 +17,17 @@
         .main {
             min-height: 100vh;
             height: 100%;
+            margin-top: 80px;
         }
 
         .al {
-            margin-left: 360px;
-            margin-right: 340px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            min-width: min-content;
         }
     </style>
+    <br>
     <div class="main">
         <div class="al">
             {% if messages %}

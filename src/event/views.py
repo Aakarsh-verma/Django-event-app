@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.db.models import Q
@@ -196,30 +196,22 @@ def confirm_apply_view(request, slug):
     event_post = get_object_or_404(EventPost, slug=slug)
     if event_post.author != user:
         return HttpResponse("You are not the author of that post.")
-
+    context["event_post"] = event_post
     subject = "Submission of Application for Premium Event"
-    html_message = render_to_string(
-        "event/mails/premium_applied.html", {"event_post": "event_post"}
-    )
+    html_message = render_to_string("event/mails/premium_applied.html", context)
     plain_message = strip_tags(html_message)
     from_email = str(EMAIL_HOST_USER)
     emailto = [
         str(user.email),
     ]
-    # email = EmailMessage(subject, plain_message, from_email, emailto)
-    # email.content_subtype = "html"
 
     subject2 = "Submission of Application for Premium Event"
-    html_message2 = render_to_string(
-        "event/mails/premium_applied2.html", {"event_post": "event_post"}
-    )
+    html_message2 = render_to_string("event/mails/premium_applied2.html", context)
     plain_message2 = strip_tags(html_message2)
     from_email2 = str(EMAIL_HOST_USER)
     emailto2 = [
         str(EMAIL_HOST_USER),
     ]
-    # email2 = EmailMessage(subject2, plain_message2, from_email2, emailto2)
-    # email2.content_subtype = "html"
 
     if request.POST:
         form = ApplyPremiumForm(
@@ -272,11 +264,10 @@ def confirm_premium_view(request, slug):
 
     if user.is_superuser:
         event_post = get_object_or_404(EventPost, slug=slug)
+        context["event_post"] = event_post
 
         subject = "Premium Event is Live!"
-        html_message = render_to_string(
-            "event/mails/premium_approved.html", {"event_post": "event_post"}
-        )
+        html_message = render_to_string("event/mails/premium_approved.html", context)
         plain_message = strip_tags(html_message)
         from_email = str(EMAIL_HOST_USER)
         emailto = [

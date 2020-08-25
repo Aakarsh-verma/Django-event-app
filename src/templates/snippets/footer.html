@@ -1,4 +1,4 @@
-<style type="text/css">
+<!-- <style type="text/css">
     .footer{
         min-height: 100px;
     }
@@ -16,16 +16,207 @@
     }
 </style>
 
-<!--footer-->
-<div class="d-flex flex-row align-items-center footer bg-white shadow-lg">
+footer-->
+<!-- <div class="d-flex flex-row align-items-center footer bg-white shadow-lg">
     <p class="m-auto" style="margin-left: 5px;">Visit the official website: <a href="https://www.pce.ac.in/" target="_blank">https://www.pce.ac.in/</a>
     </p>
     <p class="m-auto" id="text">Website by Aakarsh and Pramod | 2020</p>
 
 
 </div>
-<!--End Footer-->
+End Footer -->
+<style type="text/css">
+    * {
+        font-family: Montserrat, sans-serif;
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        margin: 0;
+        padding: 0;
+    }
+
+    section {
+        width: 100%;
+        display: inline-block;
+        background: #ccc;
+        height: 60vh;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    .footer-distributed {
+        background-color: #292c2f;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+        box-sizing: border-box;
+        width: 100%;
+        text-align: left;
+        font: normal 16px sans-serif;
+        padding: 45px 50px;
+    }
+
+    .footer-distributed .footer-left p {
+        color: #8f9296;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* Footer links */
+
+    .footer-distributed p.footer-links {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+        margin: 0 0 10px;
+        padding: 0;
+        transition: ease 0.25s;
+    }
+
+    .footer-distributed p.footer-links a {
+        display: inline-block;
+        line-height: 1.8;
+        text-decoration: none;
+        color: inherit;
+        transition: ease 0.25s;
+    }
+
+    .footer-distributed .footer-links a:before {
+        content: "·";
+        font-size: 20px;
+        left: 0;
+        color: #fff;
+        display: inline-block;
+        padding-right: 5px;
+    }
+
+    .footer-distributed .footer-links .link-1:before {
+        content: none;
+    }
+
+    .footer-distributed .footer-right {
+        float: right;
+        margin-top: 0px;
+        max-width: 180px;
+    }
+
+    .email p {
+        display: flex;
+        flex-direction: row;
+        width: 100px;
+        align-items: center;
+    }
+
+    .footer-distributed .footer-right {
+        /* display: inline-block;
+      width: 35px;
+      height: 35px;
+      background-color: #33383b;
+      border-radius: 2px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      margin-left: 3px;
+      transition: all 0.25s;
+      margin-right: 25px; */
+        margin-right: 150px;
+        color: white;
+    }
+
+    .footer-distributed .footer-right {
+        padding-bottom: 0px;
+    }
+
+    .footer-distributed .footer-right .con-detail {
+        padding: 3px 0;
+    }
+
+    .footer-distributed .footer-right .con-detail {
+        padding: 3px 0;
+    }
+
+    .footer-distributed .footer-right i {
+        margin-right: 10px;
+    }
+
+    .footer-distributed .footer-right a:hover {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+    }
+
+    .footer-distributed p.footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* Media Queries */
+
+    @media (max-width: 600px) {
+
+        .footer-distributed .footer-left {
+            text-align: center;
+        }
+
+        .footer-distributed .footer-right {
+            text-align: left;
+            margin-left: 0px
+        }
+
+        .footer-distributed .footer-right {
+            float: none;
+            margin: 0 auto 20px;
+        }
+
+        .footer-distributed .footer-left p.footer-links {
+            line-height: 1.8;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+<footer class="footer-distributed" style="z-index: 1;">
+    <div class="footer-right">
+        <h4 style="font-size: 18px;">Contact</h4>
+
+        <p><i class="con-detail fas fa-phone-alt"></i>9130632505</p>
+
+        <p><i class="con-detail fas fa-mobile-alt"></i>7045531929</p>
+
+        <div class="con-detail email">
+            <p><i class="fas fa-envelope"></i>vermaaakku18it@student.mes.ac.in</p>
+        </div>
+    </div>
+
+    <div class="footer-left">
+        <p class="footer-links">
+            <a class="link-1" href="{% url 'home' %}">Blog</a>
+
+            <a href="{% url 'event-home' %}">Events</a>
+
+            <a href="{% url 'premium-events' %}">Premium</a>
+
+            <a href="#">Contact</a>
+        </p>
+
+        <p>
+            Made by students of Pillai College of Engineering, New Panvel &copy; 2020
+        </p>
+        <br />
+        <p>
+            Visit Pillai College's official website
+            <a href="https://www.pce.ac.in/" style="text-decoration: none; color: white; font-weight: 600;">here</a>
+        </p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>

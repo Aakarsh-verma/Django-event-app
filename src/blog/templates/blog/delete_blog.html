@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}Event Adda-Delete Blog{% endblock title %}
+<style type="text/csss">
 
+</style>
 {% block content %}
-<div class="content-section bg-white" style="padding: 10px; margin-left: 200px; margin-right: 650px;">
+<div class="content-section mx-auto bg-white" style="padding: 10px; width: fit-content;">
     <form acition="{% url 'blog:detail' blog_post.id %}" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Delete Post</legend>
-            <h2>Are you sure you want to delete the post "{{ blog_post.title }}"</h2>
+            <h3>Are you sure you want to delete the post "{{ blog_post.title }}"</h3>
         </fieldset>
         <div class="from-group">
             <button class="btn btn-danger" type="submit">Yes, Delete</button>
