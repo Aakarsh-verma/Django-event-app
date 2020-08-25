@@ -1,14 +1,26 @@
 {% autoescape off %}
-The Application for making an event Premium has been submitted.
+<p>
+    The Application for making an event Premium has been submitted.
+</p>
 
-Details:
-author: {{ event_post.author.username }}
-author mail: {{ event_post.author.email }}
-Event Title: {{ event_post.title }}
-Registration to: {{ event_post.reg_to }}
+<p>
+    <strong>Details:</strong>
+<ul>
+    <li>author: {{ event_post.author.username }}</li>
+    <li>author mail: {{ event_post.author.email }}</li>
+    <li>Event Title: {{ event_post.title }}</li>
+    <li>Registration Ends: {{ event_post.reg_to }}</li>
+</ul>
 
-Start the necessary steps to initate the confirmation process.
+</p>
 
-Sincerely,
-The EventAdda Team
+<p>
+    Start the necessary steps to initate the confirmation process.
+</p>
+<p>
+    Sincerely,
+</p>
+<p>
+    <a href="http://127.0.0.1:8000/">The EventAdda Team</a>
+</p>
 {% endautoescape %}

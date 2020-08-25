@@ -62,24 +62,26 @@
             <div class="card-footer text-muted">
                 <b>{{event_post.category}}</b> | Updated on {{event_post.date_updated}}
                 by
-                {{event_post.author.username}}
+                <a href="{% url 'event:author-view' event_post.author.id %}">
+                    {{event_post.author.username}}</a>
             </div>
         </div>
         <!--End Event Post-->
         <div class="container">
             <legend class="mx-auto text">Recent Updates in Blog</legend>
+            <p class="mx-auto">We'll let you know if there are any anouncements</p>
 
             {% if blog_posts %}
             {% for post in blog_posts %}
             {% if post.related_event.title == event_post.title %}
             <div class="blog-post-container mt-2">
-                {% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+                {% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
             </div>
             {% endif %}
             {% endfor %}
             {% else %}
             <div class="blog-post-container">
-                {% include 'blog/snippets/blog_post_snippet.html' with query=query %}
+                {% include 'blog/snippets/altpost_snippet.html' with query=query %}
             </div>
             {% endif %}
             {% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}

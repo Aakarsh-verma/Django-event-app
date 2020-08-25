@@ -58,6 +58,7 @@ def home_screen_view(request):
             context["qry"] = str(qry)
 
         query = get_blog_queryset(qry)
+
     if sortasc == 1:
         blog_posts = sorted(query, key=attrgetter("date_updated"))
     else:
@@ -124,6 +125,7 @@ def event_home_screen_view(request):
             context["qry"] = str(qry)
 
         query = get_event_queryset(qry)
+
     if sortasc == 1:
         event_posts = sorted(query, key=attrgetter("date_updated"))
     else:
@@ -170,6 +172,7 @@ def premium_event_screen_view(request):
             context["qry"] = str(qry)
 
         query = get_premium_queryset(qry)
+
     event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
 
     # Pagination

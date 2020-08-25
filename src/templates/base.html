@@ -6,17 +6,18 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    {% block head %}{% endblock head %}
 </head>
 
 <body>
-    {% include 'snippets/header.html' %}
+    {% include 'snippets/header2.html' %}
     {% include 'snippets/base_css.html' %}
     <!-- Body -->
     <style type="text/css">
         .main {
             min-height: 100vh;
             height: 100%;
+            margin-top: 80px;
         }
 
         .al {

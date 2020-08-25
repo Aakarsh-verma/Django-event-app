@@ -1,0 +1,28 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="blog-card alt">
+    <div class="meta">
+        {% if blog_post.image %}
+        <div class="photo" style="background-image: url({{blog_post.image.url}})"></div>
+        {% endif %}
+        <ul class="details">
+            <li class="author"><a
+                    href="{% url 'event:author-view' blog_post.author.id %}">{{blog_post.author.username}}</a></li>
+            <li class="date far fa-calendar">{{blog_post.date_published}}</li>
+            <li class="tags">
+                <ul>
+                    <li>{{ blog_post.category }}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="description">
+        <h1>{{blog_post.title}}</h1>
+        <p>{{blog_post.body|safe|truncatechars:180}}</p>
+        <p class="read-more">
+            <a href="{% url 'blog:detail' post.slug %}">Read More</a>
+        </p>
+    </div>
+</div>

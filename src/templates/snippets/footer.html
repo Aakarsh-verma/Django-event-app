@@ -94,7 +94,7 @@ End Footer -->
 
     .footer-distributed .footer-right {
         float: right;
-        margin-top: 6px;
+        margin-top: 0px;
         max-width: 180px;
     }
 
@@ -151,9 +151,13 @@ End Footer -->
 
     @media (max-width: 600px) {
 
-        .footer-distributed .footer-left,
-        .footer-distributed .footer-right {
+        .footer-distributed .footer-left {
             text-align: center;
+        }
+
+        .footer-distributed .footer-right {
+            text-align: left;
+            margin-left: 0px
         }
 
         .footer-distributed .footer-right {
@@ -172,7 +176,7 @@ End Footer -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
-<footer class="footer-distributed">
+<footer class="footer-distributed" style="z-index: 1;">
     <div class="footer-right">
         <h4 style="font-size: 18px;">Contact</h4>
 
