@@ -107,7 +107,6 @@ class CreateEventPostForm(forms.ModelForm):
             ),
             "fee": forms.NumberInput(attrs={"class": "form-control"}),
             "reg_link": forms.URLInput(attrs={"class": "form-control"}),
-            "premium_applied": forms.CheckboxInput(attrs={"class": "form-check"}),
         }
 
     def clean(self, *args, **kwargs):
@@ -156,7 +155,6 @@ class UpdateEventPostForm(forms.ModelForm):
             ),
             "fee": forms.NumberInput(attrs={"class": "form-control"}),
             "reg_link": forms.URLInput(attrs={"class": "form-control"}),
-            "premium_applied": forms.CheckboxInput(attrs={"class": "form-check"}),
         }
 
     def clean(self, *args, **kwargs):
