@@ -19,6 +19,7 @@ from event.forms import (
 )
 from account.models import Account
 from blog.models import BlogPost
+from datetime import datetime
 
 
 def create_profile_view(request, id):
@@ -126,6 +127,10 @@ def edit_event_view(request, slug):
     if event_post.author != user:
         return HttpResponse("You are not the author of that post.")
 
+    edate = event_post.event_date
+    date_time = edate.strftime("%d-%m-%Y")
+    edate = datetime.strptime(date_time, "%d-%m-%Y")
+
     if request.POST:
         form = UpdateEventPostForm(
             request.POST or None, request.FILES or None, instance=event_post
@@ -143,7 +148,7 @@ def edit_event_view(request, slug):
             "body": event_post.body,
             "image": event_post.image,
             "category": event_post.category,
-            "event_date": event_post.event_date,
+            "event_date": edate,
             "reg_to": event_post.reg_to,
             "fee": event_post.fee,
             "reg_link": event_post.reg_link,
