@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+}
+body {
+  background-color: rgb(180, 180, 180);
+}
+
+.event-card-container {
+  width: 60vw;
+  max-width: 750px;
+  min-width: 200px;
+  margin: auto;
+  margin-bottom: 30px;
+  height: 200px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  -webkit-box-shadow: 9px 10px 14px -6px rgba(0, 0, 0, 0.41);
+  -moz-box-shadow: 9px 10px 14px -6px rgba(0, 0, 0, 0.41);
+  box-shadow: 9px 10px 14px -6px rgba(0, 0, 0, 0.41);
+}
+
+.event-graphics {
+  width: 300px;
+  height: 200px;
+  background-color: rgb(218, 218, 218);
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.event-img {
+  width: 300px;
+  height: 200px;
+  max-width: 300px;
+  max-height: 200px;
+}
+.event-date {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  z-index: 1;
+  background-color: rgb(255, 68, 68);
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.event-date p {
+  text-align: center;
+  padding-top: 3px;
+  font-weight: 400;
+  color: white;
+}
+.event-premium {
+  width: 82px;
+  height: 22px;
+  border-radius: 15px;
+  background-color: #ebb33c;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.event-premium p {
+  color: white;
+  padding-left: 8px;
+}
+/* .event-img img {
+  min-height: 100%;
+  width: auto;
+  width: 100%;
+  object-fit: contain;
+} */
+.event-text {
+  max-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.event-title p {
+  font-size: 2vw;
+  padding-top: 7px;
+  padding-left: 12px;
+  overflow: hidden;
+}
+
+.event-details p {
+  font-size: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-weight: 200;
+  max-height: 95px;
+  overflow: hidden;
+}
+
+.learn-more {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  background-color: rgb(255, 68, 68);
+  width: 100%;
+}
+
+.learn-more p {
+  font-size: 1.2vw;
+  font-weight: 200;
+  color: white;
+  text-align: center;
+  padding-left: 12px;
+}
+.learn-more img {
+  width: 30px;
+  height: 30px;
+  padding-right: 12px;
+}
+
+@media only screen and (max-width: 930px) {
+  .event-card-container {
+    flex-direction: column;
+    width: 300px;
+    height: auto;
+  }
+  .event-details p {
+    font-size: 12px;
+    overflow: scroll;
+  }
+  .event-title p {
+    font-size: 18px;
+  }
+  .learn-more p {
+    font-size: 14px;
+  }
+  .learn-more img {
+    width: 30px;
+    height: 30px;
+  }
+}

@@ -78,6 +78,11 @@ def edit_blog_view(request, slug):
             messages.success(request, f"Your Post has been updated successfully!")
             blog_post = obj
             return redirect("home")
+        else:
+            print(form)
+            print("Invalid Form")
+            print(form.errors)
+            return render(request, "blog/edit_blog.html", {"form": form})
 
     form = UpdateBlogPostForm(
         initial={

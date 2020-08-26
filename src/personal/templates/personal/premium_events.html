@@ -81,6 +81,7 @@
                 <div class="form-group">
                     <label for="id_category">Category</label>
                     <select class="form-control" id="id_category" name="category" placeholder="select">
+                        <option value="Choose...">Choose...</option>
                         {% for category in categorys %}
                         <option value="{{category.name}}">{{category.name}}</option>
                         {% endfor %}
@@ -114,23 +115,12 @@
                     </div>
                     <form method="GET" action=".">
                         <div class="p-1">
-                            <!-- event_date -->
-
-                            <div class="form-group">
-                                <label for="id_date">Date Updated</label>
-                                <select class="form-control" type="search" id="id_category" name="date">
-                                    <option value="Choose...">Choose...</option>
-                                    <option value="LATEST">LATEST</option>
-                                    <option value="OLDEST">OLDEST</option>
-                                    <option value="TODAY">TODAY</option>
-                                    <option value="YESTERDAY">YESTERDAY</option>
-                                </select>
-                            </div>
 
                             <!--Category-->
                             <div class="form-group">
                                 <label for="id_category">Category</label>
                                 <select class="form-control" id="id_category" name="category" placeholder="select">
+                                    <option value="Choose...">Choose...</option>
                                     {% for category in categorys %}
                                     <option value="{{category.name}}">{{category.name}}</option>
                                     {% endfor %}

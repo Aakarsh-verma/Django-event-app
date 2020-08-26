@@ -7,6 +7,9 @@
   <div class="meta">
     <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
     <ul class="details">
+      {% if event_post.premium_aproved == True %}
+      <li class="premium">Premium</li>
+      {% endif %}
       <li class="author"><a href="{% url 'event:author-view' event_post.author.id %}">{{event_post.author.username}}</a>
       </li>
       <li class="date">{{event_post.event_date}}</li>

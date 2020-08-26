@@ -70,7 +70,7 @@
 </style>
 
 <br><br>
-<div class="content-section mx-auto">
+<div class="content-section shadow-sm mx-auto">
   <div class="media">
     {% if user.profile.profile_pic %}
     <img class="rounded-circle account-img" height="175" width="175" src="{{ user.profile.profile_pic.url }}">
@@ -78,8 +78,8 @@
     <img class="rounded-circle account-img" height="175" width="175" src="{% static 'default_pic.png' %}">
     {% endif %}
     <div class=" media-body">
-      <h2 class="account-heading">{{ user.username }}</h2>
-      <p class="text-secondary">{{ user.email }}</p>
+      <h2 class="account-heading mx-2">{{ user.username }}</h2>
+      <p class="text-secondary mx-2">{{ user.email }}</p>
     </div>
   </div>
   <form method="POST" enctype="multipart/form-data">
@@ -102,10 +102,11 @@
     </div>
   </form>
 </div>
-
+{% if user.is_staff %}
 <div class="container mx-0 mt-4 p-4">
   <div class="row">
     <div class="blog-posts">
+
       <h3 class="mx-auto mb-3 font-weight-normal">Events List</h3>
       {% if apply %}
       <p>You Have Non-Premium events apply for Premium <a href="{% url 'event:apply_premium' %}">Here!</a></p>
@@ -124,5 +125,5 @@
     </div>
   </div>
 </div>
-
+{% endif %}
 {% endblock content %}

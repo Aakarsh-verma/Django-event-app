@@ -1,6 +1,20 @@
 from django import forms
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
 from event.models import EventPost, EventCategory, Profile
 from account.models import Account
+
+
+# 1MB - 1048576
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = "1048576"
 
 choices = EventCategory.objects.all().values_list("name", "name")
 choice_list = []
@@ -44,6 +58,27 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ["profile_pic"]
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileUpdateForm, self).__init__(*args, **kwargs)
+
+        self.fields["profile_pic"].widget.attrs["class"] = "form-check"
+
+    def clean(self, *args, **kwargs):
+        if self.cleaned_data["profile_pic"]:
+            self.check_file()
+        return self.cleaned_data
+
+    def check_file(self, *args, **kwargs):
+        profile_pic = self.cleaned_data["profile_pic"]
+        content_type = profile_pic.content_type.split("/")[0]
+        if profile_pic.size > int(MAX_UPLOAD_SIZE):
+            raise forms.ValidationError(
+                _("Please keep image size under %s. Current file size %s")
+                % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(profile_pic.size),)
+            )
+
+        return profile_pic
+
 
 class CreateEventPostForm(forms.ModelForm):
     class Meta:
@@ -75,10 +110,23 @@ class CreateEventPostForm(forms.ModelForm):
             "premium_applied": forms.CheckboxInput(attrs={"class": "form-check"}),
         }
 
-    def clean(self):
+    def clean(self, *args, **kwargs):
+        if self.cleaned_data["image"]:
+            self.check_file()
         if self.is_valid:
             if self.cleaned_data["event_date"] < self.cleaned_data["reg_to"]:
                 raise forms.ValidationError("Invalid Registration Dates")
+
+    def check_file(self, *args, **kwargs):
+        image = self.cleaned_data["image"]
+        content_type = image.content_type.split("/")[0]
+        if image.size > int(MAX_UPLOAD_SIZE):
+            raise forms.ValidationError(
+                _("Please keep image size under %s. Current file size %s")
+                % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(image.size),)
+            )
+
+        return image
 
 
 class UpdateEventPostForm(forms.ModelForm):
@@ -111,10 +159,23 @@ class UpdateEventPostForm(forms.ModelForm):
             "premium_applied": forms.CheckboxInput(attrs={"class": "form-check"}),
         }
 
-    def clean(self):
+    def clean(self, *args, **kwargs):
+        if self.cleaned_data["image"]:
+            self.check_file()
         if self.is_valid:
             if self.cleaned_data["event_date"] < self.cleaned_data["reg_to"]:
                 raise forms.ValidationError("Invalid Dates")
+
+    def check_file(self, *args, **kwargs):
+        image = self.cleaned_data["image"]
+        content_type = image.content_type.split("/")[0]
+        if image.size > int(MAX_UPLOAD_SIZE):
+            raise forms.ValidationError(
+                _("Please keep image size under %s. Current file size %s")
+                % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(image.size),)
+            )
+
+        return image
 
 
 class ApplyPremiumForm(forms.ModelForm):

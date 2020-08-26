@@ -169,7 +169,18 @@
 .blog-card:hover .details {
     left: 0%;
 }
-
+.event-premium {
+    width: 82px;
+    height: 22px;
+    border-radius: 15px;
+    background-color: #ebb33c;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .event-premium p {
+    color: white;
+    padding-left: 8px;
+  }
 @media (min-width: 640px) {
     .blog-card {
         flex-direction: row;

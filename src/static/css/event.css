@@ -74,6 +74,11 @@
   margin-right: 10px;
   content: "\f156";
 }
+.blog-card .details .premium:before {
+  font-family: FontAwesome;
+  margin-right: 10px;
+  content: "\f005";
+}
 .blog-card .details .tags ul:before {
   font-family: FontAwesome;
   content: "\f02b";
@@ -126,6 +131,27 @@
   margin-left: 5px;
   opacity: 1;
 }
+
+.premium {
+  color: goldenrod;
+  display: inline-block;
+  position: relative;
+}
+
+.premium a:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  margin-right: -10px;
+  opacity: 0;
+  vertical-align: middle;
+  transition: margin 0.3s, opacity 0.3s;
+}
+
+.premium a:hover:after {
+  margin-right: 5px;
+  opacity: 1;
+}
+
 .blog-card p {
   position: relative;
   margin: 1rem 0 0;

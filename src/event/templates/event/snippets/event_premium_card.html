@@ -1,0 +1,37 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/premium.css' %}" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+<div class="event-card-container">
+  <div class="event-graphics" style=" background-image: url({{event_post.image.url}});">
+    <!-- <div class="event-img">
+          <img src="./assets/img/927025.png" alt="" />
+        </div> -->
+
+    <div class="event-date">
+      <div class="date">
+        <p>{{event_post.event_date.day}}</p>
+      </div>
+      <div class="month">
+        <p>{{event_post.event_date.month}}</p>
+      </div>
+    </div>
+    <div class="event-premium">
+      <p>Premium</p>
+      <img src="" alt="" />
+    </div>
+  </div>
+  <div class="event-text">
+    <div class="event-title">
+      <p>{{ event_post.title }}</p>
+    </div>
+    <div class="event-details">
+      <p>
+        {{event_post.body|safe|truncatechars:180}}
+      </p>
+    </div>
+    <div class="learn-more">
+      <p>{{event_post.category}} - {{event_post.fee}}</p>
+      <a href=""><img src="{% static 'icons/arrow.svg' %}" alt="" /></a>
+    </div>
+  </div>
+</div>
