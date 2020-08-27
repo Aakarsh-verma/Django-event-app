@@ -52,13 +52,6 @@ def author_view(request, id):
 
     profile = get_object_or_404(Account, id=id)
     event_post = EventPost.objects.filter(author=profile)
-    # qry = ""
-    # if request.GET:
-    #    qry = request.GET.get("q", "")
-    #    context["qry"] = str(qry)
-
-    # query = get_event_queryset(qry)
-    # event_post = sorted(query, key=attrgetter("date_updated"), reverse=True)
     context["profile"] = profile
     context["event_post"] = event_post
 

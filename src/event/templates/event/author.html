@@ -48,22 +48,24 @@
         </div>
     </div>
     <div class="container mx-auto mt-4 p-4 shadow-sm">
-        <br>
-        <h4 class="mx-auto mb-3 font-weight-normal">Events Posted By {{ profile.username }}</h4>
-        {% if event_post %}
-        <ul style="margin: 0; padding: 0;">
-            {% for post in event_post %}
-            <a href="{% url 'event:confirm_premium' post.slug %}" style="text-decoration: none;">
-                <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">
-                    {{post}}</li>
-            </a>
-            {% endfor %}
-            {% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
-
-        </ul>
-        {% else %}
-        <p>This author has yet to post an Event. Stay tuned!</p>
-        {% endif %}
+        <a data-toggle="collapse" href="#collapse1">
+            <legend class="border-bottom mb-4" style="color:black;">Events Posted By {{ profile.username }}</legend>
+        </a>
+        <div id="collapse1" class="panel-collapse collapse">
+            {% if event_post %}
+            <ul style="margin: 0; padding: 0;">
+                {% for post in event_post %}
+                <a href="{% url 'event:confirm_premium' post.slug %}" style="text-decoration: none;">
+                    <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">
+                        {{post}}</li>
+                </a>
+                {% endfor %}
+                {% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
+            </ul>
+            {% else %}
+            <p>This author has yet to post an Event. Stay tuned!</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 

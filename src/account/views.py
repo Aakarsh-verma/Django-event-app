@@ -77,19 +77,21 @@ def login_view(request):
 def account_view(request):
 
     context = {}
+    user = request.user
+
     apply = EventPost.objects.filter(
         author=request.user, premium_applied=False, premium_aproved=False
     )
     context["apply"] = apply
 
-    event_post = EventPost.objects.filter(author=request.user)
+    event_post = EventPost.objects.filter(author=user)
     if not Profile.objects.filter(user=request.user):
-        return redirect("../event/profile/" + str(request.user.id))
+        return redirect("../event/profile/" + str(user.id))
 
     if request.POST:
-        form = AccountUpdateForm(request.POST, instance=request.user)
+        form = AccountUpdateForm(request.POST, instance=user)
         p_form = ProfileUpdateForm(
-            request.POST or None, request.FILES or None, instance=request.user.profile,
+            request.POST or None, request.FILES or None, instance=user.profile,
         )
         if form.is_valid() and p_form.is_valid():
             form.initial = {
@@ -102,20 +104,19 @@ def account_view(request):
             messages.success(request, f"Profile Update successfull!")
     else:
         form = AccountUpdateForm(
-            initial={"email": request.user.email, "username": request.user.username,}
+            initial={
+                "email": user.email,
+                "username": user.username,
+                "website_url": user.website_url,
+                "facebook_url": user.facebook_url,
+                "twitter_url": user.twitter_url,
+                "instagram_url": user.instagram_url,
+                "youtube_url": user.youtube_url,
+            }
         )
-        p_form = ProfileUpdateForm(
-            initial={"profile_pic": request.user.profile.profile_pic}
-        )
+        p_form = ProfileUpdateForm(initial={"profile_pic": user.profile.profile_pic})
     context["form"] = form
     context["p_form"] = p_form
-    # qry = ""
-    # if request.GET:
-    #    qry = request.GET.get("q", "")
-    #    context["qry"] = str(qry)
-
-    # query = get_event_queryset(qry)
-    # event_post = sorted(query, key=attrgetter("date_updated"), reverse=True)
     context["event_post"] = event_post
 
     return render(request, "account/account.html", context)

@@ -53,7 +53,7 @@ class AccountAuthenticationForm(forms.ModelForm):
 class AccountUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = (
+        fields = [
             "email",
             "username",
             "website_url",
@@ -61,18 +61,17 @@ class AccountUpdateForm(forms.ModelForm):
             "twitter_url",
             "instagram_url",
             "youtube_url",
-        )
+        ]
 
-    def __init__(self, *args, **kwargs):
-        super(AccountUpdateForm, self).__init__(*args, **kwargs)
-
-        self.fields["email"].widget.attrs["class"] = "form-control"
-        self.fields["username"].widget.attrs["class"] = "form-control"
-        self.fields["website_url"].widget.attrs["class"] = "form-control"
-        self.fields["facebook_url"].widget.attrs["class"] = "form-control"
-        self.fields["twitter_url"].widget.attrs["class"] = "form-control"
-        self.fields["instagram_url"].widget.attrs["class"] = "form-control"
-        self.fields["youtube_url"].widget.attrs["class"] = "form-control"
+        widgets = {
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "website_url": forms.URLInput(attrs={"class": "form-control"}),
+            "facebook_url": forms.URLInput(attrs={"class": "form-control"}),
+            "twitter_url": forms.URLInput(attrs={"class": "form-control"}),
+            "instagram_url": forms.URLInput(attrs={"class": "form-control"}),
+            "youtube_url": forms.URLInput(attrs={"class": "form-control"}),
+        }
 
     def clean_email(self):
         if self.is_valid:
