@@ -92,7 +92,7 @@
         align-items: center;
     }
 
-    .title .name p a {
+    .title .name p {
         font-weight: 600;
         color: white;
         padding-left: 20px;
@@ -180,20 +180,20 @@
     <div class="title">
         <div class="logo"><img src="{% static 'icons/megaphone.png' %}"></img></div>
         <div class="name">
-            <p style="margin-bottom: 0;"><a href="{% url 'event-home' %}">EventAdda</a></p>
+            <p style="margin-bottom: 0;">EventAdda</p>
         </div>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <form class="form-inline my-2 my-lg-0" method=" GET" action=".">
-        <div class="search-bar">
-            <input class="form-control mr-sm-2" type="text" name="q" id="id_q"
-                placeholder="Search title/content/author name" aria-label="Search">
-        </div>
-    </form>
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <form class="form-inline my-2 my-lg-0" method=" GET" action=".">
+            <div class="search-bar">
+                <input class="form-control mr-sm-2" type="text" name="q" id="id_q"
+                    placeholder="Search title/content/author name" aria-label="Search">
+            </div>
+        </form>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <div class="name">

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+{% load static %}
 
 <head>
+    <link rel="icon" href="{% static 'icons/megaphone.png' %}">
     <title>{% block title %}Event Adda{% endblock title %}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,7 +29,6 @@
             min-width: min-content;
         }
     </style>
-    <br>
     <div class="main">
         <div class="al">
             {% if messages %}

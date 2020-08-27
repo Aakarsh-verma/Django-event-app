@@ -136,7 +136,7 @@ End Footer -->
     }
 
     .footer-distributed .footer-right i {
-        margin-right: 10px;
+        margin-right: 7px;
     }
 
     .footer-distributed .footer-right a:hover {
@@ -170,6 +170,32 @@ End Footer -->
             line-height: 1.8;
         }
     }
+
+    @keyframes color-change {
+        0% {
+            color: red;
+        }
+
+        20% {
+            color: rgb(255, 127, 8);
+        }
+
+        40% {
+            color: rgb(243, 255, 82);
+        }
+
+        60% {
+            color: rgb(97, 255, 82);
+        }
+
+        80% {
+            color: rgb(82, 235, 255);
+        }
+
+        100% {
+            color: rgb(255, 82, 218);
+        }
+    }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
@@ -196,7 +222,7 @@ End Footer -->
 
             <a href="{% url 'event-home' %}">Events</a>
 
-            <a href="{% url 'premium-events' %}">Premium</a>
+            <a href="{% url 'premium-events' %}" style="animation: color-change 1s infinite;">Premium</a>
 
             <a href="#">Contact</a>
         </p>
