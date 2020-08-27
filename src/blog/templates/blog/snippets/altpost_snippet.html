@@ -2,6 +2,8 @@
 
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% if blog_post %}
 <div class="blog-card alt">
     <div class="meta">
         {% if blog_post.image %}
@@ -20,9 +22,25 @@
     </div>
     <div class="description">
         <h1>{{blog_post.title}}</h1>
+        <p class="text-muted">last updated {{blog_post.date_updated}}</p>
+        <hr>
         <p>{{blog_post.body|safe|truncatechars:180}}</p>
         <p class="read-more">
             <a href="{% url 'blog:detail' post.slug %}">Read More</a>
         </p>
     </div>
 </div>
+{% else %}
+
+<div class="container">
+    <div class="row">
+        <div class="card m-auto">
+            <div class="card-body mt-2 mb-2">
+                <h2 class="card-title">No results</h2>
+                <p class="card-text">There were no blogs Found</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
