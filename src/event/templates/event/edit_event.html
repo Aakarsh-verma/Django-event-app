@@ -89,8 +89,8 @@
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_reg_to">Registration to:</label>
-						<input class="form-control" type="date" name="reg_to" id="id_reg_to">
-						<span style="color:blue;">(Current:{{event_post.reg_to}})</span>
+						<input class="form-control" type="date" name="reg_to" id="id_reg_to" required>
+						<span class="text-muted">(Current:{{event_post.reg_to}})</span>
 					</div>
 				</div>
 
@@ -98,8 +98,8 @@
 				<div class="form-check form-check-inline">
 					<div class="form-group">
 						<label for="id_event_date">Event Date:</label>
-						<input class="form-control" type="date" name="event_date" id="id_event_date">
-						<span style="color:blue;">(Current: {{event_post.event_date}})</span>
+						<input class="form-control" type="date" name="event_date" id="id_event_date" required>
+						<span class="text-muted">(Current: {{event_post.event_date}})</span>
 					</div>
 				</div>
 
