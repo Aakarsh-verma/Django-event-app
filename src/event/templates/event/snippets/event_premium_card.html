@@ -1,37 +1,65 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/premium.css' %}" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-<div class="event-card-container">
-  <div class="event-graphics" style=" background-image: url({{event_post.image.url}});">
-    <!-- <div class="event-img">
-          <img src="./assets/img/927025.png" alt="" />
-        </div> -->
 
-    <div class="event-date">
-      <div class="date">
-        <p>{{event_post.event_date.day}}</p>
-      </div>
-      <div class="month">
-        <p>{{event_post.event_date.month}}</p>
-      </div>
-    </div>
-    <div class="event-premium">
-      <p>Premium</p>
-      <img src="" alt="" />
-    </div>
+<style type="text/css">
+  .card {
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+  }
+</style>
+
+<link rel="stylesheet" href="{% static 'css/premium.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% if event_post %}
+<div class="blog-card">
+  <div class="meta">
+    <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
+    <ul class="details">
+      <li class="premium">Premium</li>
+      <li class="author"><a href="{% url 'event:author-view' event_post.author.id %}">{{event_post.author.username}}</a>
+      </li>
+      <li class="date">{{event_post.event_date}}</li>
+      <li class="tags">
+        <ul>
+          <li><b>{{event_post.category}}</b></li>
+        </ul>
+      </li>
+      <li class='rupee'>{{event_post.fee}}</li>
+    </ul>
   </div>
-  <div class="event-text">
-    <div class="event-title">
-      <p>{{ event_post.title }}</p>
-    </div>
-    <div class="event-details">
-      <p>
-        {{event_post.body|safe|truncatechars:180}}
-      </p>
-    </div>
-    <div class="learn-more">
-      <p>{{event_post.category}} - {{event_post.fee}}</p>
-      <a href=""><img src="{% static 'icons/arrow.svg' %}" alt="" /></a>
+  <div class="description">
+    <h1>{{ event_post.title }}</h1>
+    <p class="test-muted">Last updated {{event_post.date_updated}}</p>
+    <hr>
+    <pre>{{event_post.body|safe|truncatechars:180}}</pre>
+    <p class="read-more">
+      <a href="{% url 'event:detail' post.slug %}">Read More</a>
+    </p>
+  </div>
+</div>
+{% else %}
+
+<div class="container">
+  <div class="row">
+    <div class="card m-auto">
+      <div class="card-body mt-2 mb-2">
+        <h2 class="card-title">No results</h2>
+        <p class="card-text">There were no Events Found</p>
+      </div>
     </div>
   </div>
 </div>
+
+{% endif %}
