@@ -7,7 +7,7 @@ from personal.views import (
     home_screen_view,
     event_home_screen_view,
     premium_event_screen_view,
-    committee_home_screen_view,
+    # committee_home_screen_view,
 )
 
 from account.views import (
@@ -26,8 +26,8 @@ urlpatterns = [
     path("blog/", include("blog.urls", "blog")),
     path("premium_events/", premium_event_screen_view, name="premium-events"),
     path("event/", include("event.urls", "event")),
-    path("committee_home/", committee_home_screen_view, name="committee-home"),
-    path("committee/", include("committee.urls", "committee")),
+    # path("committee_home/", committee_home_screen_view, name="committee-home"),
+    # path("committee/", include("committee.urls", "committee")),
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path("must_authenticate/", must_authenticate_view, name="must_authenticate"),
