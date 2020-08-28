@@ -8,7 +8,10 @@ from account.models import Account
 from event.models import EventPost
 from blog.models import BlogPost, Category
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
+from datetime import datetime, date
 
+
+today = date.today()
 
 @login_required
 def create_blog_view(request):
@@ -18,29 +21,44 @@ def create_blog_view(request):
     context["categorys"] = categorys
 
     user = request.user
-    event_posts = EventPost.objects.filter(author=user)
-    context["event_posts"] = event_posts
+    blog_posts = BlogPost.objects.filter(author=user)
+    context["blog_posts"] = blog_posts
+
+    if not user.is_authenticated:
+        return redirect("must_authenticate")
+
+    limit = []
+    for post in blog_posts:
+        edate = post.date_published.strftime("%Y-%m-%d")
+        edate0 = datetime.strptime(edate, "%Y-%m-%d").date()
+        if today == edate0:
+            limit.append(edate0)
 
     if user.is_staff == 1 or user.is_faculty == 1:
-        if request.POST:
-            form = CreateBlogPostForm(request.POST or None, request.FILES or None)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                author = Account.objects.filter(email=user.email).first()
-                obj.author = author
-                obj.save()
-                messages.success(request, f"Your Blog has been posted successfully!")
-                return redirect("home")
-            else:
-                print(form)
-                print("Invalid Form")
-                print(form.errors)
-                return render(request, "blog/create_blog.html", {"form": form})
-
+        if len(limit) >= 3:
+            return redirect("limit_reached")
         else:
-            form = CreateBlogPostForm()
-            context["form"] = form
-        return render(request, "blog/create_blog.html", context)
+            if request.POST:
+                form = CreateBlogPostForm(request.POST or None, request.FILES or None)
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    author = Account.objects.filter(email=user.email).first()
+                    obj.author = author
+                    obj.save()
+                    messages.success(
+                        request, f"Your Blog has been posted successfully!"
+                    )
+                    return redirect("home")
+                # else:
+                # print(form)
+                # print("Invalid Form")
+                # print(form.errors)
+                # return render(request, "blog/create_blog.html", {"form": form})
+
+            else:
+                form = CreateBlogPostForm()
+                context["form"] = form
+                return render(request, "blog/create_blog.html", context)
     else:
         raise Http404("Page Not Found")
 

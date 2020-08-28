@@ -4,6 +4,7 @@
 
 <head>
     <link rel="icon" href="{% static 'icons/megaphone.png' %}">
+    <script src="https://kit.fontawesome.com/a54d2cbf95.js"></script>
     <title>{% block title %}Event Adda{% endblock title %}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -28,6 +29,28 @@
             text-align: center;
             min-width: min-content;
         }
+
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 50px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #85B6FF;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 30px;
+            width: 50px;
+            height: 50px;
+        }
+
+        #myBtn:hover {
+            background-color: #555;
+        }
     </style>
     <div class="main">
         <div class="al">
@@ -39,10 +62,32 @@
             {% endfor %}
             {% endif %}
         </div>
-
+        <button onclick="topFunction()" id="myBtn" title="Go to top" style="scroll-behavior: smooth;"> <i
+                class="fas fa-chevron-up"></i></button>
         {% block content %}
         {% endblock content %}
     </div>
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 300) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
     <!-- End Body -->
     {% include 'snippets/footer.html' %}
 </body>
