@@ -55,7 +55,7 @@
             {% if event_post %}
             <ul style="margin: 0; padding: 0;">
                 {% for post in event_post %}
-                <a href="{% url 'event:confirm_premium' post.slug %}" style="text-decoration: none;">
+                <a href="{% url 'event:detail' post.slug %}" style="text-decoration: none;">
                     <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">
                         {{post}}</li>
                 </a>
