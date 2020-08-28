@@ -32,7 +32,7 @@
       {% endif %}
       <li class="author"><a href="{% url 'event:author-view' event_post.author.id %}">{{event_post.author.username}}</a>
       </li>
-      <li class="date">{{event_post.event_date}}</li>
+      <li class="date">Event date: {{event_post.event_date}}</li>
       <li class="tags">
         <ul>
           <li><b>{{event_post.category}}</b></li>
@@ -43,7 +43,7 @@
   </div>
   <div class="description">
     <h1>{{ event_post.title }}</h1>
-    <p class="test-muted">Last updated {{event_post.date_updated}}</p>
+    <p class="test-muted">Registration Ends: {{event_post.reg_to}}</p>
     <hr>
     <pre>{{event_post.body|safe|truncatechars:180}}</pre>
     <p class="read-more">

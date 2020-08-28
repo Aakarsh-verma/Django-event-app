@@ -145,12 +145,12 @@
                 {% if event_posts %}
                 {% for post in event_posts %}
                 <div class="event-post-container mt-2">
-                    {% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+                    {% include 'event/snippets/event_premium_card.html' with event_post=post %}
                 </div>
                 {% endfor %}
                 {% else %}
                 <div class="event-post-container">
-                    {% include 'event/snippets/event_card_snippet.html' with query=query %}
+                    {% include 'event/snippets/event_premium_card.html' with query=query %}
                 </div>
                 {% endif %}
                 <!-- End event posts-->
