@@ -70,7 +70,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     def check_file(self, *args, **kwargs):
         profile_pic = self.cleaned_data["profile_pic"]
-        content_type = profile_pic.content_type.split("/")[0]
+        # content_type = profile_pic.content_type.split("/")[0]
         if profile_pic.size > int(MAX_UPLOAD_SIZE):
             raise forms.ValidationError(
                 _("Please keep image size under %s. Current file size %s")
@@ -118,7 +118,7 @@ class CreateEventPostForm(forms.ModelForm):
 
     def check_file(self, *args, **kwargs):
         image = self.cleaned_data["image"]
-        content_type = image.content_type.split("/")[0]
+        # content_type = image.content_type.split("/")[0]
         if image.size > int(MAX_UPLOAD_SIZE):
             raise forms.ValidationError(
                 _("Please keep image size under %s. Current file size %s")
@@ -166,7 +166,7 @@ class UpdateEventPostForm(forms.ModelForm):
 
     def check_file(self, *args, **kwargs):
         image = self.cleaned_data["image"]
-        content_type = image.content_type.split("/")[0]
+        # content_type = image.content_type.split("/")[0]
         if image.size > int(MAX_UPLOAD_SIZE):
             raise forms.ValidationError(
                 _("Please keep image size under %s. Current file size %s")
