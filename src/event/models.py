@@ -58,6 +58,7 @@ class EventPost(models.Model):
     priority = models.IntegerField(default=0)
     premium_applied = models.BooleanField(default=False)
     premium_aproved = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

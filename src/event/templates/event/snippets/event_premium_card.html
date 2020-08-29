@@ -32,7 +32,7 @@
   }
 
   .days-to-go {
-    animation: blinker 2s linear infinite;
+    animation: blinker 1.5s linear infinite;
     margin-top: 0
   }
 
@@ -60,7 +60,6 @@
       </div>-->
     </div>
     <ul class="details">
-      <li class="premium">Premium</li>
       <li class="author"><a href="{% url 'event:author-view' event_post.author.id %}">{{event_post.author.username}}</a>
       </li>
       <li class="date">Event date: {{event_post.event_date}}</li>
@@ -70,18 +69,22 @@
         </ul>
       </li>
       <li class='rupee'>{{event_post.fee}}</li>
+      <li class='place'>{{event_post.author.organization_place}}</li>
     </ul>
   </div>
   <div class="description">
+    <span class='premium-event' style="font-size:20px; color:#c7a338">
+      <i class="fa fa-star gold-color"></i>
+      Premium
+    </span>
     <h1>{{ event_post.title }}</h1>
     <h2 style="font-size:15px;">Last date of Registration
       <span class="days-to-go" style="display:inline;font-size:15px;color:#5ad67d;font-weight:500;"> -
         {{event_post.event_date|days_until}} Days to
         Go</span>
     </h2>
-    <p>
+    <hr>
     <pre>{{event_post.body|safe|truncatechars:180}}</pre>
-    </p>
     <p class="read-more">
       <a href="{% url 'event:detail' post.slug %}">Read More</a>
     </p>

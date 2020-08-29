@@ -13,7 +13,7 @@ class AccountAdmin(UserAdmin):
         "username",
         "date_joined",
         "last_login",
-        "from_pce",
+        "organization_name",
         "is_admin",
         "is_staff",
         "is_faculty",

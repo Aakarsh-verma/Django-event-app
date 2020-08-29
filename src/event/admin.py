@@ -7,11 +7,12 @@ class EventAdmin(admin.ModelAdmin):
         "title",
         "category",
         "date_published",
-        "date_updated",
+        "event_date",
         "author",
         "premium_applied",
         "premium_aproved",
         "priority",
+        "is_deleted",
     )
     search_fields = (
         "title",
