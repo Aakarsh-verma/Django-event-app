@@ -5,6 +5,7 @@ from blog.views import get_blog_queryset
 from blog.models import BlogPost, Category
 from event.views import get_event_queryset, get_premium_queryset
 from event.models import EventPost, EventCategory
+from .templatetags.my_tags import days_until
 
 # from committee.views import get_committee_queryset
 # from committee.models import Committee
@@ -87,6 +88,11 @@ def event_home_screen_view(request):
 
     qs = EventPost.objects.all()
     sortasc = 0
+
+    for post in qs:
+        expiry = days_until(post.event_date)
+        if int(expiry) < 0:
+            EventPost.objects.filter(id=post.id).update(is_deleted=True)
 
     category_query = request.GET.get("category")
     date_query = request.GET.get("date")

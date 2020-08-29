@@ -19,6 +19,14 @@
             <p class="author-username">{{ profile.username }}</p>
             <p class="author-email">{{ profile.email }}</p>
             <p>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+                {{profile.organization_name}}, {{profile.organization_place}}
+            </p>
+            <p>
                 {% if profile.website_url %}
                 <a href="{{profile.website_url}}" target="_blank">
                     <img src="{% static 'icons/website.png' %}" height="40" width="40" alt="webicon">
@@ -55,7 +63,7 @@
             {% if event_post %}
             <ul style="margin: 0; padding: 0;">
                 {% for post in event_post %}
-                <a href="{% url 'event:confirm_premium' post.slug %}" style="text-decoration: none;">
+                <a href="{% url 'event:detail' post.slug %}" style="text-decoration: none;">
                     <li class="list-group-item shadow-sm" style="margin-bottom: 10px;">
                         {{post}}</li>
                 </a>

@@ -124,3 +124,7 @@ def account_view(request):
 
 def must_authenticate_view(request):
     return render(request, "account/must_authenticate.html", {})
+
+
+def limit_reached_view(request):
+    return render(request, "account/limit_reached.html", {})

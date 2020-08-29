@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load my_tags %}
 <style type="text/css">
   .card {
     max-width: 700px;
@@ -18,17 +18,48 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
   }
+
+  #days {
+    z-index: 99;
+    border-radius: 40px;
+    background-color: #d6ba19;
+    width: 80px;
+    height: 80px;
+    font-family: FontAwesome;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .days-to-go {
+    animation: blinker 1.5s linear infinite;
+    margin-top: 0
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
 </style>
 
 <link rel="stylesheet" href="{% static 'css/premium.css' %}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {% if event_post %}
+
 <div class="blog-card">
   <div class="meta">
-    <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
+    <div class="photo" style="background-image: url({{event_post.image.url}})">
+      <!--<div id="days" style="margin-right: 0px;">
+        <span class="text-white" style="font-size: 20px;">{{post.event_date|days_until}}</span>
+        <ul style="list-style-type: none;">
+          <li class="text-white" style="list-style-type: none;">days</li>
+          <li class="text-white" style="list-style-type: none;">to go</li>
+        </ul>
+      </div>-->
+    </div>
     <ul class="details">
-      <li class="premium">Premium</li>
       <li class="author"><a href="{% url 'event:author-view' event_post.author.id %}">{{event_post.author.username}}</a>
       </li>
       <li class="date">Event date: {{event_post.event_date}}</li>
@@ -38,11 +69,20 @@
         </ul>
       </li>
       <li class='rupee'>{{event_post.fee}}</li>
+      <li class='place'>{{event_post.author.organization_place}}</li>
     </ul>
   </div>
   <div class="description">
+    <span class='premium-event' style="font-size:20px; color:#c7a338">
+      <i class="fa fa-star gold-color"></i>
+      Premium
+    </span>
     <h1>{{ event_post.title }}</h1>
-    <p class="test-muted">Registration Ends: {{event_post.reg_to}}</p>
+    <h2 style="font-size:15px;">Last date of Registration
+      <span class="days-to-go" style="display:inline;font-size:15px;color:#5ad67d;font-weight:500;"> -
+        {{event_post.event_date|days_until}} Days to
+        Go</span>
+    </h2>
     <hr>
     <pre>{{event_post.body|safe|truncatechars:180}}</pre>
     <p class="read-more">
@@ -50,6 +90,7 @@
     </p>
   </div>
 </div>
+
 {% else %}
 
 <div class="container">

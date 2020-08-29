@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br>
+<div class="container">
+    <div class="d-flex flex-column">
+        <p class="m-auto">You have exhausted the Maximum no. of posts in one day. Please try tomorrow.</p>
+        <p class="m-auto">
+            Go back to <a href="{% url 'event-home' %}">home</a> page.
+        </p>
+    </div>
+
+</div>
+
+{% endblock content %}

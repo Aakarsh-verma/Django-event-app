@@ -19,7 +19,10 @@ from event.forms import (
 )
 from account.models import Account
 from blog.models import BlogPost
-from datetime import datetime
+from datetime import datetime, date
+
+
+today = date.today()
 
 
 def create_profile_view(request, id):
@@ -68,27 +71,42 @@ def create_event_view(request):
     if not user.is_authenticated:
         return redirect("must_authenticate")
 
-    if user.is_staff == 1 or user.is_superuser == 1:
-        if request.POST:
-            form = CreateEventPostForm(request.POST or None, request.FILES or None)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                author = Account.objects.filter(email=user.email).first()
-                obj.author = author
-                obj.save()
+    event_posts = EventPost.objects.filter(author=user)
+    context["event_posts"] = event_posts
 
-                messages.success(request, f"Your Event has been posted successfully!")
-                return redirect("event-home")
-            else:
-                print(form)
-                print("Invalid Form")
-                print(form.errors)
-                return render(request, "event/create_event.html", {"form": form})
+    limit = []
+    for post in event_posts:
+        edate = post.date_published.strftime("%Y-%m-%d")
+        edate0 = datetime.strptime(edate, "%Y-%m-%d").date()
+        if today == edate0:
+            limit.append(edate0)
+
+    if user.is_staff == 1 or user.is_superuser == 1:
+        if len(limit) >= 2:
+            return redirect("limit_reached")
         else:
-            form = CreateEventPostForm()
-            context["form"] = form
-            context["categorys"] = categorys
-        return render(request, "event/create_event.html", context)
+            if request.POST:
+                form = CreateEventPostForm(request.POST or None, request.FILES or None)
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    author = Account.objects.filter(email=user.email).first()
+                    obj.author = author
+                    obj.save()
+
+                    messages.success(
+                        request, f"Your Event has been posted successfully!"
+                    )
+                    return redirect("event-home")
+                # else:
+                # print(form)
+                # print("Invalid Form")
+                # print(form.errors)
+                # return render(request, "event/create_event.html", {"form": form})
+            else:
+                form = CreateEventPostForm()
+                context["form"] = form
+                context["categorys"] = categorys
+            return render(request, "event/create_event.html", context)
 
     else:
         raise Http404("Page Not Found")
