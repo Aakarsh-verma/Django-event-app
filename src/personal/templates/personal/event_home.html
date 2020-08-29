@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load my_tags %}
 {% block content %}
+
+
 <style type="text/css">
 	@media (max-width: 768px) {
 		.right-column {
@@ -93,6 +95,7 @@
 				<div class="form-group">
 					<label for="id_category">Category</label>
 					<select class="form-control" id="id_category" name="category" placeholder="select">
+						<option value="Choose...">Choose...</option>
 						{% for category in categorys %}
 						<option value="{{category.name}}">{{category.name}}</option>
 						{% endfor %}
@@ -122,7 +125,7 @@
 			<!-- event feed -->
 			<div class="left-column col-lg-9">
 				<!--Top Filters-->
-				<div class="bg-white shadow-lg d-sm-none d-flex flex-column">
+				<div class="bg-white mx-auto shadow-lg d-sm-none d-flex flex-column" style="max-width: 400px;">
 					<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
 						<h6 class="p-2 text-white">Filters</h6>
 					</div>
@@ -145,6 +148,7 @@
 							<div class="form-group">
 								<label for="id_category">Category</label>
 								<select class="form-control" id="id_category" name="category" placeholder="select">
+									<option value="Choose...">Choose...</option>
 									{% for category in categorys %}
 									<option value="{{category.name}}">{{category.name}}</option>
 									{% endfor %}

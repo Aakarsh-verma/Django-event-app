@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 
 <style type="text/css">
   .card {
@@ -17,6 +18,17 @@
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
+  }
+
+  .days-to-go {
+    animation: blinker 2s linear infinite;
+    margin-top: 0
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
   }
 </style>
 
@@ -43,9 +55,14 @@
   </div>
   <div class="description">
     <h1>{{ event_post.title }}</h1>
-    <p class="test-muted">Registration Ends: {{event_post.reg_to}}</p>
-    <hr>
+    <h2 style="font-size:15px;">Last date of Registration
+      <span class="days-to-go" style="display:inline;font-size:15px;color:#5ad67d;font-weight:500;"> -
+        {{event_post.event_date|days_until}} Days to
+        Go</span>
+    </h2>
+    <p>
     <pre>{{event_post.body|safe|truncatechars:180}}</pre>
+    </p>
     <p class="read-more">
       <a href="{% url 'event:detail' post.slug %}">Read More</a>
     </p>
