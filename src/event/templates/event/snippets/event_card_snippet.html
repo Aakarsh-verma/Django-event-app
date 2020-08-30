@@ -34,7 +34,9 @@
 
 <link rel="stylesheet" href="{% static 'css/event.css' %}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-{% if event_post %}
+
+{% if event_post.is_deleted == False %}
+
 <div class="blog-card">
   <div class="meta">
     <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
@@ -68,6 +70,7 @@
     </p>
   </div>
 </div>
+
 {% else %}
 
 <div class="container">
