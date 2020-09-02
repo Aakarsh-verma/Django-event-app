@@ -4,7 +4,7 @@
 {% block title %}Event Adda-Log in{% endblock title %}
 
 {% block content %}
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style type="text/css">
   .form-signin {
     width: 100%;
@@ -44,7 +44,15 @@
   .h3 {
     text-align: center;
   }
+
+
+  .main {
+    min-height: 100vh;
+    height: auto;
+    margin-top: 80px;
+  }
 </style>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <br><br>
 <form class="form-signin bg-white shadow-md" method="post">{% csrf_token %}
   <div class="d-flex flex-column pb-3">
@@ -55,8 +63,19 @@
   {{ form.as_p }}
 
   {% include 'event/snippets/form_errors_snippet.html' %}
+  <div class="d-flex flex-column pb-3">
+    <div class="g-recaptcha" data-sitekey="6Lfm5MUZAAAAAOLrmIq2J-ITb_qvF8l_7PTZ79a6"></div>
+  </div>
 
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">
+    {{ message }}
+  </div>
+  {% endfor %}
+  {% endif %}
   <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+
 
 </form>
 <div class="d-flex flex-column">

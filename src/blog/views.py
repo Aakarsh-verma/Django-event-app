@@ -13,12 +13,11 @@ from datetime import datetime, date
 
 today = date.today()
 
+
 @login_required
 def create_blog_view(request):
 
     context = {}
-    categorys = Category.objects.all()
-    context["categorys"] = categorys
 
     user = request.user
     blog_posts = BlogPost.objects.filter(author=user)
@@ -26,6 +25,11 @@ def create_blog_view(request):
 
     if not user.is_authenticated:
         return redirect("must_authenticate")
+
+    categorys = Category.objects.all()
+    context["categorys"] = categorys
+    event_posts = EventPost.objects.filter(author=user)
+    context["event_posts"] = event_posts
 
     limit = []
     for post in blog_posts:
@@ -83,6 +87,21 @@ def edit_blog_view(request, slug):
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
 
+    categorys = Category.objects.all()
+    context["categorys"] = categorys
+    event_posts = EventPost.objects.filter(author=user)
+    context["event_posts"] = event_posts
+
+    limit = []
+    edate = blog_post.date_updated.strftime("%Y-%m-%d")
+    edate0 = datetime.strptime(edate, "%Y-%m-%d").date()
+    if today == edate0:
+        limit.append(edate0)
+
+    if user.is_staff == 1 or user.is_faculty == 1:
+        if len(limit) >= 2:
+            return redirect("limit_reached")
+
     if blog_post.author != user:
         return HttpResponse("You are not the author of that post.")
 
@@ -113,10 +132,7 @@ def edit_blog_view(request, slug):
     )
 
     context["form"] = form
-    categorys = Category.objects.all()
-    context["categorys"] = categorys
-    event_posts = EventPost.objects.filter(author=user)
-    context["event_posts"] = event_posts
+
     return render(request, "blog/edit_blog.html", context)
 
 

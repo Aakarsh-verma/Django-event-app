@@ -6,9 +6,6 @@ from blog.models import BlogPost, Category
 from event.views import get_event_queryset, get_premium_queryset
 from event.models import EventPost, EventCategory
 from .templatetags.my_tags import days_until
-
-# from committee.views import get_committee_queryset
-# from committee.models import Committee
 from datetime import date, timedelta
 
 
@@ -93,6 +90,8 @@ def event_home_screen_view(request):
         expiry = days_until(post.event_date)
         if int(expiry) < 0:
             EventPost.objects.filter(id=post.id).update(is_deleted=True)
+        if int(expiry) < -3:
+            EventPost.objects.filter(id=post.id).delete()
 
     category_query = request.GET.get("category")
     date_query = request.GET.get("date")
@@ -198,36 +197,3 @@ def premium_event_screen_view(request):
     context["categorys"] = categorys
 
     return render(request, "personal/premium_events.html", context)
-
-
-def archive_post():
-    event_posts = EventPost.objects.filter(
-        event_date__year__gte=today.year,
-        event_date__month__gte=today.month,
-        event_date__day__gte=today.day,
-    )
-    archive_post = EventArchive()
-    for post in event_posts:
-        print(post)
-    # archive_post.pk = None
-    # archive_post.save()
-    # event_posts = EventPost.objects.filter(
-    #    event_date__year__gte=today.year,
-    #    event_date__month__gte=today.month,
-    #    event_date__day__gte=today.day,
-    # ).delete()
-
-
-# def committee_home_screen_view(request):
-#    context = {}
-#
-#    qry = ""
-#    if request.GET:
-#        qry = request.GET.get("q", "")
-#        context["qry"] = str(qry)
-#
-#    query = get_committee_queryset(qry)
-#
-#    committee = sorted(query, key=attrgetter("date_updated"), reverse=True)
-#    context["committee"] = committee
-#    return render(request, "personal/committee_home.html", context)

@@ -82,6 +82,11 @@
   margin-right: 10px;
   content: "\f005";
 }
+.blog-card .details .place:before {
+  font-family: FontAwesome;
+  margin-right: 10px;
+  content: "\f3c5";
+}
 .blog-card .details .tags ul:before {
   font-family: FontAwesome;
   content: "\f02b";
