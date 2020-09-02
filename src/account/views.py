@@ -12,6 +12,8 @@ from event.models import EventPost, Profile
 from event.forms import ProfileUpdateForm
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
+import requests
+import simplejson as json
 
 
 def registration_view(request):
@@ -57,14 +59,29 @@ def login_view(request):
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
+
         if form.is_valid():
             email = request.POST["email"]
             password = request.POST["password"]
-            user = authenticate(email=email, password=password)
+            captcha_token = request.POST["g-recaptcha-response"]
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_secret = "6Lfm5MUZAAAAADGzhmFEYLc-5lSVP-ZEeoAg0k95"
+            cap_data = {"secret": cap_secret, "response": captcha_token}
+            r = requests.post(
+                "https://www.google.com/recaptcha/api/siteverify", data=cap_data
+            )
+            response = json.loads(r.text)
+            verify = response["success"]
+            print(verify)
 
-            if user:
-                login(request, user)
-                return redirect("event-home")
+            user = authenticate(email=email, password=password)
+            if verify == True:
+
+                if user:
+                    login(request, user)
+                    return redirect("event-home")
+            else:
+                messages.error(request, f"INVALID CAPTCHA..")
 
     else:
         form = AccountAuthenticationForm()

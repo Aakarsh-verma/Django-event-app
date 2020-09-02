@@ -50,7 +50,7 @@ class CreateBlogPostForm(forms.ModelForm):
 
     def check_file(self, *args, **kwargs):
         image = self.cleaned_data["image"]
-        content_type = image.content_type.split("/")[0]
+        # content_type = image.content_type.split("/")[0]
         if image.size > int(MAX_UPLOAD_SIZE):
             raise forms.ValidationError(
                 _("Please keep image size under %s. Current file size %s")
@@ -88,7 +88,7 @@ class UpdateBlogPostForm(forms.ModelForm):
 
     def check_file(self, *args, **kwargs):
         image = self.cleaned_data["image"]
-        content_type = image.content_type.split("/")[0]
+        # content_type = image.content_type.split("/")[0]
         if image.size > int(MAX_UPLOAD_SIZE):
             raise forms.ValidationError(
                 _("Please keep image size under %s. Current file size %s")

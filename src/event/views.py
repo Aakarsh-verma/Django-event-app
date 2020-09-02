@@ -138,9 +138,15 @@ def edit_event_view(request, slug):
     if event_post.author != user:
         return HttpResponse("You are not the author of that post.")
 
-    edate = event_post.event_date
-    date_time = edate.strftime("%d-%m-%Y")
-    edate = datetime.strptime(date_time, "%d-%m-%Y")
+    limit = []
+    edate = event_post.date_updated.strftime("%Y-%m-%d")
+    edate0 = datetime.strptime(edate, "%Y-%m-%d").date()
+    if today == edate0:
+        limit.append(edate0)
+
+    if user.is_staff == 1 or user.is_superuser == 1:
+        if len(limit) >= 2:
+            return redirect("limit_reached")
 
     if request.POST:
         form = UpdateEventPostForm(
