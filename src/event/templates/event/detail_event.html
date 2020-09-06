@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{event_post.title}}{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/event-detail.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+{% endblock head %}
+
 
 {% block content %}
 
@@ -29,6 +36,16 @@
         animation: blink 1s steps(5, start) infinite;
     }
 
+    .event-detail-card p {
+        font-family: Montserrat, sans-serif;
+        font-size: 1.3vw;
+    }
+
+    .pts p span {
+        font-family: Montserrat, sans-serif;
+        font-weight: 500;
+    }
+
     @keyframes blink {
         to {
             color: #4169E1;
@@ -39,20 +56,23 @@
 <div class="container">
     <div class="row">
 
-        <!--Event Post-->
+        <!--Event Post-->naps4@Deepblue
         <div class="card m-auto">
             <img class="card-img-top" src="{{event_post.image.url}}" alt="{{event_post.image.url}}">
             <div class="card-body my-2">
                 <h2 class="card-title">{{event_post.title}}</h2>
-                <p class="card-text-bold"><b>Event Date</b> : {{event_post.event_date}}</p>
-                <p class="card-text-bold"><b>Reg to</b> : {{event_post.reg_to}}</p>
-                {% if event_post.fee == 0  %}
-                <p class="card-text-bold"><b>Fee</b> : None</p>
-                {% else %}
-                <p class="card-text-bold"><b>Fee</b> : {{event_post.fee}}</p>
-                {% endif %}
-                <p class="card-text-bold"><b>Reg link</b> :<a href="{{event_post.reg_link}}" target="_blank">
-                        {{event_post.reg_link}}</a></p>
+                <hr>
+                <div class="pts">
+                    <p><span>Event Date</span> : {{event_post.event_date}}</p>
+                    <p><span>Last Date of Registration</span> : {{event_post.reg_to}}</p>
+                    {% if event_post.fee == 0  %}
+                    <p><span>Fee</span> : None</p>
+                    {% else %}
+                    <p><span>Fee</span> : {{event_post.fee}}</p>
+                    {% endif %}
+                    <p><span>Registration link</span> :<a href="{{event_post.reg_link}}" target="_blank">
+                            {{event_post.reg_link}}</a></p>
+                </div><br>
                 <pre class="card-text-bold">{{event_post.body|safe}}</pre>
                 {% if event_post.author == request.user %}
                 <a href="{% url 'event:edit' event_post.slug %}" class="btn btn-primary">Edit</a>
@@ -86,6 +106,7 @@
             {% endif %}
             {% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
         </div>
+
     </div>
 </div>
 {% endblock content %}

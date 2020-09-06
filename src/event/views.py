@@ -81,8 +81,8 @@ def create_event_view(request):
         if today == edate0:
             limit.append(edate0)
 
-    if user.is_staff == 1 or user.is_superuser == 1:
-        if len(limit) >= 2:
+    if user.is_staff:
+        if len(limit) >= user.post_limit:
             return redirect("limit_reached")
         else:
             if request.POST:
@@ -144,8 +144,8 @@ def edit_event_view(request, slug):
     if today == edate0:
         limit.append(edate0)
 
-    if user.is_staff == 1 or user.is_superuser == 1:
-        if len(limit) >= 2:
+    if user.is_staff:
+        if len(limit) >= user.post_limit:
             return redirect("limit_reached")
 
     if request.POST:
