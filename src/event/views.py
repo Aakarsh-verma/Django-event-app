@@ -55,6 +55,7 @@ def author_view(request, id):
 
     profile = get_object_or_404(Account, id=id)
     event_post = EventPost.objects.filter(author=profile)
+    event_post = event_post.order_by("date_published").reverse()
     context["profile"] = profile
     context["event_post"] = event_post
 

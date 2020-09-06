@@ -98,7 +98,7 @@ def edit_blog_view(request, slug):
     if today == edate0:
         limit.append(edate0)
 
-    if user.is_staff == 1 or user.is_faculty == 1:
+    if user.is_staff == 1:
         if len(limit) >= user.post_limit:
             return redirect("limit_reached")
 

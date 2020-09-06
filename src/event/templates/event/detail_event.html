@@ -56,17 +56,21 @@
 <div class="container">
     <div class="row">
 
-        <!--Event Post-->naps4@Deepblue
+        <!--Event Post-->
         <div class="card m-auto">
             <img class="card-img-top" src="{{event_post.image.url}}" alt="{{event_post.image.url}}">
             <div class="card-body my-2">
                 <h2 class="card-title">{{event_post.title}}</h2>
+                {% if event_post.author == request.user %}
+                <a href="{% url 'event:edit' event_post.slug %}" class="btn btn-primary">Edit</a>
+                <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'event:delete' event_post.id %}">Delete</a>
+                {% endif %}
                 <hr>
                 <div class="pts">
                     <p><span>Event Date</span> : {{event_post.event_date}}</p>
                     <p><span>Last Date of Registration</span> : {{event_post.reg_to}}</p>
                     {% if event_post.fee == 0  %}
-                    <p><span>Fee</span> : None</p>
+                    <p><span>Fee</span> : Free</p>
                     {% else %}
                     <p><span>Fee</span> : {{event_post.fee}}</p>
                     {% endif %}
@@ -74,10 +78,6 @@
                             {{event_post.reg_link}}</a></p>
                 </div><br>
                 <pre class="card-text-bold">{{event_post.body|safe}}</pre>
-                {% if event_post.author == request.user %}
-                <a href="{% url 'event:edit' event_post.slug %}" class="btn btn-primary">Edit</a>
-                <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'event:delete' event_post.id %}">Delete</a>
-                {% endif %}
             </div>
             <div class="card-footer text-muted">
                 <b>{{event_post.category}}</b> | Updated on {{event_post.date_updated}}
@@ -87,10 +87,9 @@
             </div>
         </div>
         <!--End Event Post-->
+        {% if blog_posts %}
         <div class="container">
             <legend class="mx-auto text">Recent Updates in Blog</legend>
-            <p class="mx-auto">We'll let you know if there are any anouncements</p>
-
             {% if blog_posts %}
             {% for post in blog_posts %}
             {% if post.related_event.title == event_post.title %}
@@ -106,7 +105,9 @@
             {% endif %}
             {% include 'blog/snippets/blog_post_pagination.html' with blog_posts=blog_posts %}
         </div>
-
+        {% else %}
+        <p class="mx-auto">We'll let you know if there are any anouncements</p>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

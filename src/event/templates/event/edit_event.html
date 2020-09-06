@@ -136,9 +136,17 @@
 
 				<!-- Submit btn -->
 				<p>
-					<button class="submit-button btn btn-primary" type="submit">Update</button> OR
+					<button class="submit-button btn btn-primary" type="submit">Update</button>
+					{% if event_post.premium_applied == False %}OR
 					<a class="submit-button btn btn-info" href="{% url 'event:confirm_apply' event_post.slug %}">Apply
 						for Premium</a>
+				<p><small style="color: red;">Warning: Applying for premium will not saved unsaved changes!</smal>
+					</small></p>
+				{% else %}
+				<p><small style="color: red;">Warning: Are you sure you want to change the contents of a Premium event?
+						</smal>
+					</small></p>
+				{% endif %}
 				</p>
 			</form>
 		</div>
