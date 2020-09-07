@@ -50,6 +50,7 @@ def home_screen_view(request):
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":
         query = qs.filter(category=category_query)
+
     else:
         qry = ""
         if request.GET:
