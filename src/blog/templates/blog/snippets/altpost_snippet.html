@@ -2,7 +2,25 @@
 
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+    .card {
+        max-width: 700px;
+        width: 100%;
+    }
 
+    .card-body {
+        padding: 20px;
+    }
+
+    pre {
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+    }
+</style>
 {% if blog_post %}
 <div class="blog-card alt">
     <div class="meta">
@@ -22,9 +40,10 @@
     </div>
     <div class="description">
         <h1>{{blog_post.title}}</h1>
-        <p class="text-muted">last updated {{blog_post.date_updated}}</p>
+        <p></p>
+        <!--<p class="text-muted">last updated {{blog_post.date_updated}}</p>-->
         <hr>
-        <p>{{blog_post.body|safe|truncatechars:180}}</p>
+        <pre>{{blog_post.body|safe|truncatechars:180}}</pre>
         <p class="read-more">
             <a href="{% url 'blog:detail' post.slug %}">Read More</a>
         </p>
@@ -37,7 +56,7 @@
         <div class="card m-auto">
             <div class="card-body mt-2 mb-2">
                 <h2 class="card-title">No results</h2>
-                <p class="card-text">There were no blogs Found</p>
+                <p class="card-text">No blogs were found</p>
             </div>
         </div>
     </div>

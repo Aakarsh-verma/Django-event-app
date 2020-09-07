@@ -80,7 +80,7 @@
 				<!-- event_date -->
 
 				<div class="form-group">
-					<label for="id_date">Date Updated</label>
+					<label for="id_date">Date Posted</label>
 					<select class="form-control" type="search" id="id_category" name="date">
 						<option value="Choose...">Choose...</option>
 						<option value="LATEST">LATEST</option>
@@ -148,9 +148,37 @@
 				<!-- Blog posts-->
 				{% if blog_posts %}
 				{% for post in blog_posts %}
+				{% if forloop.counter == 3 %}
+				<div class="container">
+					<div class="row">
+						<div class="card m-auto">
+							<div class="card-body mt-2 mb-2">
+								<h2 class="card-title">Advertisement Image</h2>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="blog-post-container mt-2">
 					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
 				</div>
+				{% elif forloop.counter == 6 %}
+				<div class="container">
+					<div class="row">
+						<div class="card m-auto">
+							<div class="card-body mt-2 mb-2">
+								<h2 class="card-title">Advertisement Image</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="blog-post-container mt-2">
+					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				</div>
+				{% else %}
+				<div class="blog-post-container mt-2">
+					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				</div>
+				{% endif %}
 				{% endfor %}
 				{% else %}
 				<div class="blog-post-container">
