@@ -1,6 +1,6 @@
 {% autoescape off %}
-<p>The Application for making your event Titled: {{ event_post.title }}
-    has been submitted successfully.</p>
+<p>The Application for making your Event Titled: {{ event_post.title }}
+    has been submitted successfully!</p>
 <p>
     You will receive an email within next few hours to initate the confirmation of
     your request.
@@ -10,6 +10,6 @@
     Sincerely,
 </p>
 <p>
-    <a href="http://127.0.0.1:8000/">The EventAdda Team</a>
+    <a href="{% url 'event-home' %}">The EventAdda Team</a>
 </p>
 {% endautoescape %}

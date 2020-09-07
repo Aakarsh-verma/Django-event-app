@@ -33,7 +33,7 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("must_authenticate/", must_authenticate_view, name="must_authenticate"),
     path("limit_reached/", limit_reached_view, name="limit_reached"),
-    path("register/", registration_view, name="register"),
+    # path("register/", registration_view, name="register"),
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path(
         "password_change/done/",

@@ -55,6 +55,7 @@ def author_view(request, id):
 
     profile = get_object_or_404(Account, id=id)
     event_post = EventPost.objects.filter(author=profile)
+    event_post = event_post.order_by("date_published").reverse()
     context["profile"] = profile
     context["event_post"] = event_post
 
@@ -81,8 +82,8 @@ def create_event_view(request):
         if today == edate0:
             limit.append(edate0)
 
-    if user.is_staff == 1 or user.is_superuser == 1:
-        if len(limit) >= 2:
+    if user.is_staff:
+        if len(limit) >= user.post_limit:
             return redirect("limit_reached")
         else:
             if request.POST:
@@ -144,8 +145,8 @@ def edit_event_view(request, slug):
     if today == edate0:
         limit.append(edate0)
 
-    if user.is_staff == 1 or user.is_superuser == 1:
-        if len(limit) >= 2:
+    if user.is_staff:
+        if len(limit) >= user.post_limit:
             return redirect("limit_reached")
 
     if request.POST:

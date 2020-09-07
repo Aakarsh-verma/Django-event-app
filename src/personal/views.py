@@ -37,15 +37,15 @@ def home_screen_view(request):
             sortasc = 1
         elif date_query == "TODAY":
             query = qs.filter(
-                date_updated__year=today.year,
-                date_updated__month=today.month,
-                date_updated__day=today.day,
+                date_published__year=today.year,
+                date_published__month=today.month,
+                date_published__day=today.day,
             )
         elif date_query == "YESTERDAY":
             query = qs.filter(
-                date_updated__year=yesterday.year,
-                date_updated__month=yesterday.month,
-                date_updated__day=yesterday.day,
+                date_published__year=yesterday.year,
+                date_published__month=yesterday.month,
+                date_published__day=yesterday.day,
             )
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":
@@ -105,15 +105,15 @@ def event_home_screen_view(request):
             sortasc = 1
         elif date_query == "TODAY":
             query = qs.filter(
-                date_updated__year=today.year,
-                date_updated__month=today.month,
-                date_updated__day=today.day,
+                date_published__year=today.year,
+                date_published__month=today.month,
+                date_published__day=today.day,
             )
         elif date_query == "YESTERDAY":
             query = qs.filter(
-                date_updated__year=yesterday.year,
-                date_updated__month=yesterday.month,
-                date_updated__day=yesterday.day,
+                date_published__year=yesterday.year,
+                date_published__month=yesterday.month,
+                date_published__day=yesterday.day,
             )
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":

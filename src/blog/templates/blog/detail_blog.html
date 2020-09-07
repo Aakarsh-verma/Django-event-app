@@ -33,12 +33,12 @@
             {% endif %}
             <div class="card-body my-2">
                 <h2 class="card-title">{{blog_post.title}}</h2>
-                <pre class="card-text">{{blog_post.body|safe}}</pre>
                 {% if blog_post.author == request.user %}
-
                 <a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Edit</a>
                 <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'blog:delete' blog_post.id %}">Delete</a>
                 {% endif %}
+                <hr>
+                <pre class="card-text">{{blog_post.body|safe}}</pre>
             </div>
             <div class="card-footer text-muted">
                 <b>{{ blog_post.category }}</b> | Updated on {{blog_post.date_updated}} by {{blog_post.author.username}}

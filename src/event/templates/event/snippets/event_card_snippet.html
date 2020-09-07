@@ -52,7 +52,11 @@
           <li><b>{{event_post.category}}</b></li>
         </ul>
       </li>
+      {% if event_post.fee == 0  %}
+      <li class="rupee">Free</li>
+      {% else %}
       <li class="rupee">{{event_post.fee}}</li>
+      {% endif %}
       <li class="">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="currentColor"
           xmlns="http://www.w3.org/2000/svg">
