@@ -96,6 +96,7 @@ def event_home_screen_view(request):
 
     category_query = request.GET.get("category")
     date_query = request.GET.get("date")
+    reg_date = request.GET.get("reg_date")
     price = request.GET.get("price")
 
     """
@@ -124,6 +125,12 @@ def event_home_screen_view(request):
             event_date__year=dates.year,
             event_date__month=dates.month,
             event_date__day=dates.day,
+        )
+
+    if is_valid_queryparam(reg_date):
+        dates = datetime.strptime(reg_date, "%Y-%m-%d")
+        query = qs.filter(
+            reg_to__year=dates.year, reg_to__month=dates.month, reg_to__day=dates.day,
         )
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":
