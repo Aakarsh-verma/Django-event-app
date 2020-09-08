@@ -6,7 +6,7 @@ from blog.models import BlogPost, Category
 from event.views import get_event_queryset, get_premium_queryset
 from event.models import EventPost, EventCategory
 from .templatetags.my_tags import days_until
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 
 BLOG_POST_PER_PAGE = 10
@@ -98,6 +98,7 @@ def event_home_screen_view(request):
     date_query = request.GET.get("date")
     price = request.GET.get("price")
 
+    """
     if is_valid_queryparam(date_query) and date_query != "Choose...":
         if date_query == "LATEST":
             query = qs
@@ -116,6 +117,14 @@ def event_home_screen_view(request):
                 date_published__month=yesterday.month,
                 date_published__day=yesterday.day,
             )
+    """
+    if is_valid_queryparam(date_query):
+        dates = datetime.strptime(date_query, "%Y-%m-%d")
+        query = qs.filter(
+            event_date__year=dates.year,
+            event_date__month=dates.month,
+            event_date__day=dates.day,
+        )
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":
         query = qs.filter(category=category_query)
