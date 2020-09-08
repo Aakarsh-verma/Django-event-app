@@ -215,6 +215,12 @@
                         style="animation: color-change 1s infinite;">Premium<span class="sr-only">(current)</span></a>
                 </div>
             </li>
+            <li class="nav-item active">
+                <div class="name">
+                    <a class="nav-link" href="{% url 'committee-home' %}">Committee<span
+                            class="sr-only">(current)</span></a>
+                </div>
+            </li>
 
             {% if request.user.is_staff %}
             <li class="nav-item dropdown">

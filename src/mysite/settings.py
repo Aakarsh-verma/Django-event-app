@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     "account",
     "blog",
     "event",
-    # "committee",
+    "committee",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",

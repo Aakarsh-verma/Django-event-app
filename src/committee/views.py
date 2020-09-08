@@ -90,6 +90,7 @@ def detail_committee_view(request, slug):
         event_posts = event_posts_paginator.page(EVENT_POST_PER_PAGE)
     except EmptyPage:
         event_posts = event_posts_paginator.page(event_posts_paginator.num_pages)
+
     context["event_posts"] = event_posts
 
     return render(request, "committee/detail_committee.html", context)
@@ -123,7 +124,7 @@ def edit_committee_view(request, slug):
             "description": committee.description,
             "link": committee.link,
             "image": committee.image,
-            "back_image": committee.back_image,
+            # "back_image": committee.back_image,
         }
     )
 
