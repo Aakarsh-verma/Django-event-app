@@ -141,8 +141,15 @@ def event_home_screen_view(request):
     if is_valid_queryparam(price) and price != "Choose..":
         if price == "Free":
             query = qs.filter(fee=0)
-        elif price == "Not-Free":
-            query = qs.filter(fee__gt=0)
+        elif price == "200":
+            query = qs.filter(fee__lte=200)
+        elif price == "200-500":
+            query = qs.filter(fee__gte=200, fee__lte=500)
+        elif price == "500-1000":
+            query = qs.filter(fee__gte=500, fee__lte=1000)
+        elif price == "1000":
+            query = qs.filter(fee__gte=100)
+
     else:
         qry = ""
         if request.GET:
