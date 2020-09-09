@@ -1,12 +1,14 @@
 <style type="text/css">
-	.card{
+	.card {
 		min-width: 320px;
 		max-width: 320px;
 		width: 100%;
 	}
-	.card-body{
+
+	.card-body {
 		padding: 20px;
 	}
+
 	.xop-info {
 		position: absolute;
 		width: inherit;
@@ -22,13 +24,14 @@
 		padding: 100px 0 0 0;
 		line-height: 1.5;
 	}
-
 </style>
 
 {% if committee %}
-		<div class="xop-box m-auto" >
-        	<a href="{% url 'committee:detail' post.slug %}"><img class="card-img" style="object-fit: contain; background: linear-gradient( rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.10));" src="{{committee.image.url}}"></a>
-      	</div>
+<div class="xop-box m-auto">
+	<a href="{% url 'committee:detail' post.slug %}"><img class="card-img"
+			style="object-fit: contain; background: linear-gradient( rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.10));"
+			src="{{committee.image.url}}"></a>
+</div>
 {% else %}
 
 <div class="container">

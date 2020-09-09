@@ -37,9 +37,13 @@
 
 {% if event_post %}
 
-<div class="blog-card">
+<div class="blog-card" style="max-width: fit-content;">
   <div class="meta">
+    {% if event_post.image %}
     <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
+    {% else %}
+    <div class="photo" style="background-image: url({% static 'icons/megaphone.png' %})"></div>
+    {% endif %}
     <ul class="details">
       {% if event_post.premium_aproved == True %}
       <li class="premium"><a href="{% url 'premium-events' %}">Premium</a></li>
