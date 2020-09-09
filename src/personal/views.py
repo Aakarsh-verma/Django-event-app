@@ -87,7 +87,6 @@ def event_home_screen_view(request):
     context = {}
 
     qs = EventPost.objects.all()
-    sortasc = 0
 
     for post in qs:
         expiry = days_until(post.event_date)
@@ -101,26 +100,6 @@ def event_home_screen_view(request):
     reg_date = request.GET.get("reg_date")
     price = request.GET.get("price")
 
-    """
-    if is_valid_queryparam(date_query) and date_query != "Choose...":
-        if date_query == "LATEST":
-            query = qs
-        elif date_query == "OLDEST":
-            query = qs.order_by("date_updated")
-            sortasc = 1
-        elif date_query == "TODAY":
-            query = qs.filter(
-                date_published__year=today.year,
-                date_published__month=today.month,
-                date_published__day=today.day,
-            )
-        elif date_query == "YESTERDAY":
-            query = qs.filter(
-                date_published__year=yesterday.year,
-                date_published__month=yesterday.month,
-                date_published__day=yesterday.day,
-            )
-    """
     if is_valid_queryparam(date_query):
         dates = datetime.strptime(date_query, "%Y-%m-%d")
         query = qs.filter(
@@ -158,8 +137,19 @@ def event_home_screen_view(request):
 
         query = get_event_queryset(qry)
 
-    if sortasc == 1:
-        event_posts = sorted(query, key=attrgetter("date_updated"))
+    if (
+        category_query == "Choose..."
+        and date_query == ""
+        and reg_date == ""
+        and price == "Choose..."
+    ):
+        qry = ""
+        if request.GET:
+            qry = request.GET.get("q", "")
+            context["qry"] = str(qry)
+
+        query = get_event_queryset(qry)
+        event_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
     else:
         event_posts = sorted(query, key=attrgetter("date_updated"), reverse=True)
 
@@ -187,26 +177,62 @@ def premium_event_screen_view(request):
     qs = EventPost.objects.filter(priority__gte=1)
 
     category_query = request.GET.get("category")
+    date_query = request.GET.get("date")
+    reg_date = request.GET.get("reg_date")
     price = request.GET.get("price")
 
+    if is_valid_queryparam(date_query):
+        dates = datetime.strptime(date_query, "%Y-%m-%d")
+        query = qs.filter(
+            event_date__year=dates.year,
+            event_date__month=dates.month,
+            event_date__day=dates.day,
+        )
+
+    if is_valid_queryparam(reg_date):
+        dates = datetime.strptime(reg_date, "%Y-%m-%d")
+        query = qs.filter(
+            reg_to__year=dates.year, reg_to__month=dates.month, reg_to__day=dates.day,
+        )
+
     if is_valid_queryparam(category_query) and category_query != "Choose...":
-        query = qs.filter(category=category_query).exclude(priority=0)
+        query = qs.filter(category=category_query)
 
     if is_valid_queryparam(price) and price != "Choose..":
         if price == "Free":
-            query = qs.filter(fee=0).exclude(priority=0)
-        elif price == "Not-Free":
-            query = qs.filter(fee__gt=0).exclude(priority=0)
+            query = qs.filter(fee=0)
+        elif price == "200":
+            query = qs.filter(fee__lte=200)
+        elif price == "200-500":
+            query = qs.filter(fee__gte=200, fee__lte=500)
+        elif price == "500-1000":
+            query = qs.filter(fee__gte=500, fee__lte=1000)
+        elif price == "1000":
+            query = qs.filter(fee__gte=100)
+
     else:
         qry = ""
         if request.GET:
             qry = request.GET.get("q", "")
             context["qry"] = str(qry)
 
-        query = get_premium_queryset(qry)
+        query = get_event_queryset(qry)
 
-    event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+    if (
+        category_query == "Choose..."
+        and date_query == ""
+        and reg_date == ""
+        and price == "Choose..."
+    ):
+        qry = ""
+        if request.GET:
+            qry = request.GET.get("q", "")
+            context["qry"] = str(qry)
 
+        query = get_event_queryset(qry)
+        event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+    else:
+        event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
     # Pagination
     page = request.GET.get("page", 1)
     event_posts_paginator = Paginator(event_posts, EVENT_POST_PER_PAGE)

@@ -12,7 +12,7 @@
 
     @media (min-width: 768px) {
         .left-column {
-            margin-right: 0px;
+            margin-right: 10px;
         }
     }
 
@@ -36,7 +36,7 @@
     .xop-grid li {
         width: 328px;
         height: 328px;
-        display: inline-flex;
+        display: inline-block;
         margin: 20px;
         position: relative;
     }
@@ -75,7 +75,7 @@
 <div class="text">
     <p><b>List of PCE Student Committee</b></p>
 </div>
-<div class="m-auto xop-section" style="width: auto;">
+<div class="m-auto xop-section" style="max-width: 1200px;">
     <ul class="xop-grid">
         {% if committee %}
         {% for post in committee %}

@@ -71,11 +71,11 @@
 <div class="flex-container">
 
 	<!-- Left Filters -->
-	<div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters" style="margin-top: 10px;">
-		<div class="form-group" style="background-color: #0066ff;">
-			<h6 class="p-2 text-white">Filters</h6>
-		</div>
-		<form method="GET" action=".">
+	<div class="sticky column d-lg-flex d-none flex-column" id="filters" style="margin-top: 20px;">
+		<a style="color:black;" data-toggle="collapse" href="#collapse1">
+			<legend><i class="fa fa-filter"></i>Filters</legend>
+		</a>
+		<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
 			<div class="p-1">
 				<!-- event_date -->
 
@@ -102,9 +102,16 @@
 				</div>
 
 				<button type="submit" class="m-auto btn btn-primary">Search</button>
+				<a class="m-auto btn btn-primary" href="{% url 'home' %}">Reset</a>
 			</div>
 		</form>
-
+		<div class="bg-white p-1 shadow-sm">
+			<p style="max-width:fit-content">This website is for those who have difficult time
+				surfing for
+				all sorts of
+				events in whatsapp and inbox.
+			</p>
+		</div>
 	</div>
 	<!-- main content -->
 	<div class="m-auto container">
@@ -112,11 +119,11 @@
 			<!-- blog feed -->
 			<div class="left-column col-lg-9">
 				<!--Top Filters-->
-				<div class="bg-white shadow-lg d-sm-none d-flex flex-column">
-					<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
-						<h6 class="p-2 text-white">Filters</h6>
-					</div>
-					<form method="GET" action=".">
+				<div class="mx-auto d-sm-none d-flex flex-column" style="max-width: 400px;">
+					<a style="color:black;" data-toggle="collapse" href="#collapse1">
+						<legend><i class="fa fa-filter"></i>Filters</legend>
+					</a>
+					<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
 						<div class="p-1">
 
 							<!-- event_date -->
@@ -141,6 +148,7 @@
 								</select>
 							</div>
 							<button type="submit" class="m-auto btn btn-primary">Search</button>
+							<a class="m-auto btn btn-primary" href="{% url 'event-home' %}">Reset</a>
 						</div>
 					</form>
 				</div>
