@@ -188,11 +188,15 @@
 				{% if forloop.counter == 3 %}
 				<div class="container">
 					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 1 %}
 						<div class="card m-auto">
-							<div class="card-body mt-2 mb-2">
-								<h2 class="card-title">Advertisement Image</h2>
-							</div>
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
 						</div>
+						{% endif %}
+						{% endfor %}
 					</div>
 				</div>
 				<div class="event-post-container mt-2">
@@ -201,11 +205,32 @@
 				{% elif forloop.counter == 6 %}
 				<div class="container">
 					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 2 %}
 						<div class="card m-auto">
-							<div class="card-body mt-2 mb-2">
-								<h2 class="card-title">Advertisement Image</h2>
-							</div>
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
 						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+				<div class="event-post-container mt-2">
+					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+				</div>
+				{% elif forloop.counter == 9 %}
+				<div class="container">
+					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 3 %}
+						<div class="card m-auto">
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
+						</div>
+						{% endif %}
+						{% endfor %}
 					</div>
 				</div>
 				<div class="event-post-container mt-2">

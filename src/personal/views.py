@@ -7,6 +7,7 @@ from event.views import get_event_queryset, get_premium_queryset
 from event.models import EventPost, EventCategory
 from committee.views import get_committee_queryset
 from committee.models import Committee
+from .models import AdPost
 from .templatetags.my_tags import days_until
 from datetime import date, timedelta, datetime
 
@@ -24,6 +25,8 @@ def is_valid_queryparam(param):
 
 def home_screen_view(request):
     context = {}
+    ads = AdPost.objects.all()
+    context["ads"] = ads
 
     qs = BlogPost.objects.all()
     sortasc = 0
@@ -85,6 +88,8 @@ def home_screen_view(request):
 
 def event_home_screen_view(request):
     context = {}
+    ads = AdPost.objects.all()
+    context["ads"] = ads
 
     qs = EventPost.objects.all()
 
