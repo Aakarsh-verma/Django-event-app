@@ -37,7 +37,7 @@ def upload_location(instance, filename, **kwargs):
 
 class EventPost(models.Model):
 
-    title = models.CharField(max_length=50, null=False, blank=False)
+    title = models.CharField(max_length=100, null=False, blank=False)
     body = models.TextField(max_length=1200, null=False, blank=False)
     image = models.ImageField(upload_to=upload_location, null=True, blank=True)
     category = models.CharField(max_length=100, default="null")

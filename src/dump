@@ -1,3 +1,32 @@
+{% if forloop.counter == 3 %}
+				<div class="container">
+					<div class="row">
+						<div class="card m-auto">
+							<div class="card-body mt-2 mb-2">
+								<h2 class="card-title">Advertisement Image</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="blog-post-container mt-2">
+					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				</div>
+				{% elif forloop.counter == 6 %}
+				<div class="container">
+					<div class="row">
+						<div class="card m-auto">
+							<div class="card-body mt-2 mb-2">
+								<h2 class="card-title">Advertisement Image</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="blog-post-container mt-2">
+					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				</div>
+				{% else %}
+
+
 class EventPost(models.Model):
     CATEGORY_CHOICE = [
       ('COMP/IT', 'Computer'),

@@ -24,9 +24,10 @@
         <!-- Blog Post -->
         <div class="card m-auto">
             {% if ad.adimage %}
-            <a href="{% url 'ad.link' %}" target="_blank">
-                <img class="card-img-top" src="{{blog_post.image.url}}">
-            </a> {% endif %}
+            <a href="{% url 'ads.url' %}" target="_blank">
+                <img class="card-img-top" src="{{ads.image.url}}">
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>

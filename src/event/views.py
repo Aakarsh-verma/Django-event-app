@@ -355,7 +355,7 @@ def get_premium_queryset(query=None):
                 | Q(author__username__icontains=q)
             )
             .distinct()
-            .exclude(priority=0)
+            .exclude(premium_aproved=False)
         )
         for post in posts:
             queryset.append(post)

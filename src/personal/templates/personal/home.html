@@ -71,17 +71,17 @@
 <div class="flex-container">
 
 	<!-- Left Filters -->
-	<div class="sticky column bg-white shadow-lg d-lg-flex d-none flex-column" id="filters" style="margin-top: 10px;">
-		<div class="form-group" style="background-color: #0066ff;">
-			<h6 class="p-2 text-white">Filters</h6>
-		</div>
-		<form method="GET" action=".">
+	<div class="sticky column d-lg-flex d-none flex-column" id="filters" style="margin-top: 20px;">
+		<a style="color:black;" data-toggle="collapse" href="#collapse1">
+			<legend><i class="fa fa-filter"></i>Filters</legend>
+		</a>
+		<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
 			<div class="p-1">
 				<!-- event_date -->
 
 				<div class="form-group">
 					<label for="id_date">Date Posted</label>
-					<select class="form-control" type="search" id="id_category" name="date">
+					<select class="form-control" type="search" id="id_date" name="date">
 						<option value="Choose...">Choose...</option>
 						<option value="LATEST">LATEST</option>
 						<option value="OLDEST">OLDEST</option>
@@ -93,7 +93,7 @@
 				<!--Category-->
 				<div class="form-group">
 					<label for="id_category">Category</label>
-					<select class="form-control" type="search id=" id_category" name="category">
+					<select class="form-control" type="search" id="id_category" name="category">
 						<option value="Choose...">Choose...</option>
 						{% for category in categorys %}
 						<option value="{{category.name}}">{{category.name}}</option>
@@ -102,9 +102,16 @@
 				</div>
 
 				<button type="submit" class="m-auto btn btn-primary">Search</button>
+				<a class="m-auto btn btn-primary" href="{% url 'home' %}">Reset</a>
 			</div>
 		</form>
-
+		<div class="bg-white p-1 shadow-sm">
+			<p style="max-width:fit-content">This website is for those who have difficult time
+				surfing for
+				all sorts of
+				events in whatsapp and inbox.
+			</p>
+		</div>
 	</div>
 	<!-- main content -->
 	<div class="m-auto container">
@@ -112,17 +119,17 @@
 			<!-- blog feed -->
 			<div class="left-column col-lg-9">
 				<!--Top Filters-->
-				<div class="bg-white shadow-lg d-sm-none d-flex flex-column">
-					<div class="form-group" style="background-color: #0066ff; margin-bottom: auto;">
-						<h6 class="p-2 text-white">Filters</h6>
-					</div>
-					<form method="GET" action=".">
+				<div class="mx-auto d-sm-none d-flex flex-column" style="max-width: 400px;">
+					<a style="color:black;" data-toggle="collapse" href="#collapse1">
+						<legend><i class="fa fa-filter"></i>Filters</legend>
+					</a>
+					<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
 						<div class="p-1">
 
 							<!-- event_date -->
 							<div class="form-group">
-								<label for="id_date">Date Updated</label>
-								<select class="form-control" type="search" id="id_date" name="date">
+								<label for="id_date">Date Posted</label>
+								<select class="form-control" type="search" id="id_category" name="date">
 									<option value="Choose...">Choose...</option>
 									<option value="LATEST">LATEST</option>
 									<option value="OLDEST">OLDEST</option>
@@ -141,6 +148,7 @@
 								</select>
 							</div>
 							<button type="submit" class="m-auto btn btn-primary">Search</button>
+							<a class="m-auto btn btn-primary" href="{% url 'event-home' %}">Reset</a>
 						</div>
 					</form>
 				</div>
@@ -151,39 +159,54 @@
 				{% if forloop.counter == 3 %}
 				<div class="container">
 					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 1 %}
 						<div class="card m-auto">
-							<div class="card-body mt-2 mb-2">
-								<h2 class="card-title">Advertisement Image</h2>
-							</div>
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
 						</div>
+						{% endif %}
+						{% endfor %}
 					</div>
 				</div>
-				<div class="blog-post-container mt-2">
-					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
-				</div>
+				{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
 				{% elif forloop.counter == 6 %}
 				<div class="container">
 					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 2 %}
 						<div class="card m-auto">
-							<div class="card-body mt-2 mb-2">
-								<h2 class="card-title">Advertisement Image</h2>
-							</div>
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
 						</div>
+						{% endif %}
+						{% endfor %}
 					</div>
 				</div>
-				<div class="blog-post-container mt-2">
-					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
+				{% elif forloop.counter == 6 %}
+				<div class="container">
+					<div class="row">
+						{% for ad in ads %}
+						{% if ad.id == 3 %}
+						<div class="card m-auto">
+							<a href="{{ad.adlink}}" target="_blank">
+								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+							</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
 				</div>
+				{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
 				{% else %}
-				<div class="blog-post-container mt-2">
-					{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
-				</div>
+				{% include 'blog/snippets/altpost_snippet.html' with blog_post=post %}
 				{% endif %}
 				{% endfor %}
 				{% else %}
-				<div class="blog-post-container">
-					{% include 'blog/snippets/altpost_snippet.html' with query=query %}
-				</div>
+				{% include 'blog/snippets/altpost_snippet.html' with query=query %}
 				{% endif %}
 				<!-- End Blog posts-->
 				<!-- Pagination -->

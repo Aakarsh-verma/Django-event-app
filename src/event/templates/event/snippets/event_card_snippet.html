@@ -37,9 +37,13 @@
 
 {% if event_post %}
 
-<div class="blog-card">
+<div class="blog-card" style="width: auto;">
   <div class="meta">
+    {% if event_post.image %}
     <div class="photo" style="background-image: url({{event_post.image.url}})"></div>
+    {% else %}
+    <div class="photo" style="background-image: url({% static 'icons/megaphone.png' %})"></div>
+    {% endif %}
     <ul class="details">
       {% if event_post.premium_aproved == True %}
       <li class="premium"><a href="{% url 'premium-events' %}">Premium</a></li>
@@ -70,7 +74,7 @@
     <h1>{{ event_post.title }}</h1>
     <h2 style="font-size:15px;">Last date of Registration
       <span class="days-to-go" style="display:inline;font-size:15px;color:#5ad67d;font-weight:500;"> -
-        {{event_post.event_date|days_until}} Days to
+        {{event_post.reg_to|days_until}} Days to
         Go</span>
     </h2>
     <hr>

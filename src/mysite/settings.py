@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     "account",
     "blog",
     "event",
-    # "committee",
+    "committee",
     # django apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -125,3 +125,16 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
+"""
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "db",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+        "USER": "root",
+        "PASSWORD": "@Super345",
+    }
+}
+"""
+
