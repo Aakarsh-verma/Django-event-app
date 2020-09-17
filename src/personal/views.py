@@ -201,7 +201,7 @@ def premium_event_screen_view(request):
         )
 
     if is_valid_queryparam(category_query) and category_query != "Choose...":
-        query = qs.filter(category=category_query)
+        query = qs.filter(category=category_query).exclude(priority=0)
 
     if is_valid_queryparam(price) and price != "Choose..":
         if price == "Free":
@@ -214,30 +214,24 @@ def premium_event_screen_view(request):
             query = qs.filter(fee__gte=500, fee__lte=1000)
         elif price == "1000":
             query = qs.filter(fee__gte=100)
-
-    else:
-        qry = ""
-        if request.GET:
-            qry = request.GET.get("q", "")
-            context["qry"] = str(qry)
-
-        query = get_event_queryset(qry)
-
     if (
         category_query == "Choose..."
         and date_query == ""
         and reg_date == ""
         and price == "Choose..."
     ):
+        query = qs
+
+    else:
         qry = ""
         if request.GET:
             qry = request.GET.get("q", "")
             context["qry"] = str(qry)
 
-        query = get_event_queryset(qry)
-        event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
-    else:
-        event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+        query = get_premium_queryset(qry)
+
+    event_posts = sorted(query, key=attrgetter("priority"), reverse=True)
+
     # Pagination
     page = request.GET.get("page", 1)
     event_posts_paginator = Paginator(event_posts, EVENT_POST_PER_PAGE)
