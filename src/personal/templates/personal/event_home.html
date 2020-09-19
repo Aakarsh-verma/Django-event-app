@@ -54,6 +54,8 @@
 
 	.flex-container {
 		display: flex;
+		display: grid;
+		grid-template-rows: 1fr auto;
 	}
 
 	div.sticky {
@@ -68,14 +70,55 @@
 		margin-bottom: auto;
 		min-width: 200px;
 	}
-</style>
 
-<div class="flex-container">
-	<!-- Left Filters -->
-	<div class="sticky column d-lg-flex d-none flex-column" id="filters" style="margin-top: 20px;">
-		<a style="color:black;" data-toggle="collapse" href="#collapse1">
-			<legend><i class="fa fa-filter"></i>Filters</legend>
-		</a>
+	.blog-container {
+		float: right;
+		width: 85vw;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+		grid-column-gap: 20px;
+		grid-row-gap: 20px;
+	}
+
+	.alegend {
+		margin-left: 120px;
+	}
+
+	@media only screen and (max-width: 1459px) and (min-width: 1300px) {
+		.blog-container {
+			width: 85vw;
+			float: right;
+			grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+		}
+	}
+
+	@media only screen and (max-width: 600px) and (min-width: 200px) {
+		.blog-container {
+			width: 85vw;
+			float: right;
+			margin: 0 auto;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		}
+
+		.alegend {
+			margin-left: 20px;
+		}
+	}
+
+	.form-group {
+		display: inline-block;
+	}
+
+	.filter1 {
+		align-items: center;
+	}
+</style>
+<div class="left-column">
+	<a style="color:black;" data-toggle="collapse" href="#collapse1">
+		<legend class="alegend"><i class="fa fa-filter"></i>Filters</legend>
+	</a>
+	<div class="d-flex flex-column filter1" style="margin: 0 auto;">
 		<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
 			<div class="p-1">
 				<!-- event_date -->
@@ -113,149 +156,86 @@
 						<option value="1000">above 1000</option>
 					</select>
 				</div>
-				<button type="submit" class="m-auto btn btn-primary">Apply</button>
+				<button type="submit" class="m-auto btn btn-primary">Search</button>
 				<a class="m-auto btn btn-primary" href="{% url 'event-home' %}">Reset</a>
 			</div>
 		</form>
-		<div class="bg-white p-1 shadow-sm">
-			<p style="max-width:fit-content">This website is for those who have difficult time
-				surfing for
-				all sorts of
-				events in whatsapp and inbox.
-			</p>
-		</div>
-	</div>
-
-
-	<!-- main content -->
-	<div class="container">
-		<div class="row">
-
-
-			<!-- event feed -->
-			<div class="left-column col-lg-9">
-				<!--Top Filters-->
-				<div class="mx-auto d-sm-none d-flex flex-column" style="max-width: 400px;">
-					<a style="color:black;" data-toggle="collapse" href="#collapse1">
-						<legend><i class="fa fa-filter"></i>Filters</legend>
-					</a>
-					<form method="GET" action="." id="collapse1" class="panel-collapse collapse">
-						<div class="p-1">
-							<!-- event_date -->
-
-							<div class="form-group">
-								<label for="id_date">Event Date</label>
-								<input class="form-control" type="date" name="date" id="id_date">
-							</div>
-
-							<div class="form-group">
-								<label for="id_reg_date">Registration Ends</label>
-								<input class="form-control" type="date" name="reg_date" id="id_reg_date">
-							</div>
-
-							<!--Category-->
-							<div class="form-group">
-								<label for="id_category">Category</label>
-								<select class="form-control" id="id_category" name="category" placeholder="select">
-									<option value="Choose...">Choose...</option>
-									{% for category in categorys %}
-									<option value="{{category.name}}">{{category.name}}</option>
-									{% endfor %}
-								</select>
-							</div>
-
-
-							<div class="form-group">
-								<label for="id_price">Price</label>
-								<select class="form-control" type="search" id="id_price" name="price">
-									<option value="Choose...">Choose...</option>
-									<option value="Free">Free</option>
-									<option value="200">upto 200</option>
-									<option value="200-500">200 to 500</option>
-									<option value="500-1000">500-1000</option>
-									<option value="1000">above 1000</option>
-								</select>
-							</div>
-							<button type="submit" class="m-auto btn btn-primary">Search</button>
-							<a class="m-auto btn btn-primary" href="{% url 'event-home' %}">Reset</a>
-						</div>
-					</form>
-
-				</div>
-				<!-- event posts-->
-				{% if event_posts %}
-				{% for post in event_posts %}
-				{% if forloop.counter == 3 %}
-				<div class="container">
-					<div class="row">
-						{% for ad in ads %}
-						{% if ad.id == 1 %}
-						<div class="card m-auto">
-							<a href="{{ad.adlink}}" target="_blank">
-								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
-							</a>
-						</div>
-						{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div class="event-post-container mt-2">
-					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
-				</div>
-				{% elif forloop.counter == 6 %}
-				<div class="container">
-					<div class="row">
-						{% for ad in ads %}
-						{% if ad.id == 2 %}
-						<div class="card m-auto">
-							<a href="{{ad.adlink}}" target="_blank">
-								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
-							</a>
-						</div>
-						{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div class="event-post-container mt-2">
-					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
-				</div>
-				{% elif forloop.counter == 9 %}
-				<div class="container">
-					<div class="row">
-						{% for ad in ads %}
-						{% if ad.id == 3 %}
-						<div class="card m-auto">
-							<a href="{{ad.adlink}}" target="_blank">
-								<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
-							</a>
-						</div>
-						{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div class="event-post-container mt-2">
-					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
-				</div>
-				{% else %}
-				<div class="event-post-container mt-2">
-					{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
-				</div>
-				{% endif %}
-				{% endfor %}
-				{% else %}
-				<div class="event-post-container">
-					{% include 'event/snippets/event_card_snippet.html' with query=query %}
-				</div>
-				{% endif %}
-				<!-- End event posts-->
-				<!-- Pagination -->
-				{% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
-
-			</div>
-			<!-- end event feed -->
-		</div>
 	</div>
 </div>
 
+
+<div class="flex-container">
+	<!-- main content -->
+
+	<!--Top Filters-->
+	<!-- event posts-->
+
+	<div class="blog-container">
+		{% if event_posts %}
+		{% for post in event_posts %}
+		{% if forloop.counter == 3 %}
+		<div class="container" style="padding-top: 30pt;">
+			{% for ad in ads %}
+			{% if ad.id == 1 %}
+			<div class="card m-auto">
+				<a href="{{ad.adlink}}" target="_blank">
+					<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+				</a>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		<div class="event-post-container mt-2">
+			{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+		</div>
+		{% elif forloop.counter == 6 %}
+		<div class="container" style="align-items: center;">
+			{% for ad in ads %}
+			{% if ad.id == 2 %}
+			<div class="card m-auto">
+				<a href="{{ad.adlink}}" target="_blank">
+					<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+				</a>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		<div class="event-post-container mt-2">
+			{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+		</div>
+		{% elif forloop.counter == 9 %}
+		<div class="container">
+			{% for ad in ads %}
+			{% if ad.id == 3 %}
+			<div class="card m-auto">
+				<a href="{{ad.adlink}}" target="_blank">
+					<img class="card-img-top" src="{{ad.image.url}}" style="max-height: 175px;">
+				</a>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+		<div class="event-post-container mt-2">
+			{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+		</div>
+		{% else %}
+		<div class="event-post-container mt-2">
+			{% include 'event/snippets/event_card_snippet.html' with event_post=post %}
+		</div>
+		{% endif %}
+		{% endfor %}
+		{% else %}
+		<div class="event-post-container">
+			{% include 'event/snippets/event_card_snippet.html' with query=query %}
+		</div>
+		{% endif %}
+	</div>
+
+	<!-- End event posts-->
+	<!-- Pagination -->
+	{% include 'event/snippets/event_post_pagination.html' with event_posts=event_posts %}
+
+</div>
+<!-- end event feed -->
 
 {% endblock content %}
