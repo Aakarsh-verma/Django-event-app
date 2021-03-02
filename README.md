@@ -1,5 +1,5 @@
 
-# django-blog-app
+# django-Event-app
 
 ## Features:
 ### All Users:
