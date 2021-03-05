@@ -21,5 +21,5 @@
 
 
 **All the data and images are for development only(dummy data)**
-* Landing Page:
+* Page:
 ![home](https://user-images.githubusercontent.com/54173157/109678925-1d82e200-7ba1-11eb-8563-27b194899425.PNG)
